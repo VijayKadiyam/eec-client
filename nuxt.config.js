@@ -10,15 +10,50 @@ module.exports = {
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
+      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'stylesheet', href: '/plugins/fontawesome-free/css/all.min.css' },
+      // { rel: 'stylesheet', href: 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' },
+      // { rel: 'stylesheet', href: '/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' },
+      // { rel: 'stylesheet', href: '/plugins/icheck-bootstrap/icheck-bootstrap.min.css' },
+      // { rel: 'stylesheet', href: '/plugins/jqvmap/jqvmap.min.css' },
+      // { rel: 'stylesheet', href: '/dist/css/adminlte.min.css' },
+      // { rel: 'stylesheet', href: '/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' },
+      // { rel: 'stylesheet', href: '/plugins/daterangepicker/daterangepicker.css' },
+      // { rel: 'stylesheet', href: '/plugins/summernote/summernote-bs4.css' },
+      // { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700' },
+      { rel: 'stylesheet', href: '/plugins/fontawesome-free/css/all.min.css' },
+      { rel: 'stylesheet', href: 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' },
+      { rel: 'stylesheet', href: '/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' },
+      { rel: 'stylesheet', href: '/dist/css/adminlte.min.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700' },
     ],
     script: [
-      { src: '/javascripts/ckeditor/ckeditor.js' },
+      // { src: '/plugins/jquery/jquery.min.js' },
+      // { src: '/plugins/jquery-ui/jquery-ui.min.js' },
+      // { src: '/plugins/bootstrap/js/bootstrap.bundle.min.js' },
+      // { src: '/plugins/chart.js/Chart.min.js' },
+      // { src: '/plugins/sparklines/sparkline.js' },
+      // { src: '/plugins/jqvmap/jquery.vmap.min.js' },
+      // { src: '/plugins/jqvmap/maps/jquery.vmap.usa.js' },
+      // { src: '/plugins/jquery-knob/jquery.knob.min.js' },
+      // { src: '/plugins/moment/moment.min.js' },
+      // { src: '/plugins/daterangepicker/daterangepicker.js' },
+      // { src: '/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' },
+      // { src: '/plugins/summernote/summernote-bs4.min.js' },
+      // { src: '/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' },
+      // { src: '/dist/js/adminlte.js' },
+      // { src: '/dist/js/pages/dashboard.js' },
+      // { src: '/dist/js/demo.js' },
+      { src: '/plugins/jquery/jquery.min.js' },
+      { src: '/plugins/bootstrap/js/bootstrap.bundle.min.js' },
+      { src: '/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' },
+      { src: '/plugins/inputmask/min/jquery.inputmask.bundle.min.js' },
+      { src: '/dist/js/adminlte.min.js' },
+      { src: '/dist/js/demo.js' },
     ]
   },
 
@@ -35,7 +70,6 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/style/app.styl'
   ],
 
   router: {
@@ -50,7 +84,6 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify',
     '@/plugins/mixins/validation',
     '@/plugins/mixins/auth',
     '@/plugins/mixins/settings',
@@ -92,8 +125,10 @@ module.exports = {
   //   baseURL: 'http://localhost:8080/api'
   // },
   axios: {
-    // baseURL: 'http://localhost:8080/api'
-    baseURL: 'http://aaibuzz.com:8088/api'
+    // baseURL: 'http://192.168.1.9:8080/api'
+    // baseURL: 'http://192.168.1.126:8080/api'
+    // baseURL: 'http://aaibuzz.com:8088/api'
+    baseURL: 'http://localhost:8080/api'
   },
   
 

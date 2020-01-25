@@ -1,0 +1,158 @@
+<template>
+  <section>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) Bank Details</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">
+                    <nuxt-link to="/">Home</nuxt-link>
+                </li>
+                <li class="breadcrumb-item">
+                  <nuxt-link :to="`/organizations/${this.organization.value}/employees`">Inspectors</nuxt-link>
+                </li>
+                <li class="breadcrumb-item active">{{ inspector.first_name }} {{ inspector.last_name }}</li>
+                <li class="breadcrumb-item active">Create</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <!-- left column -->
+            <div class="col-md-6">
+              <!-- jquery validation -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Edit Inspector Bank Details</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">Bank Name</label>
+                    <input type="text" class="form-control" placeholder="Enter bank name"
+                      v-model="form.bank_name"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.bank_name"
+                    >{{ errors.bank_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Branch Name</label>
+                    <input type="text" class="form-control" placeholder="Enter branch name"
+                      v-model="form.branch_name"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Account Type</label>
+                    <select class="form-control custom-select"
+                      v-model="form.account_type"
+                    >
+                      <option value="">Select Type</option>
+                      <option value="Savings">Savings</option>
+                      <option value="Credit">Credit</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Account No</label>
+                    <input type="text" class="form-control" placeholder="Enter account no"
+                      v-model="form.account_no"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.account_no"
+                    >{{ errors.account_no[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">IFSC Code</label>
+                    <input type="text" class="form-control" placeholder="Enter ifsc code"
+                      v-model="form.ifsc_code"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Benificiary Name</label>
+                    <input type="text" class="form-control" placeholder="Enter benificary name"
+                      v-model="form.benificiary_name"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Bank Address</label>
+                    <input type="text" class="form-control" placeholder="Enter bank address"
+                      v-model="form.bank_address"
+                    >
+                  </div>
+                  <div class="form-footer">
+                    <button class="btn btn-primary btn-block"
+                      @click="store"
+                    >Update Bank Details</button>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card -->
+              </div>
+            <!--/.col (left) -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+  </section>
+</template>
+
+<script type="text/javascript">
+import BackButton from '@/components/back-button.vue'
+
+export default {
+  name: 'EditInspectorBankDetails',
+  async asyncData({$axios, params}) {
+    let inspector = await $axios.get(`/users/${params.employeeId}`)
+    let bank_detail = await $axios.get(`/users/${params.employeeId}/bank_details/${params.id}`)
+    return {
+      inspector: inspector.data.data,
+      form: bank_detail.data.data
+    }
+  },
+  data: () => ({
+    form: {
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone: '',
+      account_type: '',
+      marital_status: '',
+      active: 1,
+      role_id: ''
+    },
+  }),
+  mounted() {
+    this.form.role_id = 3;
+  },
+  components: {
+    BackButton
+  },
+  methods: {
+    async store() {
+      try {
+        await this.$axios.patch(`/users/${this.$route.params.employeeId}/bank_details/${this.$route.params.id}`, this.form)
+        this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
+      }
+      catch(e) {
+
+      }
+    }
+  }
+}
+</script>

@@ -1,112 +1,209 @@
 <template>
-  <v-app light>
-    <v-navigation-drawer
-      :class="`${baseColor} lighten-5`"
-      :clipped="clipped"
-      :value="drawer"
-      fixed
-      app
-      width=225
-    >
-      <v-list>
-        <!-- Without dropdowns -->
-        <v-list-tile
-          v-for="(item, i) in items"
-          :to="item.to"
-          :key="i"
-          router
-          exact
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon" />
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title" />
-          </v-list-tile-content>
-        </v-list-tile>
+  <section class="hold-transition sidebar-mini layout-fixed"
+    v-if="authenticated"
+  >
+    <!-- Site wrapper -->
+    <div class="wrapper" >
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item d-none d-sm-inline-block">
+            <button class="btn btn-link nav-link"
+              @click="logout"
+            >Logout</button>
+          </li>
+        </ul>
 
-        <!-- With dropdowns -->
-        <v-list-group
-          v-for="(dropdown, d) in dropdownItems"
-          :key="`D${d}`"
-          :prepend-icon="dropdown.icon"
-          no-action
-        >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>{{ dropdown.name }}</v-list-tile-title>
-          </v-list-tile>
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+          <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-navbar" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
 
-          <v-list-tile
-            v-for="(item, i) in dropdown.items"
-            :key="i"
-            :to="item.to"
-          >
-            <v-list-tile-action>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content v-text="item.title"></v-list-tile-content>
-          </v-list-tile>
-        </v-list-group>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar
-      :clipped-left="clipped"
-      fixed
-      app
-      :height="baseHeight"
-      :color="baseColor"
-      :dark="darkStatus"
-    >
-      <nuxt-link to="/">
-        <v-icon large right>account_balance</v-icon>
-        <span style="color: white"> {{ title }}</span>
-      </nuxt-link>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <template v-if="authenticated">
-          <v-btn flat to="/dashboard">
-            Dashboard
-            <v-icon dark right>dashboard</v-icon>
-          </v-btn>
-          <v-btn flat @click="logout" >
-            Logout
-            <v-icon dark right>cancel_presentation</v-icon>
-          </v-btn>
-          <v-avatar 
-            style="margin: 5px;"
-            size="40px"
-            v-if="user.image_path"
-          >
-            <img
-              :src="(mediaUrl + user.image_path)"
-              alt="Profile Image"
-            >
-          </v-avatar>
-        </template>
-        <template v-else>
-          <v-btn flat to="/register">
-            Register
-            <v-icon dark right>add_circle</v-icon>
-          </v-btn>
-          <v-btn flat to="/auth/login">
-            Login
-            <v-icon dark right>forward</v-icon>
-          </v-btn>
-        </template>
-      </v-toolbar-items>
-    </v-toolbar>
-    <v-content>
-      <v-container px-0>
-        <nuxt></nuxt>
-      </v-container>
-    </v-content>
-    <!-- <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; 2017</span>
-    </v-footer> -->
-  </v-app>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+          <!-- Messages Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-comments"></i>
+              <span class="badge badge-danger navbar-badge">3</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Brad Diesel
+                      <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">Call me whenever you can...</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      John Pierce
+                      <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">I got your message bro</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <!-- Message Start -->
+                <div class="media">
+                  <img src="/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Nora Silvester
+                      <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">The subject goes here</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+                <!-- Message End -->
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+            </div>
+          </li>
+          <!-- Notifications Dropdown Menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <span class="badge badge-warning navbar-badge">15</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">15 Notifications</span>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <nuxt-link to="/" class="brand-link">
+          <img src="/dist/img/AdminLTELogo.png"
+               alt="AdminLTE Logo"
+               class="brand-image img-circle elevation-3"
+               style="opacity: .8">
+          <span class="brand-text font-weight-light">{{ organization.text ? organization.text : 'Not Selected' }}</span>
+        </nuxt-link>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a href="#" class="d-block">{{ user.first_name }}</a>
+            </div>
+          </div>
+
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <template 
+                v-for="(category, i) in categories"
+              >
+                <li class="nav-header"
+                  v-if="category.title"
+                >{{ category.title }}</li>
+                <li class="nav-item has-treeview"
+                  v-for="(item, j) in category.items"
+                  :key="item.id"
+                >
+                  <nuxt-link :to="item.link" :class="`nav-link ${$route.path == item.link ? 'active' : ''}`">
+                    <i :class="`nav-icon far ${item.icon}`"></i>
+                    <p>
+                      {{ item.name }}
+                      <i class="fas fa-angle-left right"
+                        v-if="item.sub1Items"
+                      ></i>
+                    </p>
+                  </nuxt-link>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item"
+                      v-for="(sub1Item, k) in item.sub1Items"
+                      :key="`sub1Item${k}`"
+                    >
+                      <nuxt-link :to="sub1Item.link" :class="`nav-link ${$route.path == sub1Item.link ? 'active' : ''}`">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ sub1Item.name }}</p>
+                      </nuxt-link>
+                    </li>
+                  </ul>
+                </li>
+              </template>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+
+      <nuxt></nuxt>
+
+      <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+          <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright &copy; 2019 <a href="https://www.aaibuzz.com">AaiBuzz</a>.</strong> All rights
+        reserved.
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+  </section>
+  <section v-else>
+    <nuxt></nuxt>
+  </section>
 </template>
 
 <script>
@@ -142,40 +239,52 @@ export default {
     permissions() {
       return this.user ? this.user.roles[0].permissions.map(p => p.id) : ''
     },
-    items() {
-      let items = [];
-      if(this.permissions.indexOf(5)!= -1)
-        items.push({ icon: 'public', title: 'Organizations', to: '/organizations' })
-      if(this.permissions.indexOf(4)!= -1)
-        items.push({ icon: 'account_circle', title: 'Profile', to: '/profile' })
-      // Master
+    categories() {
+      let categories = [
+
+      ]
+      categories.push({
+        // title: 'Dashboard',
+        'items': [
+          {
+            name: 'Home', icon: 'fa-envelope', link: '/',
+            // sub1Items: [
+            //   { name: 'D1', link: '/a' },
+            //   { name: 'D2', link: '/b' }
+            // ]
+          },
+        ]
+      })
       if(this.permissions.indexOf(1)!= -1)
-        items.push({ icon: 'brightness_7', title: 'Settings', to: '/settings'})
-      if(this.permissions.indexOf(14)!= -1)
-        items.push({ icon: 'security', title: "Reset Password", to: '/auth/reset-password'})
-      if(this.permissions.indexOf(9)!= -1)
-        items.push({ icon: 'person', title: 'Master', to: `/organizations/${this.organizationId}/users`})
-      items.push({ icon: 'timeline', title: 'Request Tree', to: `/organizations/${this.organizationId}/request-tree`})
-      return items;
-    },
-    dropdownItems() {
-      let dropdownItems = [];
-      let length = 0;
-      // Company
-      // if(this.permissions.indexOf(6)!= -1 || this.permissions.indexOf(7)!= -1 || this.permissions.indexOf(8)!= -1 || this.permissions.indexOf(15)!= -1 || this.permissions.indexOf(17)!= -1 || this.permissions.indexOf(18)!= -1 || this.permissions.indexOf(19)!= -1 || this.permissions.indexOf(20)!= -1 || this.permissions.indexOf(21)!= -1) {
-
-      //   dropdownItems.push({ name: 'Company', icon: 'account_balance', items: [] })
-      //   length = dropdownItems.length - 1
-
-      //   if(this.permissions.indexOf(6)!= -1)
-      //     dropdownItems[length].items.push({ icon: 'school', title: 'Designations', to: `/organizations/${this.organizationId}/designations`})
-      //   if(this.permissions.indexOf(7)!= -1)
-      //     dropdownItems[length].items.push({ icon: 'location_on', title: 'States', to: `/organizations/${this.organizationId}/states`})
-      // }
-
-      return dropdownItems;
+        categories.push({
+          'items': [
+            {
+              name: 'Organizations', icon: 'fa-building', link: '/organizations',
+            }
+          ]
+        })
+      if(this.permissions.indexOf(1)!= -1)
+        categories.push({
+          'items': [
+            {
+              name: 'Settings', icon: 'fas fa-wrench', link: '/settings',
+            }
+          ]
+        })
+      categories.push({
+        title: 'Master',
+        'items': [
+          {
+            name: 'Inspectors', icon: 'fas fa-users', link: `/organizations/${this.organizationId}/employees`,
+          }
+        ]
+      })
+      return categories;
     }
   },
+  // mounted() {
+  //   this.logout()
+  // },
   methods: {
     logout() {
       this.$auth.logout()
@@ -184,44 +293,11 @@ export default {
 }
 </script>
 
-
 <style>
-a {
-  text-decoration: none !important;
-}
-
-.title {
-  text-decoration: underline;
-}
-
-.button-group {
-  width: 100% !important;
-}
-
-.button-active {
-  background-color: #2196F3 !important;
-  color: white !important;
-}
-
-.ck .ck-content {
-  height: 150px !important;
-}
-
-.v-input__control {
-  width: 100% !important;
-}
-
-.error-text {
-  color: red !important;
-}
-
-a.links{
-  text-decoration: underline !important;
-  color: blue;
-}
-
-.download {
-   color: red !important;
-   text-decoration: underline !important; 
-}
+  .help-block {
+    color: red !important;
+  }
+  .ck-editor__editable {
+    min-height: 500px;
+  }
 </style>

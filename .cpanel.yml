@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=~/public_html/
+    - /bin/cp -R ~/repositories/aethon-client/ $DEPLOYPATH
+    # - sh ~/public_html/aethon-client/deploy.sh 2>&1
+    

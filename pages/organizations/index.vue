@@ -1,59 +1,100 @@
 <template>
   <section>
-    <span class="title">Manage Organizations</span>
-    <v-btn
-      small
-      fab
-      to='/organizations/create'
-      :color="baseColor"
-      title="Add New Organization"
-      :dark="darkStatus"
-    >
-      <v-icon>
-        add
-      </v-icon>
-    </v-btn>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :loading="loading"
-      class="elevation-1"
-    >
-      <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.id }}</td>
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-left">
-          <v-btn small
-            :dark="darkStatus"
-            :color="baseColor"
-            :to="`/organizations/${props.item.id}/admins/create`"
-            v-if="props.item.users.length == 0"
-            title="Add Admin's Details"
-          >
-            <v-icon>add</v-icon>Add Admin Details
-          </v-btn>
-          <span
-            v-else
-          >
-            <v-btn fab small
-              :dark="darkStatus"
-              :color="baseColor"
-              :to="`/organizations/${props.item.id}/admins/${props.item.users[0].id}`"
-              title="Edit Admin's Details"
-            >
-              <v-icon>edit</v-icon>
-            </v-btn>
-            <b>Name: </b>{{ props.item.users[0].name }} | <b>Email: </b>Email: {{ props.item.users[0].email }} | <b>Phone: </b>{{ props.item.users[0].phone }}
-          </span>
-        </td>
-        <td class="text-xs-left">
-          <nuxt-link :to="`/organizations/${props.item.organizationId}`">
-            <v-icon>edit</v-icon>
-          </nuxt-link>
-        </td>
-      </template>
-    </v-data-table>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Organizations</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">
+                    <nuxt-link to="/">Home</nuxt-link>
+                </li>
+                <li class="breadcrumb-item active">Organizations</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Manage Organizations</h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" to="/organizations/create">Add New</nuxt-link>
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Organization</th>
+                        <th>Admin Details</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(org, i) in items"
+                        :key="`org{i}`"
+                      >
+                        <td>{{ org.id }}</td>
+                        <td>
+                          {{ org.name }}<br>
+                          {{ org.address }}
+                        </td>
+                        <td v-if="org.users.length == 0">
+                          <nuxt-link class="btn btn-primary btn-sm" :to="`/organizations/${org.organizationId}/admins/create`">
+                            Add Admin Details
+                          </nuxt-link>
+                        </td>
+                        <td v-else>
+                          <nuxt-link class="btn btn-primary btn-sm" :to="`/organizations/${org.organizationId}/admins/${org.users[0].id}`">
+                            Edit Admin Details
+                          </nuxt-link>
+                          <br>
+                          Name: {{ org.users[0].name }} <br>
+                          Email: {{ org.users[0].email }} <br>
+                          Phone: {{ org.users[0].phone }} <br>
+                        </td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${org.organizationId}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
   </section>
 </template>
 
@@ -85,10 +126,11 @@ export default {
     this.organizations.forEach((org, i) => {
       org.users = org.users.filter(u => u.roles[0].name == 'Admin');
       this.items.push({
-        id: i+1,
+        id: i + 1,
         organizationId: org.id,
         name: org.name,
-        users: org.users
+        users: org.users,
+        address: org.address
       })
     })
     this.loading = false
