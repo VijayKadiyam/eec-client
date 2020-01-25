@@ -45,8 +45,7 @@
                       v-model="form.equipment_id"
                     >
                       <option value="">Select ship / vessel</option>
-                      <option value="Ship">Ship</option>
-                      <option value="Vessel">Vessel</option>
+                      <option v-for="equipment in equipments" :key="`'equipment'${equipment.id}`" :value="equipment.id">{{ equipment.name }}</option>
                     </select>
                     <span class="help-block" 
                       v-if="errors.equipment_id"
@@ -125,6 +124,12 @@ import BackButton from '@/components/back-button.vue'
 
 export default {
   name: 'CreateJob',
+  async asyncData({$axios, params}) {
+    let equipments = await $axios.get(`/equipments`)
+    return {
+      equipments: equipments.data.data
+    }
+  },
   data: () => ({
     form: {
       'equipment_id': ''
