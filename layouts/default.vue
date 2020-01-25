@@ -279,6 +279,17 @@ export default {
           }
         ]
       })
+      categories.push({
+        title: 'Scheduler',
+        'items': [
+          {
+            name: 'Equipments', icon: 'fas fa-ship', link: `/organizations/${this.organizationId}/equipments`,
+          },
+          {
+            name: 'Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/jobs`,
+          }
+        ]
+      })
       return categories;
     }
   },

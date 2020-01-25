@@ -343,6 +343,56 @@
               <!-- /.card -->
             </div>
 
+            <!-- Seaman Books -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Seaman Books</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Book Number</th>
+                        <th>Place of issue</th>
+                        <th>Date of issue</th>
+                        <th>Date of expiry</th>
+                        <th>Country</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="8">Loading...</td>
+                      </tr>
+                      <tr v-for="(seaman_book, i) in form.seaman_books"
+                        :key="`seaman_book{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ seaman_book.book_number }}</td>
+                        <td>{{ seaman_book.place_of_issue }}</td>
+                        <td>{{ seaman_book.date_of_issue }}</td>
+                        <td>{{ seaman_book.date_of_expiry }}</td>
+                        <td>{{ seaman_book.country }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/${seaman_book.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
           </div>
           <!-- /.row -->
         </div>
