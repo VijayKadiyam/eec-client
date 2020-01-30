@@ -8,7 +8,8 @@ export const state = () => ({
     time_zone: '',
     logo_path: ''
   },
-  mediaUrl: 'http://localhost:8080/storage/'
+  mediaUrl: 'http://api.aethon.aaibuzz.com/storage/'
+  // mediaUrl: 'http://localhost:8080/storage/'
 })
 
 export const getters = {
