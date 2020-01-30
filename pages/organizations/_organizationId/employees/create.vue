@@ -169,7 +169,10 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Inspector</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...': 'Create Inspector' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -202,7 +205,8 @@ export default {
       active: 1,
       role_id: ''
     },
-    userid: ''
+    userid: '',
+    loading: false
   }),
   mounted() {
     this.form.role_id = 3;
@@ -212,6 +216,7 @@ export default {
   },
   methods: {
     async store() {
+      this.loading = true
       try {
         let admin = await this.$axios.post(`/users`, this.form)
         this.userid = admin.data.data.id
@@ -229,9 +234,10 @@ export default {
         await this.$axios.post('/company_user', organization_payload)
         await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees`)
+        this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
     },
     async handleFileUpload() {

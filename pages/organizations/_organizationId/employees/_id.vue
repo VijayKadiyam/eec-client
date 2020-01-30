@@ -133,7 +133,14 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
-                      <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.dob">
+                      <input type="text" class="form-control" v-model="form.dob" @input="change" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                    </div>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.dob" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                     </div>
                     <span class="help-block" 
                       v-if="errors.dob"
@@ -170,7 +177,10 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Update Inspector</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Update Inspector' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -209,6 +219,7 @@ export default {
       active: 1,
       role_id: ''
     },
+    loading: false
   }),
   mounted() {
     //Datemask dd/mm/yyyy
@@ -223,13 +234,15 @@ export default {
   },
   methods: {
     async store() {
+      this.loading = true
       try {
         await this.$axios.patch(`/users/${this.$route.params.id}`, this.form)
         await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.id}/full`)
+      this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
     },
     async handleFileUpload() {
@@ -249,6 +262,9 @@ export default {
         console.log('FAILURE!!');
       });
     },
+    change() {
+      alert(1)
+    }
   }
 }
 </script>

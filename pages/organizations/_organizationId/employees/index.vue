@@ -59,7 +59,7 @@
                       <tr
                         v-if="loading"
                       > 
-                        <td colspan="9">Loading...</td>
+                        <td colspan="13">Loading...</td>
                       </tr>
                       <tr v-for="(emp, i) in items"
                         :key="`emp{i}`"

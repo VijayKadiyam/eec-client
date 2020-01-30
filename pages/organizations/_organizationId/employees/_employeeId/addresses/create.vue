@@ -98,7 +98,10 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Add Address</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Add Address' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -130,21 +133,18 @@ export default {
     form: {
       address_type: ''
     },
+    loading: false
   }),
-  mounted() {
-    this.form.role_id = 3;
-  },
-  components: {
-    BackButton
-  },
   methods: {
     async store() {
+      this.loading = true
       try {
         await this.$axios.post(`/users/${this.$route.params.employeeId}/addresses`, this.form)
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
+        this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
     }
   }

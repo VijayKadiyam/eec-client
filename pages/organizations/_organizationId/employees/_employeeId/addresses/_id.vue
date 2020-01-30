@@ -98,7 +98,10 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Update Inspector Relation</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Update Inspector Address' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -128,20 +131,16 @@ export default {
       form: address.data.data
     }
   },
-  mounted() {
-    this.form.role_id = 3;
-  },
-  components: {
-    BackButton
-  },
   methods: {
     async store() {
+      this.loading = true
       try {
         await this.$axios.patch(`/users/${this.$route.params.employeeId}/addresses/${this.$route.params.id}`, this.form)
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
+        this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
     }
   }
