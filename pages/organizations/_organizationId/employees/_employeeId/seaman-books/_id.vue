@@ -79,6 +79,15 @@
                       v-model="form.country"
                     >
                   </div>
+                  <div class="form-group">
+                    <label class="form-label">Attachment</label>
+                    <input type="text" class="form-control" placeholder="Enter attachment"
+                      v-model="form.attachment"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.attachment"
+                    >{{ errors.attachment[0] }}</span>
+                  </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"

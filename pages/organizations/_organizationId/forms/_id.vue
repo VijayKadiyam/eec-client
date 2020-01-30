@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Equipment Details</h1>
+              <h1 class="m-0 text-dark">Forms Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,9 +15,9 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/equipments`">Equipments</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/forms`">Forms</nuxt-link>
                 </li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item active">Update</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -34,14 +34,14 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Equipment Details</h3>
+                  <h3 class="card-title">Edit Forms Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter ship / vessel name"
+                    <input type="text" class="form-control" placeholder="Enter Form name"
                       v-model="form.name"
                     >
                     <span class="help-block" 
@@ -49,22 +49,27 @@
                     >{{ errors.name[0] }}</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Equipment Type</label>
-                    <select class="form-control custom-select"
-                      v-model="form.equipment_type"
+                    <label class="form-label">Link</label>
+                    <input type="text" class="form-control" placeholder="Enter link"
+                      v-model="form.link"
                     >
-                      <option value="">Select equipment type</option>
-                      <option value="Ship">Ship</option>
-                      <option value="Vessel">Vessel</option>
-                    </select>
                     <span class="help-block" 
-                      v-if="errors.equipment_type"
-                    >{{ errors.equipment_type[0] }}</span>
+                      v-if="errors.link"
+                    >{{ errors.link[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Attachment</label>
+                    <input type="text" class="form-control" placeholder="Enter attachment"
+                      v-model="form.imagepath"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.imagepath"
+                    >{{ errors.imagepath[0] }}</span>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Equipment</button>
+                    >Update Form</button>
                   </div>
                 </div>
               </div>
@@ -82,20 +87,20 @@
 </template>
 
 <script type="text/javascript">
-import BackButton from '@/components/back-button.vue'
 
 export default {
-  name: 'CreateEquipment',
-  data: () => ({
-    form: {
-      'equipment_type': ''
-    },
-  }),
+  name: 'EditForm',
+  async asyncData({$axios, params}) {
+    let circular = await $axios.get(`/forms/${params.id}`)
+    return {
+      form: circular.data.data,
+    }
+  },
   methods: {
     async store() {
       try {
-        let admin = await this.$axios.post(`/equipments`, this.form)
-        this.$router.push(`/organizations/${this.organization.value}/equipments`)
+        let admin = await this.$axios.patch(`/forms/${this.$route.params.id}`, this.form)
+        this.$router.push(`/organizations/${this.organization.value}/forms`)
       }
       catch(e) {
 

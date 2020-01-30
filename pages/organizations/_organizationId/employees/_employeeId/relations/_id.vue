@@ -63,12 +63,18 @@
                     <input type="email" class="form-control" placeholder="Enter email"
                       v-model="form.email"
                     >
+                    <span class="help-block" 
+                      v-if="errors.email"
+                    >{{ errors.email[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Phone</label>
                     <input type="number" class="form-control" placeholder="Enter phone"
                       v-model="form.phone"
                     >
+                    <span class="help-block" 
+                      v-if="errors.phone"
+                    >{{ errors.phone[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Alternate Phone</label>
@@ -85,6 +91,9 @@
                       <option value="Father">Father</option>
                       <option value="Mother">Mother</option>
                       <option value="Wife">Wife</option>
+                      <option value="Son">Son</option>
+                      <option value="Daughter">Daughter</option>
+                      <option value="Friend">Friend</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -92,6 +101,9 @@
                     <input type="text" class="form-control" placeholder="Enter address 1"
                       v-model="form.address_1"
                     >
+                    <span class="help-block" 
+                      v-if="errors.address_1"
+                    >{{ errors.address_1[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Address 2</label>
@@ -110,12 +122,18 @@
                     <input type="text" class="form-control" placeholder="Enter state"
                       v-model="form.state"
                     >
+                    <span class="help-block" 
+                      v-if="errors.state"
+                    >{{ errors.state[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Country</label>
                     <input type="text" class="form-control" placeholder="Enter country"
                       v-model="form.country"
                     >
+                    <span class="help-block" 
+                      v-if="errors.country"
+                    >{{ errors.country[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Pincode</label>

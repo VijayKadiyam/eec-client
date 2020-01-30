@@ -122,7 +122,7 @@
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <nuxt-link to="/" class="brand-link">
-          <img src="/dist/img/AdminLTELogo.png"
+          <img :src="organization.logo_path ? (mediaUrl + organization.logo_path) : '/dist/img/AdminLTELogo.png'"
                alt="AdminLTE Logo"
                class="brand-image img-circle elevation-3"
                style="opacity: .8">
@@ -283,10 +283,30 @@ export default {
         title: 'Scheduler',
         'items': [
           {
-            name: 'Equipments', icon: 'fas fa-ship', link: `/organizations/${this.organizationId}/equipments`,
+            name: 'Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/jobs`,
+          }
+        ]
+      })
+      categories.push({
+        title: 'Utilities',
+        'items': [
+          {
+            name: 'Circulars', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/circulars`,
           },
           {
-            name: 'Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/jobs`,
+            name: 'Good Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
+          },
+          {
+            name: 'Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
+          },
+          {
+            name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
+          },
+          {
+            name: 'Manuals', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
+          },
+          {
+            name: 'Procedures', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
           }
         ]
       })

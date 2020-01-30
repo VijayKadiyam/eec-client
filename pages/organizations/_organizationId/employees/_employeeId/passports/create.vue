@@ -59,16 +59,13 @@
                     >{{ errors.passport_number[0] }}</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Alternate Phone</label>
-                    <input type="number" class="form-control" placeholder="Enter alternate phone"
-                      v-model="form.alt_phone"
-                    >
-                  </div>
-                  <div class="form-group">
                     <label class="form-label">Place of Issue</label>
                     <input type="text" class="form-control" placeholder="Enter place of issue"
                       v-model="form.place_of_issue"
                     >
+                    <span class="help-block" 
+                      v-if="errors.place_of_issue"
+                    >{{ errors.place_of_issue[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of issue</label>
@@ -78,6 +75,9 @@
                       </div>
                       <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.date_of_issue">
                     </div>
+                    <span class="help-block" 
+                      v-if="errors.date_of_issue"
+                    >{{ errors.date_of_issue[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
@@ -87,12 +87,27 @@
                       </div>
                       <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.date_of_expiry">
                     </div>
+                    <span class="help-block" 
+                      v-if="errors.date_of_expiry"
+                    >{{ errors.date_of_expiry[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Country</label>
                     <input type="text" class="form-control" placeholder="Enter country"
                       v-model="form.country"
                     >
+                    <span class="help-block" 
+                      v-if="errors.country"
+                    >{{ errors.country[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Attachment</label>
+                    <input type="text" class="form-control" placeholder="Enter attachment"
+                      v-model="form.attachment"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.attachment"
+                    >{{ errors.attachment[0] }}</span>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"

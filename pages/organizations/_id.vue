@@ -72,6 +72,12 @@
                       v-if="errors.address"
                     >{{ errors.address[0] }}</span>
                   </div>
+                  <div class="form-group">
+                    <label class="form-label">Logo</label>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept="application/ms-excel" multiple>
+                    <img style="width: 100px; height: 100px;" :src="`${mediaUrl}${form.logo_path}`">
+                  </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
@@ -93,11 +99,6 @@
 </template>
 
 <script type="text/javascript">
-import BackButton from '@/components/back-button.vue'
-
-import moment from 'moment'
-import moment_timezone from 'moment-timezone'
-
 export default {
   name: 'UpdateOrganization',
   async asyncData({$axios, params}) {
@@ -107,29 +108,34 @@ export default {
     }
   },
   data: () => ({
+    imageData: '',
     form: {
       name: '',
-      time_zone: ''
     },
-    time_zones: []
   }),
-  components: {
-    BackButton
-  },
-  mounted() {
-    var timezones = moment.tz.names();
-    for (var i = 0; i < timezones.length; i++) {
-      this.time_zones.push({
-        'text': timezones[i],
-        'value': timezones[i]
-      })
-    }
-  },
   methods: {
     async store() {
       await this.$axios.patch(`/companies/${this.$route.params.id}`, this.form)
+      await this.handleFileUpload()
       this.$router.push('/organizations');
-    }
+    },
+    async handleFileUpload() {
+      this.imageData = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('company_id', this.form.id);
+      formData.append('imageData', this.imageData);
+      await this.$axios.post('upload_company_logo', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script> 

@@ -47,6 +47,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Logo</th>
                         <th>Organization</th>
                         <th>Admin Details</th>
                         <th>Actions</th>
@@ -57,6 +58,7 @@
                         :key="`org{i}`"
                       >
                         <td>{{ org.id }}</td>
+                        <td><img style="width: 100px; height: 100px;" :src="`${mediaUrl}${org.logo_path}`"></td>
                         <td>
                           {{ org.name }}<br>
                           {{ org.address }}
@@ -130,7 +132,8 @@ export default {
         organizationId: org.id,
         name: org.name,
         users: org.users,
-        address: org.address
+        address: org.address,
+        logo_path: org.logo_path
       })
     })
     this.loading = false

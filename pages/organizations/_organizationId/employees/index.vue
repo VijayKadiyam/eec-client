@@ -41,6 +41,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Photo</th>
                         <th>Emp ID</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -50,6 +51,7 @@
                         <th>DOB</th>
                         <th>Marital Status</th>
                         <th>Skype ID</th>
+                        <th>Remarks</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -63,21 +65,28 @@
                         :key="`emp{i}`"
                       >
                         <td>{{ i + 1 }}</td>
+                        <td><img style="width: 50px; height: 50px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')"></td>
                         <td>{{ emp.emp_code }}</td>
-                        <td>{{ emp.first_name }} {{ emp.last_name }}</td>
-                        <td>{{ emp.email }}</td>
-                        <td>{{ emp.phone }}</td>
+                        <td>{{ emp.first_name }} {{ emp.middle_name }} {{ emp.last_name }}</td>
+                        <td>{{ emp.email }}, {{ emp.email_2 }}</td>
+                        <td>{{ emp.phone }}, {{ emp.phone_2 }}</td>
                         <td>{{ emp.gender }}</td>
                         <td>{{ emp.age }}</td>
                         <td>{{ emp.dob }}</td>
                         <td>{{ emp.marital_status }}</td>
                         <td>{{ emp.skype_id }}</td>
+                        <td>{{ emp.remarks }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}/full`">
                             <i class="fas fa-eye"></i>
                           </nuxt-link>&nbsp;&nbsp;
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="del(emp.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -126,6 +135,12 @@ export default {
         this.items = items.data.data
         this.loading = false
       }
+    },
+    async del(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+        await this.$axios.delete(`/users/${id}`)
+      this.getData()
     }
   }
 }

@@ -64,9 +64,6 @@
                     <input type="text" class="form-control" placeholder="Enter address 2"
                       v-model="form.address_2"
                     >
-                    <span class="help-block" 
-                      v-if="errors.address_2"
-                    >{{ errors.address_2[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">City</label>
@@ -79,12 +76,18 @@
                     <input type="text" class="form-control" placeholder="Enter state"
                       v-model="form.state"
                     >
+                    <span class="help-block" 
+                      v-if="errors.state"
+                    >{{ errors.state[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Country</label>
                     <input type="text" class="form-control" placeholder="Enter country"
                       v-model="form.country"
                     >
+                    <span class="help-block" 
+                      v-if="errors.country"
+                    >{{ errors.country[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Pincode</label>
@@ -125,14 +128,7 @@ export default {
   },
   data: () => ({
     form: {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      relation: '',
-      marital_status: '',
-      active: 1,
-      role_id: ''
+      address_type: ''
     },
   }),
   mounted() {

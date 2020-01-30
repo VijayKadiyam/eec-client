@@ -103,7 +103,8 @@ export default {
     organizations = organizations.data.data.map(organization => ({
       'text': organization.name,
       'value': organization.id,
-      'time_zone': organization.time_zone ? organization.time_zone : 'Asia/Calcutta'
+      'time_zone': organization.time_zone ? organization.time_zone : 'Asia/Calcutta',
+      logo_path: organization.logo_path
     }));
     return {
       organizations: organizations

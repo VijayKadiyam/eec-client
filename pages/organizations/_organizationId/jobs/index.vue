@@ -41,12 +41,26 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
-                        <th>Ship / Vessel Name</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                        <th>Vessel Name</th>
+                        <th>Vessel Type</th>
+                        <th>Vessel Details</th>
+                        <th>ETA</th>
+                        <th>ETB</th>
+                        <th>ETS</th>
+                        <th>Operation</th>
+                        <th>Cargo</th>
                         <th>Location</th>
-                        <th>Port_name</th>
-                        <th>Agent_name</th>
+                        <th>Port name</th>
+                        <th>Agent Name</th>
+                        <th>Agent Contact Details</th>
+                        <th>Agent Phone</th>
+                        <th>Agent Email</th>
+                        <th>Agent Address</th>
+                        <th>Operator Name</th>
+                        <th>Operator Contact Details</th>
+                        <th>Operator Phone</th>
+                        <th>Operator Email</th>
+                        <th>Oil Major</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -60,12 +74,26 @@
                         :key="`job{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ job.equipment ? job.equipment.name : '' }}</td>
-                        <td>{{ job.date }}</td>
-                        <td>{{ job.time }}</td>
+                        <td>{{ job.vessel_name }}</td>
+                        <td>{{ job.vessel_type }}</td>
+                        <td>{{ job.other_detail }}</td>
+                        <td>{{ job.eta }}</td>
+                        <td>{{ job.etb }}</td>
+                        <td>{{ job.ets }}</td>
+                        <td>{{ job.operation }}</td>
+                        <td>{{ job.cargo }}</td>
                         <td>{{ job.location }}</td>
                         <td>{{ job.port_name }}</td>
                         <td>{{ job.agent_name }}</td>
+                        <td>{{ job.agent_contact_person }}</td>
+                        <td>{{ job.agent_phone }}, {{ job.agent_phone_2 }}</td>
+                        <td>{{ job.agent_email }}</td>
+                        <td>{{ job.agent_address }}</td>
+                        <td>{{ job.operator_name }}</td>
+                        <td>{{ job.operator_contact_person }}</td>
+                        <td>{{ job.operator_phone }}, {{ job.operator_phone_2 }}</td>
+                        <td>{{ job.operator_email }}</td>
+                        <td>{{ job.oil_major }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/jobs/${job.id}`">
                             <i class="fa fa-edit"></i>

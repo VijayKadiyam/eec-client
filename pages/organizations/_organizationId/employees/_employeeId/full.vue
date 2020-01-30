@@ -42,6 +42,7 @@
                     <thead>
                       <tr>
                         <th>Emp ID</th>
+                        <th>Photo</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -61,6 +62,7 @@
                       </tr>
                       <tr>
                         <td>{{ form.emp_code }}</td>
+                        <td><img style="width: 50px; height: 50px;" :src="mediaUrl + (form.attachment ? form.attachment : '/user.png')"></td>
                         <td>{{ form.first_name }} {{ form.last_name }}</td>
                         <td>{{ form.email }}</td>
                         <td>{{ form.phone }}</td>
@@ -257,6 +259,7 @@
                         <th>IFSC Code</th>
                         <th>Benificary Name</th>
                         <th>Bank Address</th>
+                        <th>Remarks</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -277,6 +280,7 @@
                         <td>{{ bd.ifsc_code }}</td>
                         <td>{{ bd.benificiary_name }}</td>
                         <td>{{ bd.bank_address }}</td>
+                        <td>{{ bd.remarks }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/${bd.id}`">
                             <i class="fa fa-edit"></i>
@@ -310,6 +314,7 @@
                         <th>Date of issue</th>
                         <th>Date of expiry</th>
                         <th>Country</th>
+                        <th>Attachment</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -329,8 +334,63 @@
                         <td>{{ passport.date_of_issue }}</td>
                         <td>{{ passport.date_of_expiry }}</td>
                         <td>{{ passport.country }}</td>
+                        <td>{{ passport.attachment }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/passports/${passport.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Visas -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Visas</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/visas/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Country</th>
+                        <th>Is Schengen</th>
+                        <th>Entry Type</th>
+                        <th>Type of Visa</th>
+                        <th>Date of issue</th>
+                        <th>Date of expiry</th>
+                        <th>Attachment</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="9">Loading...</td>
+                      </tr>
+                      <tr v-for="(visa, i) in form.visas"
+                        :key="`visa{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ visa.country }}</td>
+                        <td>{{ visa.is_shengen }}</td>
+                        <td>{{ visa.entry_type }}</td>
+                        <td>{{ visa.type_of_visa }}</td>
+                        <td>{{ visa.date_of_issue }}</td>
+                        <td>{{ visa.date_of_expiry }}</td>
+                        <td>{{ visa.attachment }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/visas/${visa.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
                         </td>
@@ -361,6 +421,7 @@
                         <th>Date of issue</th>
                         <th>Date of expiry</th>
                         <th>Country</th>
+                        <th>Attachment</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -379,8 +440,259 @@
                         <td>{{ seaman_book.date_of_issue }}</td>
                         <td>{{ seaman_book.date_of_expiry }}</td>
                         <td>{{ seaman_book.country }}</td>
+                        <td>{{ seaman_book.attachment }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/${seaman_book.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Vaccinations -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Vaccinations</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Vaccination Type</th>
+                        <th>Certificate no</th>
+                        <th>Date of Expiry</th>
+                        <th>Other Details</th>
+                        <th>Attachment</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="8">Loading...</td>
+                      </tr>
+                      <tr v-for="(vaccination, i) in form.vaccinations"
+                        :key="`vaccination{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ vaccination.vaccination_type }}</td>
+                        <td>{{ vaccination.certificate_no }}</td>
+                        <td>{{ vaccination.date_of_expiry }}</td>
+                        <td>{{ vaccination.other_details }}</td>
+                        <td>{{ vaccination.attachment }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/${vaccination.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Sires -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Sires</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/sires/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>ID Number</th>
+                        <th>Expiry Date</th>
+                        <th>Last Audit Date</th>
+                        <th>Type</th>
+                        <th>Attachment</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="7">Loading...</td>
+                      </tr>
+                      <tr v-for="(sire, i) in form.sires"
+                        :key="`sire{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ sire.id_number }}</td>
+                        <td>{{ sire.expiry_date }}</td>
+                        <td>{{ sire.last_audit_date }}</td>
+                        <td>{{ sire.type }}</td>
+                        <td>{{ sire.attachment }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/sires/${sire.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Courses -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Ocimf Refresher Courses</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Name of Course</th>
+                        <th>Course Date</th>
+                        <th>Place of Course</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="5">Loading...</td>
+                      </tr>
+                      <tr v-for="(ocimf, i) in form.ocimf_refresher_courses"
+                        :key="`ocimf{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ ocimf.name_of_course }}</td>
+                        <td>{{ ocimf.course_date }}</td>
+                        <td>{{ ocimf.place_of_course }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/${ocimf.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Medicals -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Medicals</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Report Number</th>
+                        <th>Issue Date</th>
+                        <th>Place of Issue</th>
+                        <th>Date of Expiry</th>
+                        <th>Doctor Name</th>
+                        <th>Medically Fit</th>
+                        <th>Remarks</th>
+                        <th>Attachment</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="10">Loading...</td>
+                      </tr>
+                      <tr v-for="(medical, i) in form.medicals"
+                        :key="`medical{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ medical.report_number }}</td>
+                        <td>{{ medical.issue_date }}</td>
+                        <td>{{ medical.place_of_issue }}</td>
+                        <td>{{ medical.date_of_expiry }}</td>
+                        <td>{{ medical.doctor_name }}</td>
+                        <td>{{ medical.fit }}</td>
+                        <td>{{ medical.remarks }}</td>
+                        <td>{{ medical.attachment }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/${medical.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Medical Questions -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Medical Questions</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Any Medicine Intake On Regular Basis</th>
+                        <th>Have You Undergone Any Surgery In The Past</th>
+                        <th>Have You Consulted A Doctor During The Last 12 Months For Any Illness Or Accident </th>
+                        <th>Have You Ever Been Tested Positive For Any Drug And Alcohol Test</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="10">Loading...</td>
+                      </tr>
+                      <tr v-for="(medical, i) in form.medical_details"
+                        :key="`medical{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ medical.any_medical_intake }}</td>
+                        <td>{{ medical.any_surgery_in_past }}</td>
+                        <td>{{ medical.last_12_months_consulting }}</td>
+                        <td>{{ medical.positive_of_alcohol_test }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/${medical.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
                         </td>

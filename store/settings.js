@@ -5,9 +5,10 @@ export const state = () => ({
   organization: {
     value: '',
     text: '',
-    time_zone: ''
+    time_zone: '',
+    logo_path: ''
   },
-  mediaUrl: 'http://crm.firststepsolutions.in:8080/storage/'
+  mediaUrl: 'http://localhost:8080/storage/'
 })
 
 export const getters = {

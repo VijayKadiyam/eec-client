@@ -34,7 +34,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Inspector Details</h3>
+                  <h3 class="card-title">Edit Inspector Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -44,11 +44,23 @@
                     <input type="text" class="form-control" placeholder="Enter emp code"
                       v-model="form.emp_code"
                     >
+                    <span class="help-block" 
+                      v-if="errors.emp_code"
+                    >{{ errors.emp_code[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">First Name</label>
                     <input type="text" class="form-control" placeholder="Enter first name"
                       v-model="form.first_name"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.first_name"
+                    >{{ errors.first_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Middle Name</label>
+                    <input type="text" class="form-control" placeholder="Enter middle name"
+                      v-model="form.middle_name"
                     >
                   </div>
                   <div class="form-group">
@@ -56,6 +68,9 @@
                     <input type="text" class="form-control" placeholder="Enter last name"
                       v-model="form.last_name"
                     >
+                    <span class="help-block" 
+                      v-if="errors.last_name"
+                    >{{ errors.last_name[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Email</label>
@@ -67,6 +82,12 @@
                     >{{ errors.email[0] }}</span>
                   </div>
                   <div class="form-group">
+                    <label class="form-label">Email 2</label>
+                    <input type="email" class="form-control" placeholder="Enter email 2"
+                      v-model="form.email_2"
+                    >
+                  </div>
+                  <div class="form-group">
                     <label class="form-label">Phone</label>
                     <input type="number" class="form-control" placeholder="Enter phone"
                       v-model="form.phone"
@@ -74,6 +95,18 @@
                     <span class="help-block" 
                       v-if="errors.phone"
                     >{{ errors.phone[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Phone 2</label>
+                    <input type="number" class="form-control" placeholder="Enter phone 2"
+                      v-model="form.phone_2"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Landline</label>
+                    <input type="number" class="form-control" placeholder="Enter landline"
+                      v-model="form.landline"
+                    >
                   </div>
                   <div class="form-group">
                     <label class="form-label">Gender</label>
@@ -90,6 +123,9 @@
                     <input type="number" class="form-control" placeholder="Enter age"
                       v-model="form.age"
                     >
+                    <span class="help-block" 
+                      v-if="errors.age"
+                    >{{ errors.age[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of birth</label>
@@ -99,6 +135,9 @@
                       </div>
                       <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.dob">
                     </div>
+                    <span class="help-block" 
+                      v-if="errors.dob"
+                    >{{ errors.dob[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Marital Status</label>
@@ -115,6 +154,18 @@
                     <input type="text" class="form-control" placeholder="Enter skype id"
                       v-model="form.skype_id"
                     >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Remarks</label>
+                    <input type="text" class="form-control" placeholder="Enter remarks"
+                      v-model="form.remarks"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Photo</label>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept="application/ms-excel" multiple>
+                    <img style="width: 50px; height: 50px;" :src="mediaUrl + (form.attachment ? form.attachment : '/user.png')">
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
@@ -174,12 +225,30 @@ export default {
     async store() {
       try {
         await this.$axios.patch(`/users/${this.$route.params.id}`, this.form)
-        this.$router.push(`/organizations/${this.organization.value}/employees`)
+        await this.handleFileUpload()
+        this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.id}/full`)
       }
       catch(e) {
 
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('userid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_user_photo', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>

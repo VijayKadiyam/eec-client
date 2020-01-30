@@ -41,6 +41,24 @@
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
+                    <label class="form-label">Beneficiary Name</label>
+                    <input type="text" class="form-control" placeholder="Enter benificary name"
+                      v-model="form.benificiary_name"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.benificiary_name"
+                    >{{ errors.benificiary_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Account No</label>
+                    <input type="text" class="form-control" placeholder="Enter account no"
+                      v-model="form.account_no"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.account_no"
+                    >{{ errors.account_no[0] }}</span>
+                  </div>
+                  <div class="form-group">
                     <label class="form-label">Bank Name</label>
                     <input type="text" class="form-control" placeholder="Enter bank name"
                       v-model="form.bank_name"
@@ -54,6 +72,9 @@
                     <input type="text" class="form-control" placeholder="Enter branch name"
                       v-model="form.branch_name"
                     >
+                    <span class="help-block" 
+                      v-if="errors.branch_name"
+                    >{{ errors.branch_name[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Account Type</label>
@@ -64,32 +85,38 @@
                       <option value="Savings">Savings</option>
                       <option value="Credit">Credit</option>
                     </select>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Account No</label>
-                    <input type="text" class="form-control" placeholder="Enter account no"
-                      v-model="form.account_no"
-                    >
                     <span class="help-block" 
-                      v-if="errors.account_no"
-                    >{{ errors.account_no[0] }}</span>
+                      v-if="errors.account_type"
+                    >{{ errors.account_type[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">IFSC Code</label>
                     <input type="text" class="form-control" placeholder="Enter ifsc code"
                       v-model="form.ifsc_code"
                     >
+                    <span class="help-block" 
+                      v-if="errors.ifsc_code"
+                    >{{ errors.ifsc_code[0] }}</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Benificiary Name</label>
-                    <input type="text" class="form-control" placeholder="Enter benificary name"
-                      v-model="form.benificiary_name"
+                    <label class="form-label">Swift Code</label>
+                    <input type="text" class="form-control" placeholder="Enter swift code"
+                      v-model="form.swift_code"
                     >
+                    <span class="help-block" 
+                      v-if="errors.swift_code"
+                    >{{ errors.swift_code[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Bank Address</label>
                     <input type="text" class="form-control" placeholder="Enter bank address"
                       v-model="form.bank_address"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Remarks</label>
+                    <input type="text" class="form-control" placeholder="Enter remarks"
+                      v-model="form.remarks"
                     >
                   </div>
                   <div class="form-footer">

@@ -37,13 +37,31 @@
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
-                    <label class="form-label">Admin name</label>
-                    <input type="text" class="form-control" placeholder="Enter name"
+                    <label class="form-label">First name</label>
+                    <input type="text" class="form-control" placeholder="Enter first name"
                       v-model="form.first_name"
                     >
                     <span class="help-block" 
                       v-if="errors.first_name"
                     >{{ errors.first_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Last name</label>
+                    <input type="text" class="form-control" placeholder="Enter last name"
+                      v-model="form.last_name"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.last_name"
+                    >{{ errors.last_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Employee code</label>
+                    <input type="text" class="form-control" placeholder="Enter emp code"
+                      v-model="form.emp_code"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.emp_code"
+                    >{{ errors.emp_code[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Email</label>
@@ -62,6 +80,24 @@
                     <span class="help-block" 
                       v-if="errors.phone"
                     >{{ errors.phone[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">DOB</label>
+                    <input type="text" class="form-control" placeholder="Enter dob"
+                      v-model="form.dob"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.dob"
+                    >{{ errors.dob[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Age</label>
+                    <input type="text" class="form-control" placeholder="Enter age"
+                      v-model="form.age"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.age"
+                    >{{ errors.age[0] }}</span>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"

@@ -40,37 +40,90 @@
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
-                    <label class="form-label">Select Ship/Vessel</label>
-                    <select class="form-control custom-select"
-                      v-model="form.equipment_id"
+                    <label class="form-label">Vessel name</label>
+                    <input type="text" class="form-control" placeholder="Enter vessel name"
+                      v-model="form.vessel_name"
                     >
-                      <option value="">Select ship / vessel</option>
-                      <option v-for="equipment in equipments" :key="`'equipment'${equipment.id}`" :value="equipment.id">{{ equipment.name }}</option>
+                    <span class="help-block" 
+                      v-if="errors.vessel_name"
+                    >{{ errors.vessel_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Vessel type</label>
+                    <select class="form-control custom-select"
+                      v-model="form.vessel_type"
+                    >
+                      <option value="">Select vessel type</option>
+                      <option value="Oil / Chemical">Oil / Chemical</option>
+                      <option value="Oil">Oil</option>
+                      <option value="Chemical">Chemical</option>
+                      <option value="LPG">LPG</option>
+                      <option value="LNG">LNG</option>
+                      <option value="Barge">Barge</option>
+                      <option value="Others">Others</option>
                     </select>
                     <span class="help-block" 
-                      v-if="errors.equipment_id"
-                    >{{ errors.equipment_id[0] }}</span>
+                      v-if="errors.vessel_type"
+                    >{{ errors.vessel_type[0] }}</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Date</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.date">
-                    </div>
-                    <span class="help-block" 
-                      v-if="errors.date"
-                    >{{ errors.date[0] }}</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Time</label>
-                    <input type="text" class="form-control" placeholder="Enter time"
-                      v-model="form.time"
+                    <label class="form-label">Vessel Details</label>
+                    <input type="text" class="form-control" placeholder="Enter vessel details"
+                      v-model="form.other_detail"
                     >
                     <span class="help-block" 
-                      v-if="errors.time"
-                    >{{ errors.time[0] }}</span>
+                      v-if="errors.other_detail"
+                    >{{ errors.other_detail[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">ETA</label>
+                    <input type="text" class="form-control" placeholder="Enter eta"
+                      v-model="form.eta"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.eta"
+                    >{{ errors.eta[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">ETB</label>
+                    <input type="text" class="form-control" placeholder="Enter etb"
+                      v-model="form.etb"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.etb"
+                    >{{ errors.etb[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">ETS</label>
+                    <input type="text" class="form-control" placeholder="Enter ets"
+                      v-model="form.ets"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.ets"
+                    >{{ errors.ets[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Operation</label>
+                    <select class="form-control custom-select"
+                      v-model="form.operation"
+                    >
+                      <option value="">Select operation</option>
+                      <option value="Loading">Loading</option>
+                      <option value="Discharge">Discharge</option>
+                      <option value="Idle">Idle</option>
+                    </select>
+                    <span class="help-block" 
+                      v-if="errors.operation"
+                    >{{ errors.operation[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Cargo</label>
+                    <input type="text" class="form-control" placeholder="Enter cargo"
+                      v-model="form.cargo"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.cargo"
+                    >{{ errors.cargo[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Location</label>
@@ -99,6 +152,118 @@
                       v-if="errors.agent_name"
                     >{{ errors.agent_name[0] }}</span>
                   </div>
+                  <div class="form-group">
+                    <label class="form-label">Agent Contact Person</label>
+                    <input type="text" class="form-control" placeholder="Enter agent contact person"
+                      v-model="form.agent_contact_person"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.agent_contact_person"
+                    >{{ errors.agent_contact_person[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Agent Phone</label>
+                    <input type="number" class="form-control" placeholder="Enter agent phone"
+                      v-model="form.agent_phone"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.agent_phone"
+                    >{{ errors.agent_phone[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Agent Phone 2</label>
+                    <input type="text" class="form-control" placeholder="Enter agent phone 2"
+                      v-model="form.agent_phone_2"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Agent Email</label>
+                    <input type="text" class="form-control" placeholder="Enter agent email"
+                      v-model="form.agent_email"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.agent_email"
+                    >{{ errors.agent_email[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Agent Address</label>
+                    <input type="text" class="form-control" placeholder="Enter agent address"
+                      v-model="form.agent_address"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Operator Name</label>
+                    <input type="text" class="form-control" placeholder="Enter operator name"
+                      v-model="form.operator_name"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.operator_name"
+                    >{{ errors.operator_name[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Operator Contact Person</label>
+                    <input type="text" class="form-control" placeholder="Enter operator contact person"
+                      v-model="form.operator_contact_person"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.operator_contact_person"
+                    >{{ errors.operator_contact_person[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Operator Phone</label>
+                    <input type="number" class="form-control" placeholder="Enter operator phone"
+                      v-model="form.operator_phone"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.operator_phone"
+                    >{{ errors.operator_phone[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Operator Phone 2</label>
+                    <input type="text" class="form-control" placeholder="Enter operator phone 2"
+                      v-model="form.operator_phone_2"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Operator Email</label>
+                    <input type="text" class="form-control" placeholder="Enter operator email"
+                      v-model="form.operator_email"
+                    >
+                    <span class="help-block" 
+                      v-if="errors.operator_email"
+                    >{{ errors.operator_email[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Oil Major</label>
+                    <select class="form-control custom-select"
+                      v-model="form.oil_major"
+                    >
+                      <option value="">Select oil major</option>
+                      <option value="ADNOC">ADNOC</option>
+                      <option value="ATC">ATC</option>
+                      <option value="AMPOL">AMPOL</option>
+                      <option value="BEICO">BEICO</option>
+                      <option value="BP">BP</option>
+                      <option value="BHP">BHP</option>
+                      <option value="CONOCO PHILLIPS">CONOCO PHILLIPS</option>
+                      <option value="ENI">ENI</option>
+                      <option value="ENOC">ENOC</option>
+                      <option value="EQUINOR">EQUINOR</option>
+                      <option value="IDEMITSU">IDEMITSU</option>
+                      <option value="IMT">IMT</option>
+                      <option value="KMG">KMG</option>
+                      <option value="NAYARA">NAYARA</option>
+                      <option value="NESTE">NESTE</option>
+                      <option value="PHILLIPS66">PHILLIPS66</option>
+                      <option value="PT">PT</option>
+                      <option value="PETRONAS">PETRONAS</option>
+                      <option value="RELIANCE">RELIANCE</option>
+                      <option value="SHELL">SHELL</option>
+                    </select>
+                    <span class="help-block" 
+                      v-if="errors.oil_major"
+                    >{{ errors.oil_major[0] }}</span>
+                  </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
@@ -125,19 +290,11 @@ import BackButton from '@/components/back-button.vue'
 export default {
   name: 'EditJob',
   async asyncData({$axios, params}) {
-    let equipments = await $axios.get(`/equipments`)
     let job = await $axios.get(`/jobs/${params.id}`)
     return {
-      equipments: equipments.data.data,
       form: job.data.data,
-      equipments: equipments.data.data
     }
   },
-  data: () => ({
-    form: {
-      'equipment_id': ''
-    },
-  }),
   methods: {
     async store() {
       try {

@@ -7,14 +7,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Equipments</h1>
+              <h1 class="m-0 text-dark">Incident Reports</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
-                <li class="breadcrumb-item active">Equipments</li>
+                <li class="breadcrumb-item active">Incident Reports</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -27,13 +27,10 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search by ship / vessel name">
-              <a href="#" @click="getData">Refresh</a>
-              <br>
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Manage Equipments</h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/equipments/create`">Add New</nuxt-link>
+                  <h3 class="card-title">Manage Incident Reports</h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/incident-reports/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -42,7 +39,8 @@
                       <tr>
                         <th>Sr. No.</th>
                         <th>Name</th>
-                        <th>Equipment Type</th>
+                        <th>Link</th>
+                        <th>Atatchment</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -50,17 +48,23 @@
                       <tr
                         v-if="loading"
                       > 
-                        <td colspan="4">Loading...</td>
+                        <td colspan="5">Loading...</td>
                       </tr>
-                      <tr v-for="(equipment, i) in items"
-                        :key="`equipment{i}`"
+                      <tr v-for="(item, i) in items"
+                        :key="`item{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ equipment.name }}</td>
-                        <td>{{ equipment.equipment_type }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.link }}</td>
+                        <td>{{ item.imagepath }}</td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/equipments/${equipment.id}`">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/incident-reports/${item.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="del(item.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -83,9 +87,8 @@
 
 <script type="text/javascript">
 export default {
-  name: 'ManageInspectors',
+  name: 'ManageIncidentReports',
   data:() =>  ({
-    searchData: '',
     items: [],
     loading: true
   }),
@@ -96,19 +99,14 @@ export default {
     async getData() {
       this.items = []
       this.loading = true
-      let items = await this.$axios.get(`/equipments?page=1`)
+      let items = await this.$axios.get(`/incident_reports`)
       this.items = items.data.data
       this.loading = false
     },
-    async search() {
-      if(this.searchData != "")
-      {
-        this.loading = true
-        let items = await this.$axios.get(`/equipments?search=${this.searchData}`);
-        console.log(items)
-        this.items = items.data.data
-        this.loading = false
-      }
+    async del(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      await this.$axios.delete(`/incident_reports/${id}`)
+      this.getData()
     }
   }
 }
