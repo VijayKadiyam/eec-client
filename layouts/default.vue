@@ -123,7 +123,7 @@
         <!-- Brand Logo -->
         <nuxt-link to="/" class="brand-link">
           <img :src="organization.logo_path ? (mediaUrl + organization.logo_path) : '/dist/img/AdminLTELogo.png'"
-               alt="AdminLTE Logo"
+               alt="Logo"
                class="brand-image img-circle elevation-3"
                style="opacity: .8">
           <span class="brand-text font-weight-light">{{ organization.text ? organization.text : 'Not Selected' }}</span>
@@ -187,10 +187,9 @@
 
       <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
-          <b>Version</b> 1.0.0
+          <img :src="organization.logo_path ? (mediaUrl + organization.logo_path) : '/dist/img/AdminLTELogo.png'" alt="Logo" style="width: 50px; height: 50px;">
         </div>
-        <strong>Copyright &copy; 2019 <a href="https://www.aaibuzz.com">AaiBuzz</a>.</strong> All rights
-        reserved.
+        <strong>Copyright &copy; 2019 <a href="https://www.aaibuzz.com">AaiBuzz</a>.</strong> <b>Version</b> 1.0.0
       </footer>
 
       <!-- Control Sidebar -->
@@ -290,14 +289,26 @@ export default {
       categories.push({
         title: 'Utilities',
         'items': [
+        {
+            name: 'Policies', icon: 'fas fa-vote-yea', link: `/organizations/${this.organizationId}/policies`,
+          },
           {
             name: 'IMS Manuals', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
+          },
+          {
+            name: 'Procedure Manuals', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
           },
           {
             name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
           },
           {
-            name: 'Circulars', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/circulars`,
+            name: 'Audit Reports', icon: 'fas fa-check-circle', link: `/organizations/${this.organizationId}/audit-reports`,
+          },
+          {
+            name: 'Circulars', icon: 'fas fa-map-signs', link: `/organizations/${this.organizationId}/circulars`,
+          },
+          {
+            name: 'Campaigns', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/campaigns`,
           },
           {
             name: 'Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
@@ -306,8 +317,14 @@ export default {
             name: 'Good Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
           },
           {
-            name: 'Procedure Manuals', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
-          }
+            name: 'Risk Assessments', icon: 'fas fa-asterisk', link: `/organizations/${this.organizationId}/risk-assessments`,
+          },
+          {
+            name: 'Libraries', icon: 'fas fa-book-reader', link: `/organizations/${this.organizationId}/libraries`,
+          },
+          {
+            name: 'Records', icon: 'fas fa-flag', link: `/organizations/${this.organizationId}/records`,
+          },
         ]
       })
       return categories;

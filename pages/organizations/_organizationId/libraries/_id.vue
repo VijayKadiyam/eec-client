@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Good Practices Details</h1>
+              <h1 class="m-0 text-dark">Libraries Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,9 +15,9 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/good-practices`">Good Practices</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/libraries`">Libraries</nuxt-link>
                 </li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item active">Update</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -34,7 +34,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Good Practices Details</h3>
+                  <h3 class="card-title">Edit Libraries Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -54,7 +54,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter good practice name"
+                    <input type="text" class="form-control" placeholder="Enter library name"
                       v-model="form.name"
                     >
                     <span class="help-block" 
@@ -73,6 +73,11 @@
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
                     <br>
+                    <a :href="mediaUrl + form.imagepath" target="_blank">{{ form.imagepath }}</a>
+                    <input type="text" class="form-control" placeholder="Enter attachment"
+                      v-model="form.imagepath"
+                    >
+                    <br>
                     <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
@@ -80,7 +85,7 @@
                       @click="store"
                       :disabled="loading"
                     >
-                      {{ loading ? 'Saving...' : 'Create Good Practice' }}
+                      {{ loading ? 'Saving...' : 'Update Library' }}
                     </button>
                   </div>
                 </div>
@@ -101,21 +106,23 @@
 <script type="text/javascript">
 
 export default {
-  name: 'CreateGoodPractice',
+  name: 'EditLibrary',
+  async asyncData({$axios, params}) {
+    let libraries = await $axios.get(`/libraries/${params.id}`)
+    return {
+      form: libraries.data.data,
+    }
+  },
   data: () => ({
-    form: {
-
-    },
     loading: false
   }),
   methods: {
     async store() {
       try {
         this.loading = true
-        let admin = await this.$axios.post(`/good_practices`, this.form)
-        this.form.id = admin.data.data.id
+        let admin = await this.$axios.patch(`/libraries/${this.$route.params.id}`, this.form)
         await this.handleFileUpload()
-        this.$router.push(`/organizations/${this.organization.value}/good-practices`)
+        this.$router.push(`/organizations/${this.organization.value}/libraries`)
         this.loading = false
       }
       catch(e) {
@@ -125,9 +132,9 @@ export default {
     async handleFileUpload() {
       this.attachment = this.$refs.file.files[0]
       let formData = new FormData();
-      formData.append('goodid', this.form.id);
+      formData.append('libraryid', this.form.id);
       formData.append('attachment', this.attachment);
-      await this.$axios.post('upload_good_practice_attachment', formData,
+      await this.$axios.post('upload_library_attachment', formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data'

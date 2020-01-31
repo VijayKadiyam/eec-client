@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Good Practices Details</h1>
+              <h1 class="m-0 text-dark">Libraries Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/good-practices`">Good Practices</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/libraries`">Libraries</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Create</li>
               </ol>
@@ -34,7 +34,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Good Practices Details</h3>
+                  <h3 class="card-title">Add Library Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -54,7 +54,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter good practice name"
+                    <input type="text" class="form-control" placeholder="Enter Librariesname"
                       v-model="form.name"
                     >
                     <span class="help-block" 
@@ -80,7 +80,7 @@
                       @click="store"
                       :disabled="loading"
                     >
-                      {{ loading ? 'Saving...' : 'Create Good Practice' }}
+                      {{ loading ? 'Saving...' : 'Create Library' }}
                     </button>
                   </div>
                 </div>
@@ -101,10 +101,10 @@
 <script type="text/javascript">
 
 export default {
-  name: 'CreateGoodPractice',
+  name: 'CreateLibrary',
   data: () => ({
     form: {
-
+      'year' :''
     },
     loading: false
   }),
@@ -112,10 +112,10 @@ export default {
     async store() {
       try {
         this.loading = true
-        let admin = await this.$axios.post(`/good_practices`, this.form)
+        let admin = await this.$axios.post(`/libraries`, this.form)
         this.form.id = admin.data.data.id
         await this.handleFileUpload()
-        this.$router.push(`/organizations/${this.organization.value}/good-practices`)
+        this.$router.push(`/organizations/${this.organization.value}/libraries`)
         this.loading = false
       }
       catch(e) {
@@ -125,9 +125,9 @@ export default {
     async handleFileUpload() {
       this.attachment = this.$refs.file.files[0]
       let formData = new FormData();
-      formData.append('goodid', this.form.id);
+      formData.append('libraryid', this.form.id);
       formData.append('attachment', this.attachment);
-      await this.$axios.post('upload_good_practice_attachment', formData,
+      await this.$axios.post('upload_librariy_attachment', formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data'
