@@ -140,7 +140,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
-                      <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.dob" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                      <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.dob">
                     </div>
                     <span class="help-block" 
                       v-if="errors.dob"
@@ -239,7 +239,7 @@ export default {
         await this.$axios.patch(`/users/${this.$route.params.id}`, this.form)
         await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.id}/full`)
-      this.loading = false
+        this.loading = false
       }
       catch(e) {
         this.loading = false
@@ -262,9 +262,6 @@ export default {
         console.log('FAILURE!!');
       });
     },
-    change() {
-      alert(1)
-    }
   }
 }
 </script>

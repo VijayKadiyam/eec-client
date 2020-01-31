@@ -38,9 +38,10 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Month/Year</th>
                         <th>Name</th>
                         <th>Link</th>
-                        <th>Atatchment</th>
+                        <th>Attachment</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -54,9 +55,10 @@
                         :key="`circular{i}`"
                       >
                         <td>{{ i + 1 }}</td>
+                        <td>{{ circular.month }} / {{ circular.year }}</td>
                         <td>{{ circular.name }}</td>
-                        <td>{{ circular.link }}</td>
-                        <td>{{ circular.imagepath }}</td>
+                        <td><a :href="circular.link" target="_blank">{{ circular.link }}</a></td>
+                        <td><a :href="mediaUrl + circular.imagepath" target="_blank">{{ circular.imagepath }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/circulars/${circular.id}`">
                             <i class="fa fa-edit"></i>
