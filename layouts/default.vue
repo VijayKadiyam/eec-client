@@ -325,6 +325,9 @@ export default {
           {
             name: 'Records', icon: 'fas fa-flag', link: `/organizations/${this.organizationId}/records`,
           },
+          {
+            name: 'Observation Sheets', icon: 'fas fa-stroopwafel', link: `/organizations/${this.organizationId}/observation-sheets`,
+          },
         ]
       })
       return categories;
