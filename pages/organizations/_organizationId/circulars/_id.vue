@@ -92,17 +92,11 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
+                    <br>
+                    <a :href="mediaUrl + form.imagepath" target="_blank">{{ form.imagepath }}</a>
                     <input type="text" class="form-control" placeholder="Enter attachment"
                       v-model="form.imagepath"
                     >
-                    <span class="help-block" 
-                      v-if="errors.imagepath"
-                    >{{ errors.imagepath[0] }}</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Attachment</label>
-                    <br>
-                    <a :href="mediaUrl + form.imagepath" target="_blank">{{ form.imagepath }}</a>
                     <br>
                     <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
@@ -139,6 +133,9 @@ export default {
       form: circular.data.data,
     }
   },
+  data: () => ({
+    loading: false
+  }),
   methods: {
     async store() {
       this.loading = true
@@ -158,7 +155,7 @@ export default {
       let formData = new FormData();
       formData.append('circularid', this.form.id);
       formData.append('attachment', this.attachment);
-      await this.$axios.post('upload_circular_atttachment', formData,
+      await this.$axios.post('upload_circular_attachment', formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data'

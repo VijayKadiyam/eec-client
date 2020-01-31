@@ -40,6 +40,19 @@
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
+                    <label class="form-label">Select Year</label>
+                    <select class="form-control custom-select"
+                      v-model="form.year"
+                    >
+                      <option value="">Select Year</option>
+                      <option value="2016">2016</option>
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label class="form-label">Name</label>
                     <input type="text" class="form-control" placeholder="Enter good practice name"
                       v-model="form.name"
@@ -59,17 +72,21 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
+                    <br>
+                    <a :href="mediaUrl + form.imagepath" target="_blank">{{ form.imagepath }}</a>
                     <input type="text" class="form-control" placeholder="Enter attachment"
                       v-model="form.imagepath"
                     >
-                    <span class="help-block" 
-                      v-if="errors.imagepath"
-                    >{{ errors.imagepath[0] }}</span>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Update Good Practice</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Update Good Practice' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -91,21 +108,44 @@
 export default {
   name: 'EditGoodPractice',
   async asyncData({$axios, params}) {
-    let circular = await $axios.get(`/good_practices/${params.id}`)
+    let good_practices = await $axios.get(`/good_practices/${params.id}`)
     return {
-      form: circular.data.data,
+      form: good_practices.data.data,
     }
   },
+  data: () => ({
+    loading: false
+  }),
   methods: {
     async store() {
       try {
+        this.loading = true
         let admin = await this.$axios.patch(`/good_practices/${this.$route.params.id}`, this.form)
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/good-practices`)
+        this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('goodid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_good_practice_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>

@@ -38,9 +38,10 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Year</th>
                         <th>Name</th>
                         <th>Link</th>
-                        <th>Atatchment</th>
+                        <th>Attachment</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -51,12 +52,13 @@
                         <td colspan="5">Loading...</td>
                       </tr>
                       <tr v-for="(item, i) in items"
-                        :key="`item{i}`"
+                        :key="`item${i}`"
                       >
                         <td>{{ i + 1 }}</td>
+                        <td>{{ item.year }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.link }}</td>
-                        <td>{{ item.imagepath }}</td>
+                        <td><a :href="item.link" target="_blank">{{ item.link }}</a></td>
+                        <td><a :href="mediaUrl + item.imagepath" target="_blank">{{ item.imagepath }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/good-practices/${item.id}`">
                             <i class="fa fa-edit"></i>

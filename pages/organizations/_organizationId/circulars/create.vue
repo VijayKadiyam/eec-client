@@ -128,6 +128,7 @@ export default {
       month: '',
       year: ''
     },
+    loading: false
   }),
   methods: {
     async store() {
@@ -148,7 +149,7 @@ export default {
       let formData = new FormData();
       formData.append('circularid', this.form.id);
       formData.append('attachment', this.attachment);
-      await this.$axios.post('upload_circular_atttachment', formData,
+      await this.$axios.post('upload_circular_attachment', formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data'

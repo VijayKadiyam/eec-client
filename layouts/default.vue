@@ -291,22 +291,22 @@ export default {
         title: 'Utilities',
         'items': [
           {
-            name: 'Circulars', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/circulars`,
-          },
-          {
-            name: 'Good Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
-          },
-          {
-            name: 'Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
+            name: 'IMS Manuals', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
           },
           {
             name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
           },
           {
-            name: 'Manuals', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
+            name: 'Circulars', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/circulars`,
           },
           {
-            name: 'Procedures', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
+            name: 'Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
+          },
+          {
+            name: 'Good Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
+          },
+          {
+            name: 'Procedure Manuals', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
           }
         ]
       })

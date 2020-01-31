@@ -52,7 +52,7 @@
                         <td colspan="5">Loading...</td>
                       </tr>
                       <tr v-for="(circular, i) in items"
-                        :key="`circular{i}`"
+                        :key="`circular${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td>{{ circular.month }} / {{ circular.year }}</td>

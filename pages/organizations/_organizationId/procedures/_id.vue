@@ -59,17 +59,21 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
+                    <br>
+                    <a :href="mediaUrl + form.imagepath" target="_blank">{{ form.imagepath }}</a>
                     <input type="text" class="form-control" placeholder="Enter attachment"
                       v-model="form.imagepath"
                     >
-                    <span class="help-block" 
-                      v-if="errors.imagepath"
-                    >{{ errors.imagepath[0] }}</span>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Update Procedure</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Update Procedure' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -91,21 +95,42 @@
 export default {
   name: 'EditProcedure',
   async asyncData({$axios, params}) {
-    let circular = await $axios.get(`/procedures/${params.id}`)
+    let procedure = await $axios.get(`/procedures/${params.id}`)
     return {
-      form: circular.data.data,
+      form: procedure.data.data,
     }
   },
+  data: () => ({
+    loading: false
+  }),
   methods: {
     async store() {
       try {
         let admin = await this.$axios.patch(`/procedures/${this.$route.params.id}`, this.form)
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/procedures`)
       }
       catch(e) {
 
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('procedureid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_procedure_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>

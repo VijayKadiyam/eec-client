@@ -59,17 +59,16 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
-                    <input type="text" class="form-control" placeholder="Enter attachment"
-                      v-model="form.imagepath"
-                    >
-                    <span class="help-block" 
-                      v-if="errors.imagepath"
-                    >{{ errors.imagepath[0] }}</span>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Manual</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Create Manual' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -94,17 +93,39 @@ export default {
     form: {
 
     },
+    loading: false
   }),
   methods: {
     async store() {
       try {
+        this.loading = true
         let admin = await this.$axios.post(`/manuals`, this.form)
+        this.form.id = admin.data.data.id
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/manuals`)
+        this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('manualid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_manual_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>

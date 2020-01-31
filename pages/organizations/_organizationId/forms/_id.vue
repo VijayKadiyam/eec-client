@@ -59,17 +59,21 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
+                    <br>
+                    <a :href="mediaUrl + form.imagepath" target="_blank">{{ form.imagepath }}</a>
                     <input type="text" class="form-control" placeholder="Enter attachment"
                       v-model="form.imagepath"
                     >
-                    <span class="help-block" 
-                      v-if="errors.imagepath"
-                    >{{ errors.imagepath[0] }}</span>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Update Form</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Update Form' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -96,16 +100,39 @@ export default {
       form: circular.data.data,
     }
   },
+  data: () => ({
+    loading: false
+  }),
   methods: {
     async store() {
       try {
+        this.loading = true
         let admin = await this.$axios.patch(`/forms/${this.$route.params.id}`, this.form)
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/forms`)
+        this.loading = false
       }
       catch(e) {
-
+        this.loading = false
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('formid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_form_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>
