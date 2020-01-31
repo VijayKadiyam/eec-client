@@ -107,7 +107,8 @@ export default {
     },
     async del(id) {
       let r = confirm('Are you sure you want to delete the data?')
-      await this.$axios.delete(`/incident_reports/${id}`)
+      if(r)
+        await this.$axios.delete(`/incident_reports/${id}`)
       this.getData()
     }
   }

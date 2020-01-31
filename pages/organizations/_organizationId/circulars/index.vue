@@ -107,7 +107,8 @@ export default {
     },
     async del(id) {
       let r = confirm('Are you sure you want to delete the circular?')
-      await this.$axios.delete(`/circulars/${id}`)
+      if(r)
+        await this.$axios.delete(`/circulars/${id}`)
       this.getData()
     }
   }
