@@ -190,6 +190,9 @@
                     <input type="text" class="form-control" placeholder="Enter agent address"
                       v-model="form.agent_address"
                     >
+                    <span class="help-block" 
+                      v-if="errors.agent_address"
+                    >{{ errors.agent_address[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Operator Name</label>

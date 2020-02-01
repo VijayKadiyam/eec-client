@@ -222,7 +222,7 @@ export default {
             name: 'Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
           },
           {
-            name: 'Good Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
+            name: 'Best Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
           },
           {
             name: 'Risk Assessments', icon: 'fas fa-asterisk', link: `/organizations/${this.organizationId}/risk-assessments`,

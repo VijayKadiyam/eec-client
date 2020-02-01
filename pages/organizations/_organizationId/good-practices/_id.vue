@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Good Practices Details</h1>
+              <h1 class="m-0 text-dark">Best Practices Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/good-practices`">Good Practices</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/good-practices`">Best Practices</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Update</li>
               </ol>
@@ -34,7 +34,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Edit Good Practices Details</h3>
+                  <h3 class="card-title">Edit Best Practices Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -85,7 +85,7 @@
                       @click="store"
                       :disabled="loading"
                     >
-                      {{ loading ? 'Saving...' : 'Update Good Practice' }}
+                      {{ loading ? 'Saving...' : 'Update Best Practice' }}
                     </button>
                   </div>
                 </div>
