@@ -8,6 +8,7 @@
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1 class="m-0 text-dark">Policies</h1>
+              <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/policies/create`">Add New</nuxt-link>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -22,8 +23,50 @@
       </div>
       <!-- /.content-header -->
 
-      <!-- Main content -->
+       <!-- Main content -->
       <section class="content">
+        <div class="container-fluid">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div
+              v-if="loading"
+            > 
+              <td colspan="5">Loading...</td>
+            </div>
+            <div class="col-lg-3 col-6"
+              v-for="(item, i) in items"
+              :key="`item${i}`"
+              v-else
+            >
+              <div class="small-box bg-warning"
+              >
+                <div class="inner">
+                  <p>{{ item.name }}</p>
+                  <a :href="item.link" target="_blank">{{ item.link }}</a>
+                  <br>
+                  <a :href="mediaUrl + item.imagepath" target="_blank">{{ item.imagepath }}</a>
+                  <br>
+                  <nuxt-link style="color: white;" class="icon" :to="`/organizations/${organization.value}/policies/${item.id}`">
+                    <span>
+                      <i class="fa fa-edit"></i>
+                    </span>
+                  </nuxt-link>
+                  <nuxt-link style="color: white;" class="icon" to="">
+                    <span @click="del(item.id)">
+                      <i class="fa fa-trash"></i>
+                    </span>
+                  </nuxt-link>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </section>
+      <!-- /.content -->
+
+      <!-- Main content -->
+      <!-- <section class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -32,7 +75,6 @@
                   <h3 class="card-title">Manage Policies</h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/policies/create`">Add New</nuxt-link>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
                   <table class="table table-head-fixed table-striped">
                     <thead>
@@ -71,14 +113,11 @@
                     </tbody>
                   </table>
                 </div>
-                <!-- /.card-body -->
               </div>
-              <!-- /.card -->
             </div>
           </div>
-          <!-- /.row -->
         </div>
-      </section>
+      </section> -->
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
