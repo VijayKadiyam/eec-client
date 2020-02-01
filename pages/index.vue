@@ -38,7 +38,7 @@
                 <div class="icon">
                   <i class="fas fa-users"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <nuxt-link :to="`/organizations/${this.organization.value}/employees`" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></nuxt-link>
               </div>
             </div>
             <!-- ./col -->
@@ -53,7 +53,7 @@
                 <div class="icon">
                   <i class="fas fa-cogs"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <nuxt-link :to="`/organizations/${this.organization.value}/jobs`" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></nuxt-link>
               </div>
             </div>
             <!-- ./col -->
@@ -68,7 +68,7 @@
                 <div class="icon">
                   <i class="fas fa-vote-yea"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <nuxt-link :to="`/organizations/${this.organization.value}/policies`" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></nuxt-link>
               </div>
             </div>
             <!-- ./col -->
@@ -90,10 +90,51 @@
           </div>
           <!-- /.row -->
         </div>
+
+        <div class="container-fluid">
+          <div class="row justify-content-center">
+            <!-- left column -->
+            <div class="col-md-12">
+              <GmapMap
+                :center="{lat:10, lng:10}"
+                :zoom="8"
+                map-type-id="terrain"
+                style="width: 100%; height: 500px"
+              >
+                <GmapMarker
+                  :key="index"
+                  v-for="(m, index) in markers1"
+                  :position="m.position"
+                  :clickable="true"
+                  :draggable="true"
+                  @click="center=m.position"
+                  :icon="'marker1.png'"
+                />
+                <GmapMarker
+                  :key="index"
+                  v-for="(m, index) in markers2"
+                  :position="m.position"
+                  :clickable="true"
+                  :draggable="true"
+                  @click="center=m.position"
+                  :icon="'marker2.png'"
+                />
+              </GmapMap>
+            </div>
+            <!--/.col (left) -->
+          </div>
+          <!-- /.row -->
+        </div>
       </section>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+    <!-- Main content -->
+      <section class="content">
+
+      </section>
+      <!-- /.content -->
 
   </section>
 </template>
@@ -103,7 +144,41 @@
 export default {
   name: 'Dashboard', 
   data: () => ({
-    count: {}
+    count: {},
+    markers1: [
+      {
+        position: {
+          lat: 10.0,
+          lng: 10.0
+        }
+      }, 
+      {
+        position: {
+          lat: 11.0,
+          lng: 11.0
+        }
+      },
+      {
+        position: {
+          lat: 9.0,
+          lng: 9.0
+        }
+      },
+    ],
+    markers2: [
+      {
+        position: {
+          lat: 10.0,
+          lng: 9.0
+        }
+      },
+      {
+        position: {
+          lat: 9.0,
+          lng: 11.0
+        }
+      }
+    ]
   }),
   created() {
   },

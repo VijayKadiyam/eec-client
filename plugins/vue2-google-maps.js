@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import * as VueGoogleMaps from '@/node_modules/vue2-google-maps/src/main'
+// import * as VueGoogleMaps from '@/node_modules/vue2-google-maps/src/main'
+import * as VueGoogleMaps from '~/node_modules/vue2-google-maps'
  
 Vue.use(VueGoogleMaps, {
   load: {
@@ -23,5 +24,5 @@ Vue.use(VueGoogleMaps, {
   //// import {GmapMarker} from 'vue2-google-maps/src/components/marker'
   //// Vue.component('GmapMarker', GmapMarker)
   //// then disable the following:
-  // installComponents: true,
+  installComponents: true,
 })
