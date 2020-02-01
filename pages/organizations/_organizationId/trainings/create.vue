@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Incident Report Details</h1>
+              <h1 class="m-0 text-dark">Trainings Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/incident-reports`">Incident Report</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/trainings`">Trainings</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Create</li>
               </ol>
@@ -34,28 +34,19 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Incident Report Details</h3>
+                  <h3 class="card-title">Add Trainings Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter heading"
+                    <input type="text" class="form-control" placeholder="Enter Training name"
                       v-model="form.name"
                     >
                     <span class="help-block" 
                       v-if="errors.name"
                     >{{ errors.name[0] }}</span>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Date</label>
-                    <input type="text" class="form-control" placeholder="dd/mm/yyyy"
-                      v-model="form.date"
-                    >
-                    <span class="help-block" 
-                      v-if="errors.date"
-                    >{{ errors.date[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Link</label>
@@ -74,7 +65,10 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Incident Report</button>
+                      :disabled="loading"
+                    >
+                      {{ loading ? 'Saving...' : 'Add Training' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -94,7 +88,7 @@
 <script type="text/javascript">
 
 export default {
-  name: 'CreateGoodPractice',
+  name: 'CreateTraining',
   data: () => ({
     form: {
 
@@ -105,10 +99,10 @@ export default {
     async store() {
       try {
         this.loading = true
-        let admin = await this.$axios.post(`/incident_reports`, this.form)
+        let admin = await this.$axios.post(`/trainings`, this.form)
         this.form.id = admin.data.data.id
         await this.handleFileUpload()
-        this.$router.push(`/organizations/${this.organization.value}/incident-reports`)
+        this.$router.push(`/organizations/${this.organization.value}/trainings`)
         this.loading = false
       }
       catch(e) {
@@ -118,9 +112,9 @@ export default {
     async handleFileUpload() {
       this.attachment = this.$refs.file.files[0]
       let formData = new FormData();
-      formData.append('incidentid', this.form.id);
+      formData.append('trainingid', this.form.id);
       formData.append('attachment', this.attachment);
-      await this.$axios.post('upload_incident_report_attachment', formData,
+      await this.$axios.post('upload_training_attachment', formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data'

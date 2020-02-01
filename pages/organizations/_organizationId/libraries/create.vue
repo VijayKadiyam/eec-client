@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Libraries Details</h1>
+              <h1 class="m-0 text-dark">Library Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/libraries`">Libraries</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/libraries`">Library</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Create</li>
               </ol>
@@ -40,7 +40,7 @@
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
-                    <label class="form-label">Select Year</label>
+                    <label class="form-label">Edition Year</label>
                     <select class="form-control custom-select"
                       v-model="form.year"
                     >
@@ -53,8 +53,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Librariesname"
+                    <label class="form-label">Publication Name</label>
+                    <input type="text" class="form-control" placeholder="Enter publication name"
                       v-model="form.name"
                     >
                     <span class="help-block" 

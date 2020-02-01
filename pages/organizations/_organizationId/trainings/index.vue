@@ -7,14 +7,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Library</h1>
+              <h1 class="m-0 text-dark">Training</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
-                <li class="breadcrumb-item active">Library</li>
+                <li class="breadcrumb-item active">Training</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -29,8 +29,8 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Manage Library</h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/libraries/create`">Add New</nuxt-link>
+                  <h3 class="card-title">Manage Training</h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/trainings/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -38,8 +38,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
-                        <th>Edition Year</th>
-                        <th>Name of publication</th>
+                        <th>Name</th>
                         <th>Link</th>
                         <th>Attachment</th>
                         <th>Actions</th>
@@ -55,12 +54,11 @@
                         :key="`item${i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ item.year }}</td>
                         <td>{{ item.name }}</td>
                         <td><a :href="item.link" target="_blank">{{ item.link }}</a></td>
                         <td><a :href="mediaUrl + item.imagepath" target="_blank">{{ item.imagepath }}</a></td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/libraries/${item.id}`">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/trainings/${item.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
                           <nuxt-link class="icon" to="">
@@ -89,7 +87,7 @@
 
 <script type="text/javascript">
 export default {
-  name: 'ManageLibraries',
+  name: 'ManageTraining',
   data:() =>  ({
     items: [],
     loading: true
@@ -101,14 +99,14 @@ export default {
     async getData() {
       this.items = []
       this.loading = true
-      let items = await this.$axios.get(`/libraries`)
+      let items = await this.$axios.get(`/trainings`)
       this.items = items.data.data
       this.loading = false
     },
     async del(id) {
       let r = confirm('Are you sure you want to delete the data?')
       if(r)
-        await this.$axios.delete(`/libraries/${id}`)
+        await this.$axios.delete(`/trainings/${id}`)
       this.getData()
     }
   }
