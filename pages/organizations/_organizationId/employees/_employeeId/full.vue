@@ -125,6 +125,11 @@
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/relations/${rel.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delRel(rel.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </nuxt-link>
                         </td>
                       </tr>
                     </tbody>
@@ -174,6 +179,11 @@
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/emergencies/${emer.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delEme(emer.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -228,6 +238,11 @@
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/addresses/${address.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delAdd(address.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -285,6 +300,11 @@
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/${bd.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delBan(bd.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </nuxt-link>
                         </td>
                       </tr>
                     </tbody>
@@ -334,10 +354,15 @@
                         <td>{{ passport.date_of_issue }}</td>
                         <td>{{ passport.date_of_expiry }}</td>
                         <td>{{ passport.country }}</td>
-                        <td>{{ passport.attachment }}</td>
+                        <td><a :href="mediaUrl + passport.attachment" target="_blank">{{ passport.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/passports/${passport.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delPas(passport.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -388,10 +413,15 @@
                         <td>{{ visa.type_of_visa }}</td>
                         <td>{{ visa.date_of_issue }}</td>
                         <td>{{ visa.date_of_expiry }}</td>
-                        <td>{{ visa.attachment }}</td>
+                        <td><a :href="mediaUrl + visa.attachment" target="_blank">{{ visa.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/visas/${visa.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delVis(visa.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -440,10 +470,15 @@
                         <td>{{ seaman_book.date_of_issue }}</td>
                         <td>{{ seaman_book.date_of_expiry }}</td>
                         <td>{{ seaman_book.country }}</td>
-                        <td>{{ seaman_book.attachment }}</td>
+                        <td><a :href="mediaUrl + seaman_book.attachment" target="_blank">{{ seaman_book.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/${seaman_book.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delSea(seaman_book.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -490,10 +525,15 @@
                         <td>{{ vaccination.certificate_no }}</td>
                         <td>{{ vaccination.date_of_expiry }}</td>
                         <td>{{ vaccination.other_details }}</td>
-                        <td>{{ vaccination.attachment }}</td>
+                        <td><a :href="mediaUrl + vaccination.attachment" target="_blank">{{ vaccination.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/${vaccination.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delVac(vaccination.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -509,7 +549,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Sires</u></h3> &nbsp;
+                  <h3 class="card-title"><u>SIRE</u></h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/sires/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
@@ -540,10 +580,15 @@
                         <td>{{ sire.expiry_date }}</td>
                         <td>{{ sire.last_audit_date }}</td>
                         <td>{{ sire.type }}</td>
-                        <td>{{ sire.attachment }}</td>
+                        <td><a :href="mediaUrl + sire.attachment" target="_blank">{{ sire.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/sires/${sire.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delSir(sire.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -559,7 +604,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Ocimf Refresher Courses</u></h3> &nbsp;
+                  <h3 class="card-title"><u>OCIMF Refresher Courses</u></h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
@@ -590,6 +635,11 @@
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/${ocimf.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delOci(ocimf.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -642,10 +692,15 @@
                         <td>{{ medical.doctor_name }}</td>
                         <td>{{ medical.fit }}</td>
                         <td>{{ medical.remarks }}</td>
-                        <td>{{ medical.attachment }}</td>
+                        <td><a :href="mediaUrl + medical.attachment" target="_blank">{{ medical.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/${medical.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delMed(medical.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                       </tr>
@@ -695,6 +750,11 @@
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/${medical.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delMde(medical.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </nuxt-link>
                         </td>
                       </tr>
                     </tbody>
@@ -719,18 +779,140 @@
 export default {
   name: 'ManageFullDetailsOfInspector',
   async asyncData({$axios, params}) {
-    let inspector = await $axios.get(`/users/${params.employeeId}`)
-    return {
-      form: inspector.data.data
-    }
+    
   },
   data:() =>  ({
     searchData: '',
-    loading: false
+    loading: false,
+    form: {
+      roles: [],
+      relations: [], 
+      emergencies: [], 
+      bank_details: [], 
+      passports: [], 
+      addresses: [], 
+      seaman_books: [], 
+      vaccinations: [], 
+      ocimf_refresher_courses: [], 
+      visas: [], 
+      medicals: [], 
+      sires: [], 
+      medical_details: [],
+      relations: [],
+    }
   }),
-  mounted() {
+  async mounted() {
+    await this.getData()
   },
   methods: {
+    async getData() {
+      let inspector = await this.$axios.get(`/users/${this.$route.params.employeeId}`)
+      this.form = inspector.data.data
+    },
+    async delRel(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/relations/${id}`)
+        this.getData()
+      }
+    },
+    async delEme(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/emergencies/${id}`)
+        this.getData()
+      }
+    },
+    async delBank(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/bank_details/${id}`)
+        this.getData()
+      }
+    },
+    async delBan(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/bank_details/${id}`)
+        this.getData()
+      }
+    },
+    async delAdd(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/addresses/${id}`)
+        this.getData()
+      }
+    },
+    async delPas(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/passports/${id}`)
+        this.getData()
+      }
+    },
+    async delVis(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/visas/${id}`)
+        this.getData()
+      }
+    },
+    async delSea(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/seaman_books/${id}`)
+        this.getData()
+      }
+    },
+    async delVac(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/vaccinations/${id}`)
+        this.getData()
+      }
+    },
+    async delSir(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/sires/${id}`)
+        this.getData()
+      }
+    },
+    async delOci(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/ocimf_refresher_courses/${id}`)
+        this.getData()
+      }
+    },
+    async delMed(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/medicals/${id}`)
+        this.getData()
+      }
+    },
+    async delMde(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/medical_details/${id}`)
+        this.getData()
+      }
+    },
   }
 }
 </script>

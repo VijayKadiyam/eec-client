@@ -83,17 +83,13 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
-                    <input type="text" class="form-control" placeholder="Enter attachment"
-                      v-model="form.attachment"
-                    >
-                    <span class="help-block" 
-                      v-if="errors.attachment"
-                    >{{ errors.attachment[0] }}</span>
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Inspector Passport Details</button>
+                    >Create Inspector Vaccination Details</button>
                   </div>
                 </div>
               </div>
@@ -132,13 +128,34 @@ export default {
   methods: {
     async store() {
       try {
-        await this.$axios.post(`/users/${this.$route.params.employeeId}/vaccinations`, this.form)
+        let admin = await this.$axios.post(`/users/${this.$route.params.employeeId}/vaccinations`, this.form)
+        this.form.id = admin.data.data.id
+        this.form.user_id = admin.data.data.user_id
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
       }
       catch(e) {
 
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('userid', this.form.user_id);
+      formData.append('vaccinationid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_vaccination_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>

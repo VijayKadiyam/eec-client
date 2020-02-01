@@ -97,9 +97,8 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
-                    <input type="text" class="form-control" placeholder="Enter attachment"
-                      v-model="form.attachment"
-                    >
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
@@ -140,13 +139,34 @@ export default {
   methods: {
     async store() {
       try {
-        await this.$axios.post(`/users/${this.$route.params.employeeId}/medicals`, this.form)
+        let admin = await this.$axios.post(`/users/${this.$route.params.employeeId}/medicals`, this.form)
+        this.form.id = admin.data.data.id
+        this.form.user_id = admin.data.data.user_id
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
       }
       catch(e) {
 
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('userid', this.form.user_id);
+      formData.append('medicalid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_medical_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
   }
 }
 </script>

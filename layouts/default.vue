@@ -289,14 +289,14 @@ export default {
       categories.push({
         title: 'Utilities',
         'items': [
-        {
+          {
             name: 'Policies', icon: 'fas fa-vote-yea', link: `/organizations/${this.organizationId}/policies`,
           },
           {
-            name: 'IMS Manuals', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
+            name: 'IMS Manual', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
           },
           {
-            name: 'Procedure Manuals', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
+            name: 'Procedure Manual', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
           },
           {
             name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
