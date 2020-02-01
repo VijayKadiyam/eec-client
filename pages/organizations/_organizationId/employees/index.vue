@@ -122,7 +122,8 @@ export default {
     async getData() {
       this.items = []
       this.loading = true
-      let items = await this.$axios.get(`/users?role_id=3&page=1`)
+      // let items = await this.$axios.get(`/users?role_id=3&page=1`)
+      let items = await this.$axios.get(`/users?role_id=3`)
       this.items = items.data.data
       this.loading = false
     },
