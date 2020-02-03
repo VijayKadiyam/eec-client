@@ -219,7 +219,7 @@ export default {
             name: 'Campaigns', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/campaigns`,
           },
           {
-            name: 'Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
+            name: 'Near Miss / Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
           },
           {
             name: 'Best Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
@@ -241,6 +241,9 @@ export default {
           },
           {
             name: 'Trainings', icon: 'fas fa-dumbbell', link: `/organizations/${this.organizationId}/trainings`,
+          },
+          {
+            name: 'KPIs', icon: 'fas fa-key', link: `/organizations/${this.organizationId}/kpis`,
           },
         ]
       })

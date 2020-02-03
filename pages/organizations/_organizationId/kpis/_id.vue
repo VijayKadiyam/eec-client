@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Near Miss / Incident Reports Details</h1>
+              <h1 class="m-0 text-dark">KPIs Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/incident-reports`">Near Miss / Incident Reports</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/kpis`">KPIs</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Update</li>
               </ol>
@@ -34,14 +34,47 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Edit Near Miss / Incident Reports Details</h3>
+                  <h3 class="card-title">Edit KPI Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
+                    <label class="form-label">Select Month</label>
+                    <select class="form-control custom-select"
+                      v-model="form.month"
+                    >
+                      <option value="">Select Month</option>
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Select Year</label>
+                    <select class="form-control custom-select"
+                      v-model="form.year"
+                    >
+                      <option value="">Select Year</option>
+                      <option value="2016">2016</option>
+                      <option value="2017">2017</option>
+                      <option value="2018">2018</option>
+                      <option value="2019">2019</option>
+                      <option value="2020">2020</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Incident Report details"
+                    <input type="text" class="form-control" placeholder="Enter kpi name"
                       v-model="form.name"
                     >
                     <span class="help-block" 
@@ -49,22 +82,13 @@
                     >{{ errors.name[0] }}</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Date</label>
-                    <input type="text" class="form-control" placeholder="dd/mm/yyyy"
-                      v-model="form.date"
-                    >
-                    <span class="help-block" 
-                      v-if="errors.date"
-                    >{{ errors.date[0] }}</span>
-                  </div>
-                  <div class="form-group">
                     <label class="form-label">Link</label>
                     <input type="text" class="form-control" placeholder="Enter link"
                       v-model="form.link"
-                    >
-                    <span class="help-block" 
-                      v-if="errors.link"
-                    >{{ errors.link[0] }}</span>
+                      >
+                      <span class="help-block" 
+                        v-if="errors.link"
+                      >{{ errors.link[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Attachment</label>
@@ -81,7 +105,7 @@
                       @click="store"
                       :disabled="loading"
                     >
-                      {{ loading ? 'Saving...' : 'Update Near Miss / Incident Reports' }}
+                      {{ loading ? 'Saving...' : 'Update KPI' }}
                     </button>
                   </div>
                 </div>
@@ -102,11 +126,11 @@
 <script type="text/javascript">
 
 export default {
-  name: 'EditGoodPractice',
+  name: 'Editkpi',
   async asyncData({$axios, params}) {
-    let circular = await $axios.get(`/incident_reports/${params.id}`)
+    let kpi = await $axios.get(`/kpis/${params.id}`)
     return {
-      form: circular.data.data,
+      form: kpi.data.data,
     }
   },
   data: () => ({
@@ -114,33 +138,32 @@ export default {
   }),
   methods: {
     async store() {
+      this.loading = true
       try {
-        this.loading = true
-        let admin = await this.$axios.patch(`/incident_reports/${this.$route.params.id}`, this.form)
+        let admin = await this.$axios.patch(`/kpis/${this.$route.params.id}`, this.form)
         await this.handleFileUpload()
-        this.$router.push(`/organizations/${this.organization.value}/incident-reports`)
+        this.$router.push(`/organizations/${this.organization.value}/kpis`)
         this.loading = false
       }
       catch(e) {
         this.loading = false
       }
     },
+
     async handleFileUpload() {
       this.attachment = this.$refs.file.files[0]
       let formData = new FormData();
-      formData.append('incidentid', this.form.id);
+      formData.append('kpiid', this.form.id);
       formData.append('attachment', this.attachment);
-      await this.$axios.post('upload_incident_report_attachment', formData,
+      await this.$axios.post('upload_kpi_attachment', formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         }
       ).then(response => {
-        this.loading = false
       })
       .catch(function(){
-        this.loading = false
         console.log('FAILURE!!');
       });
     },

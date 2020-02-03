@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Incident Report Details</h1>
+              <h1 class="m-0 text-dark">Near Miss / Incident Report Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/incident-reports`">Incident Report</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/incident-reports`">Near Miss / Incident Reports</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Create</li>
               </ol>
@@ -34,7 +34,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Incident Report Details</h3>
+                  <h3 class="card-title">Add Near Miss / Incident Report Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -74,7 +74,7 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Incident Report</button>
+                    >Create Near Miss / Incident Reports</button>
                   </div>
                 </div>
               </div>

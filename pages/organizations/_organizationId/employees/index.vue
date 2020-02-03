@@ -82,7 +82,10 @@
                           </nuxt-link>&nbsp;&nbsp;
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}`">
                             <i class="fa fa-edit"></i>
-                          </nuxt-link>
+                          </nuxt-link>&nbsp;&nbsp;
+                          <!-- <a class="icon" target="_blank" :href="`${mediaUrl}employees/${emp.id}/pdf`">
+                            <i class="fas fa-file-pdf"></i>
+                          </a>&nbsp;&nbsp; -->
                           <nuxt-link class="icon" to="">
                             <span @click="del(emp.id)">
                               <i class="fa fa-trash"></i>

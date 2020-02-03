@@ -108,6 +108,7 @@
                       v-model="form.operation"
                     >
                       <option value="">Select operation</option>
+                      <option value="STS Loading">STS Loading</option>
                       <option value="Loading">Loading</option>
                       <option value="Discharge">Discharge</option>
                       <option value="Idle">Idle</option>
