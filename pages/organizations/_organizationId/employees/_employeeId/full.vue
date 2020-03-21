@@ -41,6 +41,7 @@
                   <table class="table table-head-fixed table-striped">
                     <thead>
                       <tr>
+                        <th>Actions</th>
                         <th>Emp ID</th>
                         <th>Photo</th>
                         <th>Name</th>
@@ -51,7 +52,6 @@
                         <th>DOB</th>
                         <th>Marital Status</th>
                         <th>Skype ID</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -61,6 +61,11 @@
                         <td colspan="10">Loading...</td>
                       </tr>
                       <tr>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
                         <td>{{ form.emp_code }}</td>
                         <td><img style="width: 50px; height: 50px;" :src="mediaUrl + (form.attachment ? form.attachment : '/user.png')"></td>
                         <td>{{ form.first_name }} {{ form.last_name }}</td>
@@ -71,11 +76,161 @@
                         <td>{{ form.dob }}</td>
                         <td>{{ form.marital_status }}</td>
                         <td>{{ form.skype_id }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Academic Qualifications -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Academic Qualifications</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/academic-qualifications/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Actions</th>
+                        <th>Exam Name</th>
+                        <th>Yr of Qualification</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="7">Loading...</td>
+                      </tr>
+                      <tr v-for="(aq, i) in form.academic_qualifications"
+                        :key="`aq{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}`">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/academic-qualifications/${aq.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delAq(aq.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </nuxt-link>
                         </td>
+                        <td>{{ aq.exam_name }}</td>
+                        <td>{{ aq.yr_of_passing }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Professional Courses -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Professional Courses</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/professional-courses/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Actions</th>
+                        <th>Name of course</th>
+                        <th>Date of issue</th>
+                        <th>Date of expiry</th>
+                        <th>Place of issue</th>
+                        <th>Attachment</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="7">Loading...</td>
+                      </tr>
+                      <tr v-for="(pc, i) in form.professional_courses"
+                        :key="`pc{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/professional-courses/${pc.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delPc(pc.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </nuxt-link>
+                        </td>
+                        <td>{{ pc.name_of_course }}</td>
+                        <td>{{ pc.date_of_issue }}</td>
+                        <td>{{ pc.date_of_expiry }}</td>
+                        <td>{{ pc.place_of_issue }}</td>
+                        <td><a :href="mediaUrl + pc.image_path" target="_blank">{{ pc.image_path }}</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+
+            <!-- Additional Qualifications -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title"><u>Additional Qualifications</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/additional-qualifications/create`">Add New</nuxt-link>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-head-fixed table-striped">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Actions</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Attachment</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-if="loading"
+                      > 
+                        <td colspan="7">Loading...</td>
+                      </tr>
+                      <tr v-for="(aq, i) in form.additional_qualifications"
+                        :key="`aq{i}`"
+                      >
+                        <td>{{ i + 1 }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/additional-qualifications/${aq.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                          <nuxt-link class="icon" to="">
+                            <span @click="delAdq(aq.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </nuxt-link>
+                        </td>
+                        <td>{{ aq.name }}</td>
+                        <td>{{ aq.description }}</td>
+                        <td><a :href="mediaUrl + aq.image_path" target="_blank">{{ aq.image_path }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -98,12 +253,12 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Relation</th>
                         <th>Address</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,11 +271,6 @@
                         :key="`rel{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ rel.first_name }} {{ rel.last_name }}</td>
-                        <td>{{ rel.email }}</td>
-                        <td>{{ rel.phone }} <br> {{ rel.alt_phone }}</td>
-                        <td>{{ rel.relation }}</td>
-                        <td>{{ rel.address_1 }}, {{ rel.address_2 }}, {{ rel.city }}, {{ rel.state }}, {{ rel.country }}, {{ rel.pincode }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/relations/${rel.id}`">
                             <i class="fa fa-edit"></i>
@@ -131,6 +281,11 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ rel.first_name }} {{ rel.last_name }}</td>
+                        <td>{{ rel.email }}</td>
+                        <td>{{ rel.phone }} <br> {{ rel.alt_phone }}</td>
+                        <td>{{ rel.relation }}</td>
+                        <td>{{ rel.address_1 }}, {{ rel.address_2 }}, {{ rel.city }}, {{ rel.state }}, {{ rel.country }}, {{ rel.pincode }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -153,12 +308,12 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Relation</th>
                         <th>Address</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -171,11 +326,6 @@
                         :key="`emer{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ emer.first_name }} {{ emer.last_name }}</td>
-                        <td>{{ emer.email }}</td>
-                        <td>{{ emer.phone }} <br> {{ emer.alt_phone }}</td>
-                        <td>{{ emer.relation }}</td>
-                        <td>{{ emer.address_1 }}, {{ emer.address_2 }}, {{ emer.city }}, {{ emer.state }}, {{ emer.country }}, {{ emer.pincode }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/emergencies/${emer.id}`">
                             <i class="fa fa-edit"></i>
@@ -186,6 +336,11 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ emer.first_name }} {{ emer.last_name }}</td>
+                        <td>{{ emer.email }}</td>
+                        <td>{{ emer.phone }} <br> {{ emer.alt_phone }}</td>
+                        <td>{{ emer.relation }}</td>
+                        <td>{{ emer.address_1 }}, {{ emer.address_2 }}, {{ emer.city }}, {{ emer.state }}, {{ emer.country }}, {{ emer.pincode }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -208,6 +363,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Address Type</th>
                         <th>Address 1</th>
                         <th>Address 2</th>
@@ -215,7 +371,6 @@
                         <th>State</th>
                         <th>Country</th>
                         <th>Pincode</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -228,13 +383,6 @@
                         :key="`address{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ address.address_type }}</td>
-                        <td>{{ address.address_1 }}</td>
-                        <td>{{ address.address_2 }}</td>
-                        <td>{{ address.city }}</td>
-                        <td>{{ address.state }}</td>
-                        <td>{{ address.country }}</td>
-                        <td>{{ address.pincode }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/addresses/${address.id}`">
                             <i class="fa fa-edit"></i>
@@ -245,6 +393,13 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ address.address_type }}</td>
+                        <td>{{ address.address_1 }}</td>
+                        <td>{{ address.address_2 }}</td>
+                        <td>{{ address.city }}</td>
+                        <td>{{ address.state }}</td>
+                        <td>{{ address.country }}</td>
+                        <td>{{ address.pincode }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -267,6 +422,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Account Type</th>
                         <th>Bank Name</th>
                         <th>Branch Name</th>
@@ -275,7 +431,6 @@
                         <th>Benificary Name</th>
                         <th>Bank Address</th>
                         <th>Remarks</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -288,14 +443,6 @@
                         :key="`bd{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ bd.account_type }}</td>
-                        <td>{{ bd.bank_name }}</td>
-                        <td>{{ bd.branch_name }}</td>
-                        <td>{{ bd.account_no }}</td>
-                        <td>{{ bd.ifsc_code }}</td>
-                        <td>{{ bd.benificiary_name }}</td>
-                        <td>{{ bd.bank_address }}</td>
-                        <td>{{ bd.remarks }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/${bd.id}`">
                             <i class="fa fa-edit"></i>
@@ -306,6 +453,14 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ bd.account_type }}</td>
+                        <td>{{ bd.bank_name }}</td>
+                        <td>{{ bd.branch_name }}</td>
+                        <td>{{ bd.account_no }}</td>
+                        <td>{{ bd.ifsc_code }}</td>
+                        <td>{{ bd.benificiary_name }}</td>
+                        <td>{{ bd.bank_address }}</td>
+                        <td>{{ bd.remarks }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -328,6 +483,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Name on Passport</th>
                         <th>Passport Number</th>
                         <th>Place of issue</th>
@@ -335,7 +491,6 @@
                         <th>Date of expiry</th>
                         <th>Country</th>
                         <th>Attachment</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -348,13 +503,6 @@
                         :key="`passport{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ passport.name_on_passport }}</td>
-                        <td>{{ passport.passport_number }}</td>
-                        <td>{{ passport.place_of_issue }}</td>
-                        <td>{{ passport.date_of_issue }}</td>
-                        <td>{{ passport.date_of_expiry }}</td>
-                        <td>{{ passport.country }}</td>
-                        <td><a :href="mediaUrl + passport.attachment" target="_blank">{{ passport.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/passports/${passport.id}`">
                             <i class="fa fa-edit"></i>
@@ -365,6 +513,13 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ passport.name_on_passport }}</td>
+                        <td>{{ passport.passport_number }}</td>
+                        <td>{{ passport.place_of_issue }}</td>
+                        <td>{{ passport.date_of_issue }}</td>
+                        <td>{{ passport.date_of_expiry }}</td>
+                        <td>{{ passport.country }}</td>
+                        <td><a :href="mediaUrl + passport.attachment" target="_blank">{{ passport.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -387,6 +542,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Country</th>
                         <th>Is Schengen</th>
                         <th>Entry Type</th>
@@ -394,7 +550,6 @@
                         <th>Date of issue</th>
                         <th>Date of expiry</th>
                         <th>Attachment</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -407,13 +562,6 @@
                         :key="`visa{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ visa.country }}</td>
-                        <td>{{ visa.is_shengen }}</td>
-                        <td>{{ visa.entry_type }}</td>
-                        <td>{{ visa.type_of_visa }}</td>
-                        <td>{{ visa.date_of_issue }}</td>
-                        <td>{{ visa.date_of_expiry }}</td>
-                        <td><a :href="mediaUrl + visa.attachment" target="_blank">{{ visa.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/visas/${visa.id}`">
                             <i class="fa fa-edit"></i>
@@ -424,6 +572,13 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ visa.country }}</td>
+                        <td>{{ visa.is_shengen }}</td>
+                        <td>{{ visa.entry_type }}</td>
+                        <td>{{ visa.type_of_visa }}</td>
+                        <td>{{ visa.date_of_issue }}</td>
+                        <td>{{ visa.date_of_expiry }}</td>
+                        <td><a :href="mediaUrl + visa.attachment" target="_blank">{{ visa.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -446,13 +601,13 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Book Number</th>
                         <th>Place of issue</th>
                         <th>Date of issue</th>
                         <th>Date of expiry</th>
                         <th>Country</th>
                         <th>Attachment</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -465,12 +620,6 @@
                         :key="`seaman_book{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ seaman_book.book_number }}</td>
-                        <td>{{ seaman_book.place_of_issue }}</td>
-                        <td>{{ seaman_book.date_of_issue }}</td>
-                        <td>{{ seaman_book.date_of_expiry }}</td>
-                        <td>{{ seaman_book.country }}</td>
-                        <td><a :href="mediaUrl + seaman_book.attachment" target="_blank">{{ seaman_book.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/${seaman_book.id}`">
                             <i class="fa fa-edit"></i>
@@ -481,6 +630,12 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ seaman_book.book_number }}</td>
+                        <td>{{ seaman_book.place_of_issue }}</td>
+                        <td>{{ seaman_book.date_of_issue }}</td>
+                        <td>{{ seaman_book.date_of_expiry }}</td>
+                        <td>{{ seaman_book.country }}</td>
+                        <td><a :href="mediaUrl + seaman_book.attachment" target="_blank">{{ seaman_book.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -503,12 +658,12 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Vaccination Type</th>
                         <th>Certificate no</th>
                         <th>Date of Expiry</th>
                         <th>Other Details</th>
                         <th>Attachment</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -521,11 +676,6 @@
                         :key="`vaccination{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ vaccination.vaccination_type }}</td>
-                        <td>{{ vaccination.certificate_no }}</td>
-                        <td>{{ vaccination.date_of_expiry }}</td>
-                        <td>{{ vaccination.other_details }}</td>
-                        <td><a :href="mediaUrl + vaccination.attachment" target="_blank">{{ vaccination.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/${vaccination.id}`">
                             <i class="fa fa-edit"></i>
@@ -536,6 +686,11 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ vaccination.vaccination_type }}</td>
+                        <td>{{ vaccination.certificate_no }}</td>
+                        <td>{{ vaccination.date_of_expiry }}</td>
+                        <td>{{ vaccination.other_details }}</td>
+                        <td><a :href="mediaUrl + vaccination.attachment" target="_blank">{{ vaccination.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -558,12 +713,12 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>ID Number</th>
                         <th>Expiry Date</th>
                         <th>Last Audit Date</th>
                         <th>Type</th>
                         <th>Attachment</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -576,11 +731,6 @@
                         :key="`sire{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ sire.id_number }}</td>
-                        <td>{{ sire.expiry_date }}</td>
-                        <td>{{ sire.last_audit_date }}</td>
-                        <td>{{ sire.type }}</td>
-                        <td><a :href="mediaUrl + sire.attachment" target="_blank">{{ sire.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/sires/${sire.id}`">
                             <i class="fa fa-edit"></i>
@@ -591,6 +741,11 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ sire.id_number }}</td>
+                        <td>{{ sire.expiry_date }}</td>
+                        <td>{{ sire.last_audit_date }}</td>
+                        <td>{{ sire.type }}</td>
+                        <td><a :href="mediaUrl + sire.attachment" target="_blank">{{ sire.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -613,10 +768,10 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Name of Course</th>
                         <th>Course Date</th>
                         <th>Place of Course</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -629,9 +784,6 @@
                         :key="`ocimf{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ ocimf.name_of_course }}</td>
-                        <td>{{ ocimf.course_date }}</td>
-                        <td>{{ ocimf.place_of_course }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/${ocimf.id}`">
                             <i class="fa fa-edit"></i>
@@ -642,6 +794,9 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ ocimf.name_of_course }}</td>
+                        <td>{{ ocimf.course_date }}</td>
+                        <td>{{ ocimf.place_of_course }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -664,6 +819,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Report Number</th>
                         <th>Issue Date</th>
                         <th>Place of Issue</th>
@@ -672,7 +828,6 @@
                         <th>Medically Fit</th>
                         <th>Remarks</th>
                         <th>Attachment</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -685,14 +840,6 @@
                         :key="`medical{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ medical.report_number }}</td>
-                        <td>{{ medical.issue_date }}</td>
-                        <td>{{ medical.place_of_issue }}</td>
-                        <td>{{ medical.date_of_expiry }}</td>
-                        <td>{{ medical.doctor_name }}</td>
-                        <td>{{ medical.fit }}</td>
-                        <td>{{ medical.remarks }}</td>
-                        <td><a :href="mediaUrl + medical.attachment" target="_blank">{{ medical.attachment }}</a></td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/${medical.id}`">
                             <i class="fa fa-edit"></i>
@@ -703,6 +850,14 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ medical.report_number }}</td>
+                        <td>{{ medical.issue_date }}</td>
+                        <td>{{ medical.place_of_issue }}</td>
+                        <td>{{ medical.date_of_expiry }}</td>
+                        <td>{{ medical.doctor_name }}</td>
+                        <td>{{ medical.fit }}</td>
+                        <td>{{ medical.remarks }}</td>
+                        <td><a :href="mediaUrl + medical.attachment" target="_blank">{{ medical.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -725,11 +880,11 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Any Medicine Intake On Regular Basis</th>
                         <th>Have You Undergone Any Surgery In The Past</th>
                         <th>Have You Consulted A Doctor During The Last 12 Months For Any Illness Or Accident </th>
                         <th>Have You Ever Been Tested Positive For Any Drug And Alcohol Test</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -742,10 +897,6 @@
                         :key="`medical{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ medical.any_medical_intake }}</td>
-                        <td>{{ medical.any_surgery_in_past }}</td>
-                        <td>{{ medical.last_12_months_consulting }}</td>
-                        <td>{{ medical.positive_of_alcohol_test }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/${medical.id}`">
                             <i class="fa fa-edit"></i>
@@ -756,6 +907,10 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ medical.any_medical_intake }}</td>
+                        <td>{{ medical.any_surgery_in_past }}</td>
+                        <td>{{ medical.last_12_months_consulting }}</td>
+                        <td>{{ medical.positive_of_alcohol_test }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -808,6 +963,30 @@ export default {
     async getData() {
       let inspector = await this.$axios.get(`/users/${this.$route.params.employeeId}`)
       this.form = inspector.data.data
+    },
+    async delAq(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/academic_qualifications/${id}`)
+        this.getData()
+      }
+    },
+    async delPc(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/professional_courses/${id}`)
+        this.getData()
+      }
+    },
+    async delAdq(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+      {
+        await this.$axios.delete(`/users/${this.$route.params.employeeId}/additional_qualifications/${id}`)
+        this.getData()
+      }
     },
     async delRel(id) {
       let r = confirm('Are you sure you want to delete the data?')

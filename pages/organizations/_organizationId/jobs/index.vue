@@ -27,7 +27,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search by port name">
+              <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search here...">
               <a href="#" @click="getData">Refresh</a>
               <br>
               <div class="card">
@@ -41,6 +41,7 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Vessel Name</th>
                         <th>Vessel Type</th>
                         <th>Vessel Details</th>
@@ -61,7 +62,6 @@
                         <th>Operator Phone</th>
                         <th>Operator Email</th>
                         <th>Oil Major</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -74,6 +74,11 @@
                         :key="`job{i}`"
                       >
                         <td>{{ i + 1 }}</td>
+                        <td class="w-1">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/jobs/${job.id}`">
+                            <i class="fa fa-edit"></i>
+                          </nuxt-link>
+                        </td>
                         <td>{{ job.vessel_name }}</td>
                         <td>{{ job.vessel_type }}</td>
                         <td>{{ job.other_detail }}</td>
@@ -94,11 +99,6 @@
                         <td>{{ job.operator_phone }}, {{ job.operator_phone_2 }}</td>
                         <td>{{ job.operator_email }}</td>
                         <td>{{ job.oil_major }}</td>
-                        <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/jobs/${job.id}`">
-                            <i class="fa fa-edit"></i>
-                          </nuxt-link>
-                        </td>
                       </tr>
                     </tbody>
                   </table>

@@ -41,18 +41,14 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Photo</th>
-                        <th>Emp ID</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Gender</th>
-                        <th>Age</th>
-                        <th>DOB</th>
-                        <th>Marital Status</th>
-                        <th>Skype ID</th>
+                        <th>Location</th>
+                        <th>Type of Accredition</th>
                         <th>Remarks</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -65,17 +61,6 @@
                         :key="`emp{i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td><img style="width: 50px; height: 50px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')"></td>
-                        <td>{{ emp.emp_code }}</td>
-                        <td>{{ emp.first_name }} {{ emp.middle_name }} {{ emp.last_name }}</td>
-                        <td>{{ emp.email }}, {{ emp.email_2 }}</td>
-                        <td>{{ emp.phone }}, {{ emp.phone_2 }}</td>
-                        <td>{{ emp.gender }}</td>
-                        <td>{{ emp.age }}</td>
-                        <td>{{ emp.dob }}</td>
-                        <td>{{ emp.marital_status }}</td>
-                        <td>{{ emp.skype_id }}</td>
-                        <td>{{ emp.remarks }}</td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}/full`">
                             <i class="fas fa-eye"></i>
@@ -83,15 +68,26 @@
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>&nbsp;&nbsp;
-                          <!-- <a class="icon" target="_blank" :href="`${mediaUrl}employees/${emp.id}/pdf`">
+                          <a class="icon" target="_blank" :href="`${baseUrl}users/${emp.id}/download`">
                             <i class="fas fa-file-pdf"></i>
-                          </a>&nbsp;&nbsp; -->
+                          </a>&nbsp;&nbsp;
                           <nuxt-link class="icon" to="">
                             <span @click="del(emp.id)">
                               <i class="fa fa-trash"></i>
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>
+                          <img style="width: 50px; height: 50px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')">
+                          <br>
+                          {{ emp.emp_code }}
+                        </td>
+                        <td>{{ emp.first_name }} {{ emp.middle_name }} {{ emp.last_name }}</td>
+                        <td>{{ emp.email }}, {{ emp.email_2 }}</td>
+                        <td>{{ emp.phone }}, {{ emp.phone_2 }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ emp.remarks }}</td>
                       </tr>
                     </tbody>
                   </table>

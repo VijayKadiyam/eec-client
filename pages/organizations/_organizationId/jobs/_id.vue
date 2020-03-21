@@ -108,9 +108,21 @@
                       v-model="form.operation"
                     >
                       <option value="">Select operation</option>
-                      <option value="Loading">Loading</option>
-                      <option value="Discharge">Discharge</option>
+                      <option value="">Select operation</option>
+                      <option value="At anchor">At anchor</option>
+                      <option value="At Sea">At Sea</option>
+                      <option value="Bunkering">Bunkering</option>
+                      <option value="Ballasting">Ballasting</option>
+                      <option value="Cooling Down">Cooling Down</option>
+                      <option value="Deballasting">Deballasting</option>
+                      <option value="Discharging">Discharging</option>
+                      <option value="Gassing Up">Gassing Up</option>
+                      <option value="In Drydock">In Drydock</option>
                       <option value="Idle">Idle</option>
+                      <option value="River Transit">River Transit</option>
+                      <option value="Repairs Afloat">Repairs Afloat</option>
+                      <option value="STS Loading">STS Loading</option>
+                      <option value="STS Discharging">STS Discharging</option>
                     </select>
                     <span class="help-block" 
                       v-if="errors.operation"
@@ -251,6 +263,7 @@
                       <option value="EQUINOR">EQUINOR</option>
                       <option value="IDEMITSU">IDEMITSU</option>
                       <option value="IMT">IMT</option>
+                      <option value="KOCH">KOCH</option>
                       <option value="KMG">KMG</option>
                       <option value="NAYARA">NAYARA</option>
                       <option value="NESTE">NESTE</option>

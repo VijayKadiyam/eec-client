@@ -97,7 +97,9 @@
         <div class="float-right d-none d-sm-block">
           <img :src="organization.logo_path ? (mediaUrl + organization.logo_path) : '/dist/img/AdminLTELogo.png'" alt="Logo" style="width: 50px; height: 50px;">
         </div>
-        <strong>Copyright &copy; 2019 <a href="https://www.aaibuzz.com">AaiBuzz</a>.</strong> <b>Version</b> 1.0.0
+        <strong>Copyright &copy; <a href="https://www.aaibuzz.com">Aethon</a></strong>
+        |
+        <strong>Developed By <a href="https://www.aaibuzz.com">AaiBuzz</a>.</strong> <b>Version</b> 1.0.0
       </footer>
 
       <!-- Control Sidebar -->
@@ -109,7 +111,7 @@
     <!-- ./wrapper -->
   </section>
   <section v-else>
-    <nuxt></nuxt>
+      <nuxt></nuxt>
   </section>
 </template>
 
@@ -191,6 +193,9 @@ export default {
         'items': [
           {
             name: 'Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/jobs`,
+          },
+          {
+            name: 'Assign Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/assign-jobs`,
           }
         ]
       })
@@ -267,5 +272,15 @@ export default {
   }
   .ck-editor__editable {
     min-height: 500px;
+  }
+
+  .content-wrapper, .login-page {
+    background: url('/background.jpg');
+    background-repeat: no-repeat; 
+    background-size: cover;
+  }
+
+  .text-dark, li, .login-logo a {
+    color: white !important;
   }
 </style>
