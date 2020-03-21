@@ -12,7 +12,7 @@ const Settings = {
           darkStatus: 'settings/darkStatus',
           organization: 'settings/organization',
           mediaUrl: 'settings/mediaUrl',
-          baseUrl: 'settings/baseUrl',
+          // baseUrl: 'settings/baseUrl',
         })
       }
     })
