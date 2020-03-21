@@ -8,7 +8,7 @@ export const state = () => ({
     time_zone: '',
     logo_path: ''
   },
-  mediaUrl: 'http://api.aethon.aaibuzz.com/storage/'
+  mediaUrl: 'http://api.aethon.aaibuzz.com/storage/',
   baseUrl: 'http://api.aethon.aaibuzz.com/api/'
   // mediaUrl: 'http://localhost:8080/storage/',
   // baseUrl: 'http://localhost:8080/api/'
