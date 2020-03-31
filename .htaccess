@@ -1,9 +1,5 @@
 RewriteEngine On
 RewriteCond %{SERVER_PORT} 80
   RewriteRule "(.*\.(jpg|gif|png|svg|js|css))$" "http://localhost:3008/$1" [P,NC]
-
-RewriteCond %{HTTP_HOST} ^web\.aethon\.aaibuzz\.com$ [NC]
-  RewriteRule ^(.*) "http\:\/\/localhost:3008\/" [P,L]
-
-RewriteCond %{REQUEST_URI} !^web\.aethon\.aaibuzz\.com$ [NC]
-  RewriteRule ^(.*) "http\:\/\/localhost:3008\/$1" [P,L]
+RewriteRule ^(.*) "http\:\/\/localhost:3008\/$1" [P,L]
+RewriteRule ^/?$ "http\:\/\/localhost:3008\/" [P,L]
