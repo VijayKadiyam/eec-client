@@ -1,8 +1,8 @@
 #!/bin/bash
 cd ~/public_html/aethon-client/
 
-npm run generate
+npm run build
 
-# pm2 delete aethon 
+pm2 delete aethon 
 
-# pm2 start npm --name aethon -- start
+pm2 start npm --name aethon -- start
