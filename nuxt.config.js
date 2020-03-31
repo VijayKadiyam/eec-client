@@ -81,7 +81,7 @@ module.exports = {
     redirect: {
       login: '/auth/login',
       logout: '/auth/login',
-      home: '/'
+      home: '/settings'
     }
   },
 
