@@ -195,8 +195,38 @@ export default {
             name: 'Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/jobs`,
           },
           {
-            name: 'Assign Jobs', icon: 'fas fa-cogs', link: `/organizations/${this.organizationId}/assign-jobs`,
+            name: 'Assign Jobs', icon: 'fas fa-user-cog', link: `/organizations/${this.organizationId}/assign-jobs`,
           }
+        ]
+      })
+      categories.push({
+        title: 'Reports',
+        'items': [
+          {
+            name: 'Job Reports', icon: 'fas fa-flag', link: `/organizations/${this.organizationId}/job-reports`,
+          },
+        ]
+      })
+      categories.push({
+        title: 'User',
+        'items': [
+          {
+            name: 'Leaves', icon: 'fas fa-mug-hot', link: `/organizations/${this.organizationId}/leaves`,
+          },
+          // {
+          //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,
+          // },
+        ]
+      })
+      categories.push({
+        title: 'Features',
+        'items': [
+          {
+            name: 'Whistle Blowers', icon: 'fas fa-headset', link: `/organizations/${this.organizationId}/whistle-blowers`,
+          },
+          // {
+          //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,
+          // },
         ]
       })
       categories.push({
@@ -275,12 +305,13 @@ export default {
   }
 
   .content-wrapper, .login-page {
-    background: url('/background.jpg');
+    background: url('/background1.jpg');
     background-repeat: no-repeat; 
     background-size: cover;
   }
 
-  .text-dark, li, .login-logo a {
+  .text-dark, .breadcrumb-item, .login-logo a {
     color: white !important;
   }
+</style>
 </style>

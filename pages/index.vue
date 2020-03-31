@@ -102,8 +102,8 @@
                 style="width: 100%; height: 500px"
               >
                 <GmapMarker
-                  :key="index"
                   v-for="(m, index) in markers1"
+                  :key="`m${index}`"
                   :position="m.position"
                   :clickable="true"
                   :draggable="true"
@@ -111,8 +111,8 @@
                   :icon="'marker1.png'"
                 />
                 <GmapMarker
-                  :key="index"
                   v-for="(m, index) in markers2"
+                  :key="`index${index}`"
                   :position="m.position"
                   :clickable="true"
                   :draggable="true"

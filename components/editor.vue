@@ -1,5 +1,7 @@
 <template>
-  <ckeditor :editor="editor" v-model="html" :config="editorConfig"></ckeditor>
+  <section>
+    <ckeditor :editor="editor" v-model="html" :config="editorConfig"></ckeditor>
+  </section>
 </template>
 
 <script type="text/javascript">
@@ -21,7 +23,8 @@ export default {
   }),
   props: ['data'],
   watch: { 
-    'html' : 'updateHtml'
+    'html' : 'updateData',
+    'data' : 'updateHtml'
   },
   created() {
     this.html = this.data
@@ -32,9 +35,12 @@ export default {
     this.editor = ClassicEditor
   },
   methods: {
-    updateHtml() {
+    updateData() {
       this.$emit('updateHtml', this.html)
-    }
+    },
+    updateHtml() {
+      this.html = this.data
+    },
   }
 }
 </script>

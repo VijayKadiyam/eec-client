@@ -62,8 +62,10 @@ module.exports = {
     '@/plugins/mixins/settings',
     '@/plugins/axios',
     '@/plugins/charts',
+    '@/plugins/vue-select',
     { src: '@/plugins/vue-json-excel', ssr: false },
-    { src: "@/plugins/vue2-google-maps.js", ssr: false}
+    { src: "@/plugins/vue2-google-maps.js", ssr: false},
+    { src: '@/plugins/datepicker', ssr: false }
   ],
 
   auth: {
@@ -91,22 +93,12 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth'
   ],
-  /*
-  ** Axios module configuration
-  */
-  // axios: {
-  //   baseURL: 'http://localhost:8080/api'
-  // },
+
   axios: {
-    // baseURL: 'http://aaibuzz.com:8088/api'
-    // baseURL: 'http://localhost:8080/api'
-    baseURL: 'http://api.aethon.aaibuzz.com/api'
+    // baseURL: 'http://api.aethon.aaibuzz.com/api'
+    baseURL: 'http://localhost:8080/api'
   },
   
-
-  /*
-  ** Build configuration
-  */
   build: {
     /*
     ** You can extend webpack config here

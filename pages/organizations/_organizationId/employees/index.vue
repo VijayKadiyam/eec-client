@@ -58,7 +58,7 @@
                         <td colspan="13">Loading...</td>
                       </tr>
                       <tr v-for="(emp, i) in items"
-                        :key="`emp{i}`"
+                        :key="`emp${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -68,7 +68,7 @@
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>&nbsp;&nbsp;
-                          <a class="icon" target="_blank" :href="`${baseUrl}users/${emp.id}/download`">
+                          <a class="icon" target="_blank" :href="`${baseUrl}/users/${emp.id}/download`">
                             <i class="fas fa-file-pdf"></i>
                           </a>&nbsp;&nbsp;
                           <nuxt-link class="icon" to="">
@@ -85,7 +85,7 @@
                         <td>{{ emp.first_name }} {{ emp.middle_name }} {{ emp.last_name }}</td>
                         <td>{{ emp.email }}, {{ emp.email_2 }}</td>
                         <td>{{ emp.phone }}, {{ emp.phone_2 }}</td>
-                        <td></td>
+                        <td>{{ emp.addresses.length ? emp.addresses[0].country : '' }}</td>
                         <td></td>
                         <td>{{ emp.remarks }}</td>
                       </tr>
