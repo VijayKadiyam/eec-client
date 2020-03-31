@@ -305,9 +305,9 @@ export default {
   }
 
   .content-wrapper, .login-page {
-    background: url('/background1.jpg');
-    background-repeat: no-repeat; 
-    background-size: cover;
+    background: url('/background1.jpg') !important;
+    background-repeat: no-repeat !important; 
+    background-size: cover !important;
   }
 
   .text-dark, .breadcrumb-item, .login-logo a {
