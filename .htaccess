@@ -4,6 +4,3 @@ RewriteCond %{SERVER_PORT} 80
 
 RewriteCond %{REQUEST_URI} ^/?$ [NC]
   RewriteRule ^(.*) "http\:\/\/localhost:3008\/" [P,L]
-
-RewriteCond %{REQUEST_URI} !^(/*)$ [NC]
-  RewriteRule ^(.*) "http\:\/\/localhost:3008\/$1" [P,L]
