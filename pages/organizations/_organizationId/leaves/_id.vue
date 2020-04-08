@@ -15,9 +15,9 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/leaves`">Leaves</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/leaves`">Leavess</nuxt-link>
                 </li>
-                <li class="breadcrumb-item active">Create</li>
+                <li class="breadcrumb-item active">Update</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -107,7 +107,13 @@ import moment from 'moment'
 import 'vue-select/dist/vue-select.css';
 
 export default {
-  name: 'CreateUserLeave',
+  name: 'UpdateUserLeave',
+  async asyncData({$axios, params, query}) {
+    let leaves = await $axios.get(`/users/${query.userId}/user_leaves/${params.id}`)
+    return {
+      form: leaves.data.data,
+    }
+  },
   data: () => ({
     form: {
       user_id: '',
@@ -119,6 +125,7 @@ export default {
     users: []
   }),
   async mounted() {
+    this.form.user_id = parseInt(this.form.user_id)
     await this.getUsers()
   },
   methods: {
@@ -150,7 +157,7 @@ export default {
       try {
         this.loading = true
         // this.form.user_id = this.user.id
-        await this.$axios.post(`/users/${this.form.user_id}/user_leaves`, this.form)
+        await this.$axios.patch(`/users/${this.form.user_id}/user_leaves/${this.$route.params.id}`, this.form)
         this.$router.push(`/organizations/${this.organization.value}/leaves`)
         this.loading = false
       }

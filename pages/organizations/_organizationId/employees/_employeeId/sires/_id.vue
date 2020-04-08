@@ -51,7 +51,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Expiry Date</label>
-                    <input type="text" class="form-control" placeholder="Enter expiry date"
+                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.expiry_date"
                     >
                     <span class="help-block" 
@@ -60,7 +60,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Last Audit Date</label>
-                    <input type="text" class="form-control" placeholder="Enter last audit date"
+                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.last_audit_date"
                     >
                     <span class="help-block" 

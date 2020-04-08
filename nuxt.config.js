@@ -25,7 +25,12 @@ module.exports = {
       { src: '/plugins/bootstrap/js/bootstrap.bundle.min.js' },
       { src: '/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' },
       { src: '/plugins/inputmask/min/jquery.inputmask.bundle.min.js' },
-      { src: '/dist/js/adminlte.min.js' },
+      { src: '/plugins/jquery-mousewheel/jquery.mousewheel.js' },
+      { src: '/plugins/raphael/raphael.min.js' },
+      { src: '/plugins/jquery-mapael/jquery.mapael.min.js' },
+      { src: '/plugins/jquery-mapael/maps/usa_states.min.js' },
+      { src: '/plugins/chart.js/Chart.min.js' },
+      { src: '/dist/js/pages/dashboard2.js' },
       { src: '/dist/js/demo.js' },
     ]
   },
@@ -63,6 +68,7 @@ module.exports = {
     '@/plugins/axios',
     '@/plugins/charts',
     '@/plugins/vue-select',
+    '@/plugins/mask',
     { src: '@/plugins/vue-json-excel', ssr: false },
     { src: "@/plugins/vue2-google-maps.js", ssr: false},
     { src: '@/plugins/datepicker', ssr: false }
@@ -95,8 +101,8 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: 'http://api.aethon.aaibuzz.com/api'
-    // baseURL: 'http://localhost:8080/api'
+    // baseURL: 'http://api.aethon.aaibuzz.com/api'
+    baseURL: 'http://localhost:8080/api'
   },
   
   build: {

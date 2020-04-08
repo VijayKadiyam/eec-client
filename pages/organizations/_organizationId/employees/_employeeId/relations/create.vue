@@ -69,32 +69,35 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Phone</label>
-                    <input type="number" class="form-control" placeholder="Enter phone"
-                      v-model="form.phone"
-                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">+91</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Enter phone" v-mask="'##########'" v-model="form.phone">
+                    </div>
                     <span class="help-block" 
                       v-if="errors.phone"
                     >{{ errors.phone[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Alternate Phone</label>
-                    <input type="number" class="form-control" placeholder="Enter alternate phone"
-                      v-model="form.alt_phone"
-                    >
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">+91</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Enter alternate phone"
+                        v-model="form.alt_phone" 
+                        v-mask="'##########'" 
+                      >
+                    </div>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Relation</label>
-                    <select class="form-control custom-select"
-                      v-model="form.relation"
-                    >
-                      <option value="">Select Relation</option>
-                      <option value="Father">Father</option>
-                      <option value="Mother">Mother</option>
-                      <option value="Wife">Wife</option>
-                      <option value="Son">Son</option>
-                      <option value="Daughter">Daughter</option>
-                      <option value="Friend">Friend</option>
-                    </select>
+                    <v-select 
+                      v-model="form.relation" 
+                      :reduce="relation => relation.code" 
+                      :options="relations"
+                    ></v-select>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Address 1</label>
@@ -163,6 +166,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import 'vue-select/dist/vue-select.css';
 
 export default {
   name: 'CreateInspectorRelation',
@@ -183,6 +187,14 @@ export default {
       active: 1,
       role_id: ''
     },
+    relations: [
+      {'label': "Select Relation", 'code': ""},
+      {'label': "Father", 'code': "Father"},
+      {'label': "Wife", 'code': "Wife"},
+      {'label': "Son", 'code': "Son"},
+      {'label': "Daughter", 'code': "Daughter"},
+      {'label': "Friend", 'code': "Friend"},
+    ],
   }),
   mounted() {
     this.form.role_id = 3;

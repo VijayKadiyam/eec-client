@@ -38,6 +38,9 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Inspector</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
                         <th>Description</th>
                         <th>Actions</th>
                       </tr>
@@ -52,9 +55,8 @@
                         :key="`item${i}`"
                       >
                         <td>{{ i + 1 }}</td>
-                        <td>{{ item.description }}</td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/leaves/${item.id}`">
+                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/leaves/${item.id}?userId=${item.user_id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
                           <nuxt-link class="icon" to="">
@@ -63,6 +65,10 @@
                             </span>
                           </nuxt-link>
                         </td>
+                        <td>{{ item.user.first_name + ' ' + item.user.last_name }}</td>
+                        <td>{{ item.from_date }}</td>
+                        <td>{{ item.to_date }}</td>
+                        <td>{{ item.description }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -95,14 +101,14 @@ export default {
     async getData() {
       this.items = []
       this.loading = true
-      let items = await this.$axios.get(`/whistle_blowers`)
+      let items = await this.$axios.get(`/user_leaves?search=all`)
       this.items = items.data.data
       this.loading = false
     },
     async del(id) {
       let r = confirm('Are you sure you want to delete the data?')
       if(r)
-        await this.$axios.delete(`/whistle_blowers/${id}`)
+        await this.$axios.delete(`/user_leaves/${id}`)
       this.getData()
     }
   }

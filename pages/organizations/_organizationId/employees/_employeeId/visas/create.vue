@@ -42,31 +42,11 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label class="form-label">Country</label>
-                    <select class="form-control custom-select"
-                      v-model="form.country"
-                    >
-                      <option value="">Select Country</option>
-                      <option value="Australia">Australia</option>
-                      <option value="China">China</option>
-                      <option value="Egypt">Egypt</option>
-                      <option value="Hong Kong">Hong Kong</option>
-                      <option value="Iran">Iran</option>
-                      <option value="Indonesia">Indonesia</option>
-                      <option value="Japan">Japan</option>
-                      <option value="Malaysia">Malaysia</option>
-                      <option value="New Zealand">New Zealand</option>
-                      <option value="Korea">Korea</option>
-                      <option value="Phillipines">Phillipines</option>
-                      <option value="Singaport">Singaport</option>
-                      <option value="Schengen">Schengen</option>
-                      <option value="Saudi">Saudi</option>
-                      <option value="Turkey">Turkey</option>
-                      <option value="Taiwan">Taiwan</option>
-                      <option value="US">US</option>
-                      <option value="UAE">UAE</option>
-                      <option value="UK">UK</option>
-                      <option value="Vietnam">Vietnam</option>
-                    </select>
+                    <v-select 
+                      v-model="form.country" 
+                      :reduce="country => country.code" 
+                      :options="countries"
+                    ></v-select>
                     <span class="help-block" 
                       v-if="errors.country"
                     >{{ errors.country[0] }}</span>
@@ -99,7 +79,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of issue</label>
-                    <input type="text" class="form-control" placeholder="Enter date of issue"
+                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.date_of_issue"
                     >
                     <span class="help-block" 
@@ -108,7 +88,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
-                    <input type="text" class="form-control" placeholder="Enter date of expiry"
+                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.date_of_expiry"
                     >
                     <span class="help-block" 
@@ -123,7 +103,7 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Inspector Passport Details</button>
+                    >Create Inspector Visa Details</button>
                   </div>
                 </div>
               </div>
@@ -142,6 +122,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import 'vue-select/dist/vue-select.css';
 
 export default {
   name: 'CreateInspectorPassportDetails',
@@ -157,6 +138,29 @@ export default {
       entry_type: '',
       type_of_visa: ''
     },
+    countries: [
+      {'label': "Select Country", 'code': ""},
+      {'label': "Australia", 'code': "Australia"},
+      {'label': "China", 'code': "China"},
+      {'label': "Egypt", 'code': "Egypt"},
+      {'label': "Hong Kong", 'code': "Hong Kong"},
+      {'label': "Iran", 'code': "Iran"},
+      {'label': "Indonesia", 'code': "Indonesia"},
+      {'label': "Japan", 'code': "Japan"},
+      {'label': "Malaysia", 'code': "Malaysia"},
+      {'label': "New Zealand", 'code': "New Zealand"},
+      {'label': "Korea", 'code': "Korea"},
+      {'label': "Phillipines", 'code': "Phillipines"},
+      {'label': "Singapore", 'code': "Singapore"},
+      {'label': "Schengen", 'code': "Schengen"},
+      {'label': "Saudi", 'code': "Saudi"},
+      {'label': "Turkey", 'code': "Turkey"},
+      {'label': "Taiwan", 'code': "Taiwan"},
+      {'label': "US", 'code': "US"},
+      {'label': "UAE", 'code': "UAE"},
+      {'label': "UK", 'code': "UK"},
+      {'label': "Vietnam", 'code': "Vietnam"},
+    ],
   }),
   mounted() {
     this.form.role_id = 3;

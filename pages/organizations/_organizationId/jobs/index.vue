@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-12">
               <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search here...">
-              <a href="#" @click="getData">Refresh</a>
+              <a class="refresh" href="#" @click="getData">Refresh</a>
               <br>
               <div class="card">
                 <div class="card-header">
@@ -79,6 +79,11 @@
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${organization.value}/jobs/${job.id}`">
                             <i class="fa fa-edit"></i>
+                          </nuxt-link>&nbsp;&nbsp;
+                          <nuxt-link class="icon" to="">
+                            <span @click="del(job.id)">
+                              <i class="fa fa-trash"></i>
+                            </span>
                           </nuxt-link>
                         </td>
                         <td>
@@ -173,6 +178,12 @@ export default {
         this.items = items.data.data
         this.loading = false
       }
+    },
+    async del(id) {
+      let r = confirm('Are you sure you want to delete the data?')
+      if(r == true)
+        await this.$axios.delete(`/jobs/${id}`)
+      this.getData()
     }
   }
 }

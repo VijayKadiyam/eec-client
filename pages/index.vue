@@ -183,8 +183,8 @@ export default {
   created() {
   },
   async mounted() {
-    let count = await this.$axios.get('/count')
-    this.count = count.data.data
+    // let count = await this.$axios.get('/count')
+    // this.count = count.data.data
   }
 }
 </script>

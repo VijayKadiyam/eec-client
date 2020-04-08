@@ -55,7 +55,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Course Date</label>
-                    <input type="text" class="form-control" placeholder="Enter course date"
+                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.course_date"
                     >
                     <span class="help-block" 

@@ -62,7 +62,7 @@
                   v-for="(item, j) in category.items"
                   :key="item.id"
                 >
-                  <nuxt-link :to="item.link" :class="`nav-link ${$route.path == item.link ? 'active' : ''}`">
+                  <nuxt-link :target="item.target" :to="item.link" :class="`nav-link ${$route.path == item.link ? 'active' : ''}`">
                     <i :class="`nav-icon far ${item.icon}`"></i>
                     <p>
                       {{ item.name }}
@@ -156,7 +156,7 @@ export default {
         // title: 'Dashboard',
         'items': [
           {
-            name: 'Home', icon: 'fa-envelope', link: '/',
+            name: 'Home', icon: 'fa-envelope', link: '/index2', target:"_blank",
             // sub1Items: [
             //   { name: 'D1', link: '/a' },
             //   { name: 'D2', link: '/b' }
@@ -223,6 +223,28 @@ export default {
         'items': [
           {
             name: 'Whistle Blowers', icon: 'fas fa-headset', link: `/organizations/${this.organizationId}/whistle-blowers`,
+          },
+          // {
+          //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,
+          // },
+        ]
+      })
+      categories.push({
+        title: 'Operations',
+        'items': [
+          {
+            name: 'Ticketing', icon: 'fas fa-headset', link: `/organizations/${this.organizationId}/tickets`,
+          },
+          // {
+          //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,
+          // },
+        ]
+      })
+      categories.push({
+        title: 'Accounts',
+        'items': [
+          {
+            name: 'Job Invoices', icon: 'fas fa-headset', link: `/organizations/${this.organizationId}/job-invoices`,
           },
           // {
           //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,
@@ -305,13 +327,23 @@ export default {
   }
 
   .content-wrapper, .login-page {
-    background: url('/background1.jpg') !important;
+    background: url('/background1.jpeg') !important;
     background-repeat: no-repeat !important; 
     background-size: cover !important;
   }
 
-  .text-dark, .breadcrumb-item, .login-logo a {
+  .text-dark, .breadcrumb-item, .breadcrumb-item a, .login-logo a, .refresh {
     color: white !important;
   }
+
+  .table td, .table th {
+    padding: 0.4rem !important;
+  }
+
+  body {
+    font-size: 0.9rem;
+  }
+
+  table {white-space:nowrap}
 </style>
 </style>

@@ -51,7 +51,8 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of issue</label>
-                    <input type="text" class="form-control" placeholder="Enter date of issue"
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy"
+                      v-mask="'##/##/####'"
                       v-model="form.date_of_issue"
                     >
                     <span class="help-block" 
@@ -60,8 +61,9 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
-                    <input type="text" class="form-control" placeholder="Enter date of expiry"
+                    <input type="text" class="form-control" placeholder="dd/mm/yyyy"
                       v-model="form.date_of_expiry"
+                      v-mask="'##/##/####'"
                     >
                     <span class="help-block" 
                       v-if="errors.date_of_expiry"

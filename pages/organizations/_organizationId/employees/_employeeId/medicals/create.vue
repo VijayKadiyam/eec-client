@@ -70,7 +70,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
-                      <input type="text" class="form-control" placeholder="dd/mm/yyyy" v-model="form.date_of_expiry">
+                      <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy" v-model="form.date_of_expiry">
                     </div>
                   </div>
                   <div class="form-group">

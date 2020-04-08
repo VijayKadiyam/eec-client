@@ -109,9 +109,16 @@ export default {
   },
   data: () => ({
     imageData: '',
-    form: {
-      name: '',
-    },
+    genders: [
+      {'label': "Select Gender", 'code': ""},
+      {'label': "Male", 'code': "Male"},
+      {'label': "Female", 'code': "Female"},
+    ],
+    marital_statuses: [
+      {'label': "Select Marital Status", 'code': ""},
+      {'label': "Married", 'code': "Married"},
+      {'label': "UnMarried", 'code': "UnMarried"},
+    ],
   }),
   methods: {
     async store() {

@@ -65,7 +65,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
-                    <input type="text" class="form-control" placeholder="Enter date of expiry"
+                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.date_of_expiry"
                     >
                     <span class="help-block" 

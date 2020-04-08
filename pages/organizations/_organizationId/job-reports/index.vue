@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-12">
               <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search here...">
-              <a href="#" @click="getData">Refresh</a>
+              <a class="refresh" href="#" @click="getData">Refresh</a>
               <br>
               <div class="card">
                 <div class="card-header">
