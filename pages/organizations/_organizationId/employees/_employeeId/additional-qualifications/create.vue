@@ -42,18 +42,18 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" placeholder="Enter name"
-                      v-model="form.name"
-                    >
+                    <v-select 
+                      v-model="form.name" 
+                      :reduce="name => name.code" 
+                      :options="names"
+                    ></v-select>
                     <span class="help-block" 
                       v-if="errors.name"
                     >{{ errors.name[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Description</label>
-                    <input type="text" class="form-control" placeholder="Enter description"
-                      v-model="form.description"
-                    >
+                    <textarea type="text" class="form-control" placeholder="Enter description" v-model="form.description"></textarea>
                     <span class="help-block" 
                       v-if="errors.description"
                     >{{ errors.description[0] }}</span>
@@ -88,6 +88,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import 'vue-select/dist/vue-select.css';
 
 export default {
   name: 'CreateInspectorAdditionalQualification',
@@ -99,8 +100,21 @@ export default {
   },
   data: () => ({
     form: {
+      name: ''
     },
-    loading: false
+    loading: false,
+    names: [
+      {'label': "Select Qualification", 'code': ""},
+      {'label': "Marine Sup.", 'code': "Marine Sup."},
+      {'label': "Technical Sup.", 'code': "Technical Sup."},
+      {'label': "Accident/Incident Investigator", 'code': "Accident/Incident Investigator"},
+      {'label': "STS Suprintendency", 'code': "STS Suprintendency"},
+      {'label': "Auditor", 'code': "Auditor"},
+      {'label': "CDI (Marine)", 'code': "CDI (Marine)"},
+      {'label': "CDI (Terminal)", 'code': "CDI (Terminal)"},
+      {'label': "Pilotage", 'code': "Pilotage"},
+      {'label': "Others", 'code': "Others"},
+    ],
   }),
   methods: {
     async store() {

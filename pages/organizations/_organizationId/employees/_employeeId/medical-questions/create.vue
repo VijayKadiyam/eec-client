@@ -53,6 +53,13 @@
                       v-if="errors.any_medical_intake"
                     >{{ errors.any_medical_intake[0] }}</span>
                   </div>
+                  <div class="form-group"
+                    v-if="form.any_medical_intake == 'YES'"
+                  >
+                    <label class="form-label">Details</label>
+                    <textarea class="form-control" v-model="form.any_medical_intake_details" placeholder="Enter Details"></textarea>
+                  </div>
+
                   <div class="form-group">
                     <label class="form-label">Have You Undergone Any Surgery In The Past(Yes / No). If Yes Provide Details.</label>
                     <select class="form-control custom-select"
@@ -66,6 +73,13 @@
                       v-if="errors.any_surgery_in_past"
                     >{{ errors.any_surgery_in_past[0] }}</span>
                   </div>
+                  <div class="form-group"
+                    v-if="form.any_surgery_in_past == 'YES'"
+                  >
+                    <label class="form-label">Details</label>
+                    <textarea class="form-control" v-model="form.any_surgery_in_past_details" placeholder="Enter Details"></textarea>
+                  </div>
+
                   <div class="form-group">
                     <label class="form-label">Have You Consulted A Doctor During The Last 12 Months For Any Major Illness Or Accident (Yes/No).If Yes Provide Details</label>
                     <select class="form-control custom-select"
@@ -79,6 +93,13 @@
                       v-if="errors.last_12_months_consulting"
                     >{{ errors.last_12_months_consulting[0] }}</span>
                   </div>
+                  <div class="form-group"
+                    v-if="form.last_12_months_consulting == 'YES'"
+                  >
+                    <label class="form-label">Details</label>
+                    <textarea class="form-control" v-model="form.last_12_months_consulting_details" placeholder="Enter Details"></textarea>
+                  </div>
+
                   <div class="form-group">
                     <label class="form-label">Have You Ever Been Tested Positive For Any Drug And Alcohol Test(Yes / No).If Yes Provide Details</label>
                     <select class="form-control custom-select"
@@ -91,6 +112,12 @@
                     <span class="help-block" 
                       v-if="errors.positive_of_alcohol_test"
                     >{{ errors.positive_of_alcohol_test[0] }}</span>
+                  </div>
+                  <div class="form-group"
+                    v-if="form.positive_of_alcohol_test == 'YES'"
+                  >
+                    <label class="form-label">Details</label>
+                    <textarea class="form-control" v-model="form.positive_of_alcohol_test_details" placeholder="Enter Details"></textarea>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"

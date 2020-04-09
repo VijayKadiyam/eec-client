@@ -62,16 +62,16 @@
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}/full`">
+                          <nuxt-link title="View Details" class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}/full`">
                             <i class="fas fa-eye"></i>
                           </nuxt-link>&nbsp;&nbsp;
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${emp.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>&nbsp;&nbsp;
-                          <a class="icon" target="_blank" :href="`${baseUrl}/users/${emp.id}/download`">
+                          <a title="View in PDF" class="icon" target="_blank" :href="`${baseUrl}/users/${emp.id}/download`">
                             <i class="fas fa-file-pdf"></i>
                           </a>&nbsp;&nbsp;
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Inspector" class="icon" to="">
                             <span @click="del(emp.id)">
                               <i class="fa fa-trash"></i>
                             </span>

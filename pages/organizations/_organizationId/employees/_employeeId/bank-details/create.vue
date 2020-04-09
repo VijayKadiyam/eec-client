@@ -83,7 +83,7 @@
                     >
                       <option value="">Select Type</option>
                       <option value="Savings">Savings</option>
-                      <option value="Credit">Credit</option>
+                      <option value="Current">Current</option>
                     </select>
                     <span class="help-block" 
                       v-if="errors.account_type"
@@ -111,6 +111,12 @@
                     <label class="form-label">Bank Address</label>
                     <input type="text" class="form-control" placeholder="Enter bank address"
                       v-model="form.bank_address"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Intermediary bank</label>
+                    <input type="text" class="form-control" placeholder="Enter intermediary bank"
+                      v-model="form.intermediary_bank"
                     >
                   </div>
                   <div class="form-group">

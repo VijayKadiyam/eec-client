@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) Seaman Books</h1>
+              <h1 class="m-0 text-dark">Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) Seaman Booklet</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -57,21 +57,31 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of issue</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                      </div>
-                      <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy" v-model="form.date_of_issue">
-                    </div>
+                    {{ this.form.date_of_issue }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customIssueFormatter"
+                        value="form.date_of_issue"
+                      />
+                    </client-only>
+                    <span class="help-block" 
+                      v-if="errors.date_of_issue"
+                    >{{ errors.date_of_issue[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                      </div>
-                      <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy" v-model="form.date_of_expiry">
-                    </div>
+                    {{ this.form.date_of_expiry }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customExpiryFormatter"
+                        value="form.date_of_expiry"
+                      />
+                    </client-only>
+                    <span class="help-block" 
+                      v-if="errors.date_of_expiry"
+                    >{{ errors.date_of_expiry[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Country</label>
@@ -111,6 +121,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import moment from 'moment'
 
 export default {
   name: 'UpdateInspectorSeamanBook',
@@ -153,6 +164,16 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
+    },
+
+    customIssueFormatter(date) {
+      this.form.date_of_issue = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
+
+    customExpiryFormatter(date) {
+      this.form.date_of_expiry = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
   }
 }

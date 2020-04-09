@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) Sires</h1>
+              <h1 class="m-0 text-dark">Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) OCIMF SIRE accreditation</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -35,7 +35,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Inspector Sires</h3>
+                  <h3 class="card-title">Add Inspector OCIMF SIRE accreditation</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -90,7 +90,7 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Create Inspector Sire</button>
+                    >Create Inspector OCIMF SIRE accreditation</button>
                   </div>
                 </div>
               </div>

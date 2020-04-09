@@ -59,7 +59,7 @@
                       v-if="errors.date_of_issue"
                     >{{ errors.date_of_issue[0] }}</span>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label class="form-label">Date of expiry</label>
                     <input type="text" class="form-control" placeholder="dd/mm/yyyy"
                       v-model="form.date_of_expiry"
@@ -68,9 +68,9 @@
                     <span class="help-block" 
                       v-if="errors.date_of_expiry"
                     >{{ errors.date_of_expiry[0] }}</span>
-                  </div>
+                  </div> -->
                   <div class="form-group">
-                    <label class="form-label">Plase of issue</label>
+                    <label class="form-label">Place of issue</label>
                     <input type="text" class="form-control" placeholder="Enter place of expiry"
                       v-model="form.place_of_issue"
                     >

@@ -90,7 +90,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Academic Qualifications</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/academic-qualifications/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/academic-qualifications/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -99,8 +99,10 @@
                       <tr>
                         <th>Sr. No.</th>
                         <th>Actions</th>
-                        <th>Exam Name</th>
-                        <th>Yr of Qualification</th>
+                        <th>Qualification</th>
+                        <th>Stream</th>
+                        <th>Details</th>
+                        <th>Year of Qualification</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -110,7 +112,7 @@
                         <td colspan="7">Loading...</td>
                       </tr>
                       <tr v-for="(aq, i) in form.academic_qualifications"
-                        :key="`aq{i}`"
+                        :key="`aq${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -124,6 +126,8 @@
                           </nuxt-link>
                         </td>
                         <td>{{ aq.exam_name }}</td>
+                        <td>{{ aq.stream }}</td>
+                        <td>{{ aq.details }}</td>
                         <td>{{ aq.yr_of_passing }}</td>
                       </tr>
                     </tbody>
@@ -139,7 +143,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Professional Courses</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/professional-courses/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/professional-courses/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -150,7 +154,7 @@
                         <th>Actions</th>
                         <th>Name of course</th>
                         <th>Date of issue</th>
-                        <th>Date of expiry</th>
+                        <!-- <th>Date of expiry</th> -->
                         <th>Place of issue</th>
                         <th>Attachment</th>
                       </tr>
@@ -162,7 +166,7 @@
                         <td colspan="7">Loading...</td>
                       </tr>
                       <tr v-for="(pc, i) in form.professional_courses"
-                        :key="`pc{i}`"
+                        :key="`pc${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -177,7 +181,7 @@
                         </td>
                         <td>{{ pc.name_of_course }}</td>
                         <td>{{ pc.date_of_issue }}</td>
-                        <td>{{ pc.date_of_expiry }}</td>
+                        <!-- <td>{{ pc.date_of_expiry }}</td> -->
                         <td>{{ pc.place_of_issue }}</td>
                         <td><a :href="mediaUrl + pc.image_path" target="_blank">{{ pc.image_path }}</a></td>
                       </tr>
@@ -194,7 +198,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Additional Qualifications</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/additional-qualifications/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/additional-qualifications/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -215,7 +219,7 @@
                         <td colspan="7">Loading...</td>
                       </tr>
                       <tr v-for="(aq, i) in form.additional_qualifications"
-                        :key="`aq{i}`"
+                        :key="`aq${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -244,8 +248,8 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Relations</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/relations/create`">Add New</nuxt-link>
+                  <h3 class="card-title"><u>NEXT OF KIN</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/relations/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -268,7 +272,7 @@
                         <td colspan="7">Loading...</td>
                       </tr>
                       <tr v-for="(rel, i) in form.relations"
-                        :key="`rel{i}`"
+                        :key="`rel${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -300,7 +304,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Emergencies</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/emergencies/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/emergencies/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -323,7 +327,7 @@
                         <td colspan="7">Loading...</td>
                       </tr>
                       <tr v-for="(emer, i) in form.emergencies"
-                        :key="`emer{i}`"
+                        :key="`emer${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -355,7 +359,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Addresses</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/addresses/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/addresses/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -380,7 +384,7 @@
                         <td colspan="9">Loading...</td>
                       </tr>
                       <tr v-for="(address, i) in form.addresses"
-                        :key="`address{i}`"
+                        :key="`address${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -414,7 +418,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Bank Details</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -440,7 +444,7 @@
                         <td colspan="9">Loading...</td>
                       </tr>
                       <tr v-for="(bd, i) in form.bank_details"
-                        :key="`bd{i}`"
+                        :key="`bd${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -474,8 +478,8 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Passports</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/passports/create`">Add New</nuxt-link>
+                  <h3 class="card-title"><u>Passport</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/passports/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -500,7 +504,7 @@
                         <td colspan="9">Loading...</td>
                       </tr>
                       <tr v-for="(passport, i) in form.passports"
-                        :key="`passport{i}`"
+                        :key="`passport${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -533,8 +537,8 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Visas</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/visas/create`">Add New</nuxt-link>
+                  <h3 class="card-title"><u>Visa</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/visas/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -559,7 +563,7 @@
                         <td colspan="9">Loading...</td>
                       </tr>
                       <tr v-for="(visa, i) in form.visas"
-                        :key="`visa{i}`"
+                        :key="`visa${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -592,8 +596,8 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Seaman Books</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/create`">Add New</nuxt-link>
+                  <h3 class="card-title"><u>Seaman Booklet</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -617,7 +621,7 @@
                         <td colspan="8">Loading...</td>
                       </tr>
                       <tr v-for="(seaman_book, i) in form.seaman_books"
-                        :key="`seaman_book{i}`"
+                        :key="`seaman_book${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -650,7 +654,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Vaccinations</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -673,7 +677,7 @@
                         <td colspan="8">Loading...</td>
                       </tr>
                       <tr v-for="(vaccination, i) in form.vaccinations"
-                        :key="`vaccination{i}`"
+                        :key="`vaccination${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -704,8 +708,8 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>SIRE</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/sires/create`">Add New</nuxt-link>
+                  <h3 class="card-title"><u>OCIMF SIRE accreditation</u></h3> &nbsp;
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/sires/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -728,7 +732,7 @@
                         <td colspan="7">Loading...</td>
                       </tr>
                       <tr v-for="(sire, i) in form.sires"
-                        :key="`sire{i}`"
+                        :key="`sire${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -760,7 +764,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>OCIMF Refresher Courses</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -781,7 +785,7 @@
                         <td colspan="5">Loading...</td>
                       </tr>
                       <tr v-for="(ocimf, i) in form.ocimf_refresher_courses"
-                        :key="`ocimf{i}`"
+                        :key="`ocimf${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -811,7 +815,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Medicals</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -837,7 +841,7 @@
                         <td colspan="10">Loading...</td>
                       </tr>
                       <tr v-for="(medical, i) in form.medicals"
-                        :key="`medical{i}`"
+                        :key="`medical${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
@@ -872,7 +876,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Medical Questions</u></h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -894,7 +898,7 @@
                         <td colspan="10">Loading...</td>
                       </tr>
                       <tr v-for="(medical, i) in form.medical_details"
-                        :key="`medical{i}`"
+                        :key="`medical${i}`"
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">

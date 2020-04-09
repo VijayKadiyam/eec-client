@@ -22,6 +22,11 @@
               <h3><b>I-ADMIN</b></h3>
             </a>
           </li>
+          <li class="nav-item">
+            <nuxt-link :to="`/organizations/${organization.value}/whistle-blowers/create`">
+              <button class="btn btn-danger">Send Message</button>
+            </nuxt-link>
+          </li>
         </ul>
       </nav>
       <!-- /.navbar -->
@@ -42,7 +47,7 @@
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              <img class="img-circle elevation-2" alt="User Image" :src="mediaUrl + (user.attachment ? user.attachment : '/user.png')">
             </div>
             <div class="info">
               <a href="#" class="d-block">{{ user.first_name }}</a>
@@ -252,7 +257,7 @@ export default {
         ]
       })
       categories.push({
-        title: 'Utilities',
+        title: 'QHSSE',
         'items': [
           {
             name: 'Policies', icon: 'fas fa-vote-yea', link: `/organizations/${this.organizationId}/policies`,
@@ -267,7 +272,7 @@ export default {
             name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
           },
           {
-            name: 'Audit Reports', icon: 'fas fa-check-circle', link: `/organizations/${this.organizationId}/audit-reports`,
+            name: 'AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports', icon: 'fas fa-check-circle', link: `/organizations/${this.organizationId}/audit-reports`,
           },
           {
             name: 'Circulars', icon: 'fas fa-map-signs', link: `/organizations/${this.organizationId}/circulars`,

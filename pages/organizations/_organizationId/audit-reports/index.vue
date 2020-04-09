@@ -7,14 +7,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Audit Reports</h1>
+              <h1 class="m-0 text-dark">AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
-                <li class="breadcrumb-item active">Audit Reports</li>
+                <li class="breadcrumb-item active">AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -29,7 +29,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Manage Audit Reports</h3> &nbsp;
+                  <h3 class="card-title">Manage AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports</h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/audit-reports/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->

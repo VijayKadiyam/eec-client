@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Audit Reports Details</h1>
+              <h1 class="m-0 text-dark">AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -34,7 +34,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Audit Reports Details</h3>
+                  <h3 class="card-title">Add AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports Details</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -86,7 +86,7 @@
                       @click="store"
                       :disabled="loading"
                     >
-                      {{ loading ? 'Saving...' : 'Create Audit Report' }}
+                      {{ loading ? 'Saving...' : 'Create AUDITS/BUSINESS PERFORMANCE VERIFICATION Report' }}
                     </button>
                   </div>
                 </div>

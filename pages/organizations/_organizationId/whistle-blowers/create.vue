@@ -7,7 +7,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Whistle Blowers Details</h1>
+              <h1 class="m-0 text-dark">Add Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -42,13 +42,16 @@
                   <div class="form-group">
                     <label class="form-label">Description</label>
                     <textarea class="form-control" v-model="form.description" placeholder="Add description"></textarea>
+                    <span class="help-block" 
+                      v-if="errors.description"
+                    >{{ errors.description[0] }}</span>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
                       :disabled="loading"
                     >
-                      {{ loading ? 'Saving...' : 'Save' }}
+                      {{ loading ? 'Saving...' : 'Send' }}
                     </button>
                   </div>
                 </div>
