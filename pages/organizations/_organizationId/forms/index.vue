@@ -38,7 +38,11 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
-                        <th>Name</th>
+                        <th @click="sort('name')">
+                          Name
+                          <i v-if="currentSortDir == 'asc'" class="fas fa-arrow-up"></i>
+                          <i v-if="currentSortDir == 'desc'" class="fas fa-arrow-down"></i>
+                        </th>
                         <th>Link</th>
                         <th>Attachment</th>
                         <th>Actions</th>
@@ -50,7 +54,7 @@
                       > 
                         <td colspan="5">Loading...</td>
                       </tr>
-                      <tr v-for="(item, i) in items"
+                      <tr v-for="(item, i) in sorteditems"
                         :key="`item${i}`"
                       >
                         <td>{{ i + 1 }}</td>
@@ -90,10 +94,23 @@ export default {
   name: 'ManageForms',
   data:() =>  ({
     items: [],
-    loading: true
+    loading: true,
+    currentSort:'name',
+    currentSortDir:'asc'
   }),
   mounted() {
     this.getData()
+  },
+  computed:{
+    sorteditems:function() {
+      return this.items.sort((a,b) => {
+        let modifier = 1;
+        if(this.currentSortDir === 'desc') modifier = -1;
+        if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      });
+    }
   },
   methods: {
     async getData() {
@@ -108,7 +125,14 @@ export default {
       if(r)
         await this.$axios.delete(`/forms/${id}`)
       this.getData()
+    },
+    sort(s) {
+      //if s == current sort, reverse
+      if(s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+      }
+      this.currentSort = s;
     }
-  }
+  },
 }
 </script>

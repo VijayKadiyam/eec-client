@@ -69,6 +69,7 @@ module.exports = {
     '@/plugins/charts',
     '@/plugins/vue-select',
     '@/plugins/mask',
+    { src: '@/plugins/carousel3d', ssr: false },
     { src: '@/plugins/vue-json-excel', ssr: false },
     { src: "@/plugins/vue2-google-maps.js", ssr: false},
     { src: '@/plugins/datepicker', ssr: false }

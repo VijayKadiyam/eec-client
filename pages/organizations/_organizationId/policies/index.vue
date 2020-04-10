@@ -24,10 +24,52 @@
       <!-- /.content-header -->
 
        <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <!-- Small boxes (Stat box) -->
+      <div class="our-services">
+        <div class="container">
           <div class="row">
+            <div
+              v-if="loading"
+            > 
+              <td colspan="5">Loading...</td>
+            </div>
+
+            <div class="col-md-6"
+              v-for="(item, i) in items"
+              :key="`item${i}`"
+              v-else
+            >
+              <a :href="mediaUrl + item.imagepath" target="_blank">
+                <div class="service-box">
+                  <div class="row">
+                    <div class="col-3 icon">
+                      <i class="fas fa-cog" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-9">
+                      <h3><a :href="mediaUrl + item.imagepath" target="_blank">{{ item.name }}</a></h3>
+                      <p>Click here to view the policy</p>
+                      <nuxt-link :to="`/organizations/${organization.value}/policies/${item.id}`">
+                        <span>
+                          <i class="fa fa-edit"></i>
+                        </span>
+                      </nuxt-link>
+                      <nuxt-link to="">
+                        <span @click="del(item.id)">
+                          <i class="fa fa-trash"></i>
+                        </span>
+                      </nuxt-link>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+          <!-- Small boxes (Stat box) -->
+          <!-- <div class="row">
             <div
               v-if="loading"
             > 
@@ -38,7 +80,7 @@
               :key="`item${i}`"
               v-else
             >
-              <div class="small-box bg-warning"
+              <div class="small-box bg-white"
               >
                 <div class="inner">
                   <p>{{ item.name }}</p>
@@ -59,13 +101,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <!-- /.row -->
-        </div>
-      </section>
-      <!-- /.content -->
+          </div> -->
 
-      <!-- Main content -->
       <!-- <section class="content">
         <div class="container-fluid">
           <div class="row">
@@ -151,3 +188,44 @@ export default {
   }
 }
 </script>
+
+<style type="text/css">
+.our-services {
+    background-color: #00BCD4;
+    padding: 70px 0px;
+}
+.service-box {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 15px 0px 15px;
+    transition: 0.5s;
+    border: 1px solid transparent;
+}
+.service-box:hover {
+    background-color: #f9f9f9;
+    border-radius: 40px;
+    border: 1px solid #ddd;
+}
+.service-box:hover h3 a{
+  color: #00bcd4;
+}
+.service-box .icon {
+    font-size: 60px;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    color: #989898;
+}
+.service-box h3 a {
+    text-decoration: none;
+    color: #FF9800;
+    font-size: 24px;
+}
+.service-box :before {
+    margin: 0 auto;
+    display: block;
+    float: none;
+}
+</style>

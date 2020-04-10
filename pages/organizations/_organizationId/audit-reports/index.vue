@@ -39,7 +39,11 @@
                       <tr>
                         <th>Sr. No.</th>
                         <th>Report Type</th>
-                        <th>Year</th>
+                        <th @click="sort('year')">
+                          Year
+                          <i v-if="currentSortDir == 'asc'" class="fas fa-arrow-up"></i>
+                          <i v-if="currentSortDir == 'desc'" class="fas fa-arrow-down"></i>
+                        </th>
                         <th>Name</th>
                         <th>Link</th>
                         <th>Attachment</th>
@@ -52,7 +56,7 @@
                       > 
                         <td colspan="5">Loading...</td>
                       </tr>
-                      <tr v-for="(item, i) in items"
+                      <tr v-for="(item, i) in sorteditems"
                         :key="`item${i}`"
                       >
                         <td>{{ i + 1 }}</td>
@@ -94,8 +98,21 @@ export default {
   name: 'ManageAuditReports',
   data:() =>  ({
     items: [],
-    loading: true
+    loading: true,
+    currentSort:'name',
+    currentSortDir:'asc'
   }),
+  computed:{
+    sorteditems:function() {
+      return this.items.sort((a,b) => {
+        let modifier = 1;
+        if(this.currentSortDir === 'desc') modifier = -1;
+        if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      });
+    }
+  },
   mounted() {
     this.getData()
   },
@@ -112,6 +129,13 @@ export default {
       if(r)
         await this.$axios.delete(`/audit_reports/${id}`)
       this.getData()
+    },
+    sort(s) {
+      //if s == current sort, reverse
+      if(s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+      }
+      this.currentSort = s;
     }
   }
 }
