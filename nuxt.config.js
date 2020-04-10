@@ -101,8 +101,8 @@ module.exports = {
   ],
 
   axios: {
-    // baseURL: 'http://api.aethon.aaibuzz.com/api'
-    baseURL: 'http://localhost:8080/api'
+    baseURL: 'http://api.aethon.aaibuzz.com/api'
+    // baseURL: 'http://localhost:8080/api'
   },
   
   build: {
