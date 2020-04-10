@@ -161,7 +161,7 @@ export default {
         // title: 'Dashboard',
         'items': [
           {
-            name: 'Home', icon: 'fa-envelope', link: '/index2',
+            name: 'Home', icon: 'fa-envelope', link: '/',
             // sub1Items: [
             //   { name: 'D1', link: '/a' },
             //   { name: 'D2', link: '/b' }
