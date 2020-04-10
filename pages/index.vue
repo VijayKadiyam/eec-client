@@ -181,6 +181,7 @@ export default {
     ]
   }),
   created() {
+    this.$router.push('index2')
   },
   async mounted() {
     // let count = await this.$axios.get('/count')
