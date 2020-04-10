@@ -30,7 +30,7 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Manage Circulars</h3> &nbsp;
-                  <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/circulars/create`">Add New</nuxt-link>
+                  <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/circulars/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">

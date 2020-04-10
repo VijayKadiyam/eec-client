@@ -7,7 +7,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Leave Details</h1>
+              <h1 class="m-0 text-dark">
+                <back-button
+                  :link="`/organizations/${organization.value}/leaves`"
+                  title="Hi"
+                >
+                </back-button>
+                Leave Details
+              </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -105,6 +112,7 @@
 <script type="text/javascript">
 import moment from 'moment'
 import 'vue-select/dist/vue-select.css';
+import BackButton from '@/components/back-button.vue'
 
 export default {
   name: 'CreateUserLeave',
@@ -120,6 +128,9 @@ export default {
   }),
   async mounted() {
     await this.getUsers()
+  },
+  components: {
+    BackButton
   },
   methods: {
     async getUsers() {

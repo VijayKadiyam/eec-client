@@ -7,7 +7,14 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Library Details</h1>
+              <h1 class="m-0 text-dark">
+                <back-button
+                  :link="`/organizations/${organization.value}/libraries`"
+                  title="Hi"
+                >
+                </back-button>
+                Library Details
+              </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -105,6 +112,7 @@
 </template>
 
 <script type="text/javascript">
+import BackButton from '@/components/back-button.vue'
 
 export default {
   name: 'EditLibrary',
@@ -117,6 +125,9 @@ export default {
   data: () => ({
     loading: false
   }),
+  components: {
+    BackButton
+  },
   methods: {
     async store() {
       try {

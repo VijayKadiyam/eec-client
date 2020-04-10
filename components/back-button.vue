@@ -1,16 +1,13 @@
 <template>
-  <v-btn
-    small
-    fab
-    :color="baseColor"
-    :to="link"
-    :title="title"
-    :dark="darkStatus"
-  >
-    <v-icon>
-      arrow_back
-    </v-icon>
-  </v-btn>
+  <nuxt-link :to="link">
+    <button
+      class="btn btn-danger"
+      small
+      :title="title"
+    >
+      <i class="fas fa-arrow-left"></i>
+    </button>
+  </nuxt-link>
 </template>
 
 <script type="text/javascript">
