@@ -306,13 +306,12 @@
             </div>
 
             <!-- Emergencies -->
-            <div class="col-12">
+            <!-- <div class="col-12">
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title"><u>Emergencies</u></h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/emergencies/create`">Add New</nuxt-link>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
                   <table class="table table-head-fixed table-striped">
                     <thead>
@@ -355,10 +354,8 @@
                     </tbody>
                   </table>
                 </div>
-                <!-- /.card-body -->
               </div>
-              <!-- /.card -->
-            </div>
+            </div> -->
 
             <!-- Addresses -->
             <div class="col-12">
@@ -728,7 +725,8 @@
                         <th>Expiry Date</th>
                         <th>Last Audit Date</th>
                         <th>Type</th>
-                        <th>Attachment</th>
+                        <th>SIRE ID Card</th>
+                        <th>Audit performance appraisal report</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -756,6 +754,7 @@
                         <td>{{ sire.last_audit_date }}</td>
                         <td>{{ sire.type }}</td>
                         <td><a :href="mediaUrl + sire.attachment" target="_blank">{{ sire.attachment }}</a></td>
+                        <td><a :href="mediaUrl + sire.report" target="_blank">{{ sire.report }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -781,7 +780,9 @@
                         <th>Actions</th>
                         <th>Name of Course</th>
                         <th>Course Date</th>
+                        <th>End Date</th>
                         <th>Place of Course</th>
+                        <th>Attachment</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -806,7 +807,9 @@
                         </td>
                         <td>{{ ocimf.name_of_course }}</td>
                         <td>{{ ocimf.course_date }}</td>
+                        <td>{{ ocimf.end_date }}</td>
                         <td>{{ ocimf.place_of_course }}</td>
+                        <td><a :href="mediaUrl + ocimf.attachment" target="_blank">{{ ocimf.attachment }}</a></td>
                       </tr>
                     </tbody>
                   </table>

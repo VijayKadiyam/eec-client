@@ -109,7 +109,9 @@
                         <label class="form-label">Phone</label>
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text">+91</span>
+                            <country-codes
+                              :option.sync="form.phone_code"
+                            ></country-codes>
                           </div>
                           <input type="number" class="form-control" placeholder="Enter phone" v-mask="'##########'" v-model="form.phone">
                         </div>
@@ -123,7 +125,9 @@
                         <label class="form-label">Phone 2</label>
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text">+91</span>
+                            <country-codes
+                              :option.sync="form.phone_2_code"
+                            ></country-codes>
                           </div>
                           <input type="number" class="form-control" placeholder="Enter phone 2" v-mask="'##########'"
                             v-model="form.phone_2"
@@ -163,13 +167,14 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Date of birth</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                          </div>
-                          <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
-                          v-model="form.dob">
-                        </div>
+                        {{ form.dob }}
+                        <client-only>
+                          <date-picker
+                            placeholder="DD-MM-YYYY"
+                            :format="customDobFormatter"
+                            value="form.dob"
+                          />
+                        </client-only>
                         <span class="help-block" 
                           v-if="errors.dob"
                         >{{ errors.dob[0] }}</span>
@@ -234,7 +239,9 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import CountryCodes from '@/components/country-codes.vue'
 import 'vue-select/dist/vue-select.css';
+import moment from 'moment'
 
 export default {
   name: 'CreateInspector',
@@ -243,11 +250,14 @@ export default {
       first_name: '',
       last_name: '',
       email: '',
+      phone_code: '+91',
+      phone_2_code: '+91',
       phone: '',
       gender: '',
       marital_status: '',
       active: 1,
       role_id: '',
+      dob: ''
     },
     genders: [
       {'label': "Select Gender", 'code': ""},
@@ -267,7 +277,8 @@ export default {
     this.form.role_id = 3;
   },
   components: {
-    BackButton
+    BackButton,
+    CountryCodes
   },
   methods: {
     async store() {
@@ -311,6 +322,10 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
+    },
+    customDobFormatter(date) {
+      this.form.dob = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
   }
 }

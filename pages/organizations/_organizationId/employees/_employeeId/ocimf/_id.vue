@@ -61,12 +61,31 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Course Date</label>
-                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
-                      v-model="form.course_date"
-                    >
+                    {{ form.course_date }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customStartFormatter"
+                        value="form.course_date"
+                      />
+                    </client-only>
                     <span class="help-block" 
                       v-if="errors.course_date"
                     >{{ errors.course_date[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Course End Date</label>
+                    {{ form.end_date }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customEndFormatter"
+                        value="form.end_date"
+                      />
+                    </client-only>
+                    <span class="help-block" 
+                      v-if="errors.end_date"
+                    >{{ errors.end_date[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Place of course</label>
@@ -76,6 +95,16 @@
                     <span class="help-block" 
                       v-if="errors.place_of_course"
                     >{{ errors.place_of_course[0] }}</span>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Attachment</label>
+                    <br>
+                    <a :href="mediaUrl + form.attachment" target="_blank">{{ form.attachment }}</a>
+                    <input type="text" class="form-control" placeholder="Enter attachment"
+                      v-model="form.attachment"
+                    >
+                    <br>
+                    <input type="file" id="file" name="file" ref="file" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
@@ -98,6 +127,7 @@
 </template>
 
 <script type="text/javascript">
+import moment from 'moment'
 import BackButton from '@/components/back-button.vue'
 
 export default {
@@ -117,12 +147,39 @@ export default {
     async store() {
       try {
         await this.$axios.patch(`/users/${this.$route.params.employeeId}/ocimf_refresher_courses/${this.$route.params.id}`, this.form)
+        await this.handleFileUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
       }
       catch(e) {
 
       }
-    }
+    },
+    async handleFileUpload() {
+      this.attachment = this.$refs.file.files[0]
+      let formData = new FormData();
+      formData.append('userid', this.form.user_id);
+      formData.append('ocimfid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_ocimf_attachment', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
+    customStartFormatter(date) {
+      this.form.course_date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
+    customEndFormatter(date) {
+      this.form.end_date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
   }
 }
 </script>

@@ -43,6 +43,7 @@
                         <th>Select</th>
                         <th>Main Inspector Details</th>
                         <th>Backup Inspector Details</th>
+                        <th>Oil Major</th>
                         <th>Vessel Name</th>
                         <th>Vessel Type</th>
                         <th>Vessel Details</th>
@@ -53,7 +54,7 @@
                         <th>Cargo</th>
                         <th>Location</th>
                         <th>Port name</th>
-                        <th>Agent Name</th>
+                        <!-- <th>Agent Name</th>
                         <th>Agent Contact Details</th>
                         <th>Agent Phone</th>
                         <th>Agent Email</th>
@@ -61,8 +62,7 @@
                         <th>Operator Name</th>
                         <th>Operator Contact Details</th>
                         <th>Operator Phone</th>
-                        <th>Operator Email</th>
-                        <th>Oil Major</th>
+                        <th>Operator Email</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -106,6 +106,7 @@
                             <br>
                           </span>
                         </td>
+                        <td>{{ job.oil_major }}</td>
                         <td>{{ job.vessel_name }}</td>
                         <td>{{ job.vessel_type }}</td>
                         <td>{{ job.other_detail }}</td>
@@ -116,7 +117,7 @@
                         <td>{{ job.cargo }}</td>
                         <td>{{ job.location }}</td>
                         <td>{{ job.port_name }}</td>
-                        <td>{{ job.agent_name }}</td>
+                        <!-- <td>{{ job.agent_name }}</td>
                         <td>{{ job.agent_contact_person }}</td>
                         <td>{{ job.agent_phone }}, {{ job.agent_phone_2 }}</td>
                         <td>{{ job.agent_email }}</td>
@@ -124,8 +125,7 @@
                         <td>{{ job.operator_name }}</td>
                         <td>{{ job.operator_contact_person }}</td>
                         <td>{{ job.operator_phone }}, {{ job.operator_phone_2 }}</td>
-                        <td>{{ job.operator_email }}</td>
-                        <td>{{ job.oil_major }}</td>
+                        <td>{{ job.operator_email }}</td> -->
                       </tr>
                     </tbody>
                   </table>

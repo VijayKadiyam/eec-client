@@ -52,8 +52,8 @@
                       v-model="form.address_type"
                     >
                       <option value="">Select Type</option>
+                      <option value="Present">Present</option>
                       <option value="Permanent">Permanent</option>
-                      <option value="Temporary">Temporary</option>
                     </select>
                   </div>
                   <div class="form-group">

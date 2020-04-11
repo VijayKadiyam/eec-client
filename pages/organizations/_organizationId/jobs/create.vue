@@ -97,7 +97,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                           </div>
-                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##:##'" placeholder="dd/mm/yyyy hh:mm:ss"
+                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##'" placeholder="dd/mm/yyyy hh:mm"
                             v-model="form.eta"
                           >
                         </div>
@@ -113,7 +113,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                           </div>
-                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##:##'" placeholder="dd/mm/yyyy hh:mm:ss"
+                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##'" placeholder="dd/mm/yyyy hh:mm"
                             v-model="form.etb"
                           >
                         </div>
@@ -129,7 +129,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                           </div>
-                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##:##'" placeholder="dd/mm/yyyy hh:mm:ss"
+                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##'" placeholder="dd/mm/yyyy hh:mm"
                             v-model="form.ets"
                           >
                         </div>
@@ -185,6 +185,18 @@
                       </div>
                     </div>
                     <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Agent Details</label>
+                        <textarea  type="text" class="form-control" placeholder="Enter agent details" v-model="form.agent_details"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Operator Details</label>
+                        <textarea  type="text" class="form-control" placeholder="Enter operator details" v-model="form.operator_details"></textarea>
+                      </div>
+                    </div>
+                    <!-- <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Agent Name</label>
                         <input type="text" class="form-control" placeholder="Enter agent name"
@@ -318,7 +330,7 @@
                           v-if="errors.operator_email"
                         >{{ errors.operator_email[0] }}</span>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Oil Major</label>

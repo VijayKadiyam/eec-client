@@ -77,7 +77,9 @@
                     <label class="form-label">Phone</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text">+91</span>
+                        <country-codes
+                          :option.sync="form.phone_code"
+                        ></country-codes>
                       </div>
                       <input type="number" class="form-control" placeholder="Enter phone" v-mask="'##########'" v-model="form.phone">
                     </div>
@@ -89,7 +91,9 @@
                     <label class="form-label">Alternate Phone</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text">+91</span>
+                        <country-codes
+                          :option.sync="form.alt_phone_code"
+                        ></country-codes>
                       </div>
                       <input type="number" class="form-control" placeholder="Enter alternate phone"
                         v-model="form.alt_phone" 
@@ -172,6 +176,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import CountryCodes from '@/components/country-codes.vue'
 import 'vue-select/dist/vue-select.css';
 
 export default {
@@ -188,6 +193,8 @@ export default {
       last_name: '',
       email: '',
       phone: '',
+      phone_code: '',
+      alt_phone_code: '',
       relation: '',
       marital_status: '',
       active: 1,
@@ -206,7 +213,8 @@ export default {
     this.form.role_id = 3;
   },
   components: {
-    BackButton
+    BackButton,
+    CountryCodes
   },
   methods: {
     async store() {
