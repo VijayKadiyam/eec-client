@@ -84,7 +84,7 @@
                         </td>
                         <td>{{ emp.first_name }} {{ emp.middle_name }} {{ emp.last_name }}</td>
                         <td>{{ emp.email }} <br> {{ emp.email_2 }}</td>
-                        <td>{{ emp.phone }} <br> {{ emp.phone_2 }}</td>
+                        <td>{{ emp.phone_code }} {{ emp.phone }} <br> {{ emp.phone_2_code }} {{ emp.phone_2 }}</td>
                         <td>{{ emp.addresses.length ? emp.addresses[0].country : '' }}</td>
                         <td></td>
                         <td>{{ emp.remarks }}</td>
