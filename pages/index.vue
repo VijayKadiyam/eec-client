@@ -31,18 +31,20 @@
               v-for="(inspectorTab, t) in inspectorTabs"
               :key="`inspectorTab${t}`"
             >
-              <div class="info-box">
-                <span :class="'info-box-icon ' + inspectorTab.color + ' elevation-1'"><i :class="inspectorTab.icon"></i></span>
+              <nuxt-link :to="`/organizations/${organization.value}/employees`">
+                <div class="info-box">
+                  <span :class="'info-box-icon ' + inspectorTab.color + ' elevation-1'"><i :class="inspectorTab.icon"></i></span>
 
-                <div class="info-box-content">
-                  <span class="info-box-text">{{ inspectorTab.name }}</span>
-                  <span class="info-box-number">
-                    {{ inspectorTab.count }}
-                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="color: black;">{{ inspectorTab.name }}</span>
+                    <span class="info-box-number">
+                      {{ inspectorTab.count }}
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
+                <!-- /.info-box -->
+              </nuxt-link>
             </div>
             <!-- /.col -->
           </div>
@@ -54,18 +56,20 @@
               v-for="(jobTab, t) in jobTabs"
               :key="`jobTab${t}`"
             >
-              <div class="info-box">
-                <span :class="'info-box-icon ' + jobTab.color + ' elevation-1'"><i :class="jobTab.icon"></i></span>
+              <nuxt-link :to="`/organizations/${organization.value}/jobs`">
+                <div class="info-box">
+                  <span :class="'info-box-icon ' + jobTab.color + ' elevation-1'"><i :class="jobTab.icon"></i></span>
 
-                <div class="info-box-content">
-                  <span class="info-box-text">{{ jobTab.name }}</span>
-                  <span class="info-box-number">
-                    {{ jobTab.count }}
-                  </span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="color: black;">{{ jobTab.name }}</span>
+                    <span class="info-box-number">
+                      {{ jobTab.count }}
+                    </span>
+                  </div>
+                  <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
+                <!-- /.info-box -->
+              </nuxt-link>
             </div>
             <!-- /.col -->
           </div>
@@ -203,9 +207,11 @@
                       v-for="(emp, u) in users"
                       :key="`emp${u}`"
                     >
-                      <img style="width: 128px; height: 128px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')" :alt="emp.first_name">
-                      <a class="users-list-name" href="#">{{ emp.first_name }}</a>
-                      <span class="users-list-date">{{ emp.employee_code }}</span>
+                      <nuxt-link :to="`/organizations/${organization.value}/employees/${emp.id}/full`">
+                        <img style="width: 128px; height: 128px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')" :alt="emp.first_name">
+                        <a class="users-list-name" href="#">{{ emp.first_name }}</a>
+                        <span class="users-list-date">{{ emp.employee_code }}</span>
+                      </nuxt-link>
                     </li>
                   </ul>
                   <!-- /.users-list -->
