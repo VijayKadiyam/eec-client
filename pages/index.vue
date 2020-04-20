@@ -89,70 +89,103 @@
           </div>
           <!-- /.row -->
 
+          <!-- Info boxes -->
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-briefcase"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">On Going Jobs</span>
+                  <span class="info-box-number">
+                    10
+                    <small>%</small>
+                  </span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tasks"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">Completed Jobs</span>
+                  <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-network-wired"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">New Jobs With No Inspector</span>
+                  <span class="info-box-number">760</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="far fa-window-close"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">No of Inspections Cancelled</span>
+                  <span class="info-box-number">2,000</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
           <!-- Main row -->
           <div class="row">
-            <!-- Left col -->
+            <!-- Map and Invoice Raised -->
             <div class="col-md-8">
-              <!-- USERS LIST -->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Latest Members</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body p-0">
-                  <ul class="users-list clearfix">
-                    <li>
-                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander Pierce</a>
-                      <span class="users-list-date">Today</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Norman</a>
-                      <span class="users-list-date">Yesterday</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user7-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Jane</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">John</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander</a>
-                      <span class="users-list-date">13 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user5-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Sarah</a>
-                      <span class="users-list-date">14 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user4-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nora</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nadia</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                  </ul>
-                  <!-- /.users-list -->
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer text-center">
-                  <a href="javascript::">View All Users</a>
-                </div>
-                <!-- /.card-footer -->
-              </div>
-              <!--/.card -->
+              <GmapMap
+                :center="{lat:10, lng:10}"
+                :zoom="8"
+                map-type-id="terrain"
+                style="width: 100%; height: 500px"
+              >
+                <GmapMarker
+                  v-for="(m, index) in markers1"
+                  :key="`m${index}`"
+                  :position="m.position"
+                  :clickable="true"
+                  :draggable="true"
+                  @click="center=m.position"
+                  :icon="'marker1.png'"
+                />
+                <GmapMarker
+                  v-for="(m, index) in markers2"
+                  :key="`index${index}`"
+                  :position="m.position"
+                  :clickable="true"
+                  :draggable="true"
+                  @click="center=m.position"
+                  :icon="'marker2.png'"
+                />
+              </GmapMap>
 
-              <!-- TABLE: LATEST ORDERS -->
+              <br>
+
+              <!-- TABLE: Invoices -->
               <div class="card">
                 <div class="card-header border-transparent">
                   <h3 class="card-title">Invoices Raised</h3>
@@ -238,48 +271,118 @@
                 </div>
                 <!-- /.card-footer -->
               </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col -->
+              <!-- /.Invoices -->
 
+              <!-- USERS LIST -->
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Latest Members</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                  <ul class="users-list clearfix">
+                    <li>
+                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Alexander Pierce</a>
+                      <span class="users-list-date">Today</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Norman</a>
+                      <span class="users-list-date">Yesterday</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user7-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Jane</a>
+                      <span class="users-list-date">12 Jan</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user6-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">John</a>
+                      <span class="users-list-date">12 Jan</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Alexander</a>
+                      <span class="users-list-date">13 Jan</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user5-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Sarah</a>
+                      <span class="users-list-date">14 Jan</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user4-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Nora</a>
+                      <span class="users-list-date">15 Jan</span>
+                    </li>
+                    <li>
+                      <img src="dist/img/user3-128x128.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Nadia</a>
+                      <span class="users-list-date">15 Jan</span>
+                    </li>
+                  </ul>
+                  <!-- /.users-list -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer text-center">
+                  <a href="javascript::">View All Users</a>
+                </div>
+                <!-- /.card-footer -->
+              </div>
+              <!--/. USERS LIST -->
+            </div>
+
+
+            <!-- Map Controls and Payment made to the inspectors -->
             <div class="col-md-4">
               <!-- Info Boxes Style 2 -->
               <div class="info-box mb-3 bg-warning">
-                <span class="info-box-icon"><i class="fas fa-briefcase"></i></span>
+                <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">On Going Jobs</span>
-                  <span class="info-box-number">5,200</span>
+                  <span class="info-box-text">USA (Click to view)</span> 
+                  <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
               <!-- /.info-box -->
               <div class="info-box mb-3 bg-success">
-                <span class="info-box-icon"><i class="fas fa-tasks"></i></span>
+                <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Completed Jobs</span>
-                  <span class="info-box-number">92,050</span>
+                  <span class="info-box-text">Europe (Click to view)</span>
+                  <span class="info-box-number">3 Inspectors | 2 Jobs</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+              <div class="info-box mb-3 bg-primary">
+                <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
+
+                <div class="info-box-content">
+                  <span class="info-box-text">UAE (Click to view)</span>
+                  <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
               <!-- /.info-box -->
               <div class="info-box mb-3 bg-danger">
-                <span class="info-box-icon"><i class="fas fa-network-wired"></i></span>
+                <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">New Jobs With No Inspector</span>
-                  <span class="info-box-number">114,381</span>
+                  <span class="info-box-text">Asia (Click to view)</span>
+                  <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
               <!-- /.info-box -->
               <div class="info-box mb-3 bg-info">
-                <span class="info-box-icon"><i class="far fa-window-close"></i></span>
+                <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">No of Inspections Cancelled</span>
-                  <span class="info-box-number">163,921</span>
+                  <span class="info-box-text">Australia (Click to view)</span>
+                  <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -348,6 +451,111 @@
                       </div>
                     </li>
                     <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+                    <li class="item">
+                      <div class="product-img">
+                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
+                      </div>
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">PlayStation 4
+                          <span class="badge badge-success float-right">$399</span></a>
+                        <span class="product-description">
+                          PlayStation 4 500GB Console (PS4)
+                        </span>
+                      </div>
+                    </li>
+                    <!-- /.item -->
+
                   </ul>
                 </div>
                 <!-- /.card-body -->
@@ -360,39 +568,16 @@
             </div>
             <!-- /.col -->
           </div>
-          <!-- /.row -->
 
-          <!-- Maps -->
-          <div class="row justify-content-center">
-            <!-- left column -->
-            <div class="col-md-12">
-              <GmapMap
-                :center="{lat:10, lng:10}"
-                :zoom="8"
-                map-type-id="terrain"
-                style="width: 100%; height: 500px"
-              >
-                <GmapMarker
-                  v-for="(m, index) in markers1"
-                  :key="`m${index}`"
-                  :position="m.position"
-                  :clickable="true"
-                  :draggable="true"
-                  @click="center=m.position"
-                  :icon="'marker1.png'"
-                />
-                <GmapMarker
-                  v-for="(m, index) in markers2"
-                  :key="`index${index}`"
-                  :position="m.position"
-                  :clickable="true"
-                  :draggable="true"
-                  @click="center=m.position"
-                  :icon="'marker2.png'"
-                />
-              </GmapMap>
+          <br>
+
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <div class="col-md-8">
+              
             </div>
-            <!--/.col (left) -->
+            <!-- /.col -->
           </div>
           <!-- /.row -->
 

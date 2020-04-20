@@ -4,7 +4,7 @@ import * as VueGoogleMaps from '~/node_modules/vue2-google-maps'
  
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyCGtW7pjAUliiGHLbYItgFeBaLdFbv11c4',
+    key: 'AIzaSyC4_cfLxMbfxNqMtfJ5QnqgKhZgfNIAIbM',
     // libraries: 'places', // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
