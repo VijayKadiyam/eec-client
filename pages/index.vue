@@ -210,7 +210,7 @@
                       <nuxt-link :to="`/organizations/${organization.value}/employees/${emp.id}/full`">
                         <img style="width: 128px; height: 128px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')" :alt="emp.first_name">
                         <a class="users-list-name" href="#">{{ emp.first_name }}</a>
-                        <span class="users-list-date">{{ emp.employee_code }}</span>
+                        <span class="users-list-date">{{ emp.emp_code }}</span>
                       </nuxt-link>
                     </li>
                   </ul>
