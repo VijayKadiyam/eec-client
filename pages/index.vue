@@ -25,61 +25,20 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <!-- Info boxes -->
+          <!-- Inspector boxes -->
           <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-3"
+              v-for="(inspectorTab, t) in inspectorTabs"
+              :key="`inspectorTab${t}`"
+            >
               <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+                <span :class="'info-box-icon ' + inspectorTab.color + ' elevation-1'"><i :class="inspectorTab.icon"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">Total No of Inspectors</span>
+                  <span class="info-box-text">{{ inspectorTab.name }}</span>
                   <span class="info-box-number">
-                    10
-                    <small>%</small>
+                    {{ inspectorTab.count }}
                   </span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users-cog"></i></span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">No of Inspectors Engaged</span>
-                  <span class="info-box-number">41,410</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-
-            <!-- fix for small devices only -->
-            <div class="clearfix hidden-md-up"></div>
-
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-skiing"></i></span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">Inspectors On Leave</span>
-                  <span class="info-box-number">760</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-lock"></i></span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">Inspectors with no Job</span>
-                  <span class="info-box-number">2,000</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -89,61 +48,20 @@
           </div>
           <!-- /.row -->
 
-          <!-- Info boxes -->
+          <!-- Job boxes -->
           <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-3"
+              v-for="(jobTab, t) in jobTabs"
+              :key="`jobTab${t}`"
+            >
               <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-briefcase"></i></span>
+                <span :class="'info-box-icon ' + jobTab.color + ' elevation-1'"><i :class="jobTab.icon"></i></span>
 
                 <div class="info-box-content">
-                  <span class="info-box-text">On Going Jobs</span>
+                  <span class="info-box-text">{{ jobTab.name }}</span>
                   <span class="info-box-number">
-                    10
-                    <small>%</small>
+                    {{ jobTab.count }}
                   </span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tasks"></i></span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">Completed Jobs</span>
-                  <span class="info-box-number">41,410</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-
-            <!-- fix for small devices only -->
-            <div class="clearfix hidden-md-up"></div>
-
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-network-wired"></i></span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">New Jobs With No Inspector</span>
-                  <span class="info-box-number">760</span>
-                </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="far fa-window-close"></i></span>
-
-                <div class="info-box-content">
-                  <span class="info-box-text">No of Inspections Cancelled</span>
-                  <span class="info-box-number">2,000</span>
                 </div>
                 <!-- /.info-box-content -->
               </div>
@@ -276,57 +194,27 @@
               <!-- USERS LIST -->
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Latest Members</h3>
+                  <h3 class="card-title">Inspectors</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
                   <ul class="users-list clearfix">
-                    <li>
-                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander Pierce</a>
-                      <span class="users-list-date">Today</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Norman</a>
-                      <span class="users-list-date">Yesterday</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user7-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Jane</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">John</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander</a>
-                      <span class="users-list-date">13 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user5-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Sarah</a>
-                      <span class="users-list-date">14 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user4-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nora</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nadia</a>
-                      <span class="users-list-date">15 Jan</span>
+                    <li
+                      v-for="(emp, u) in users"
+                      :key="`emp${u}`"
+                    >
+                      <img style="width: 128px; height: 128px;" :src="mediaUrl + (emp.attachment ? emp.attachment : '/user.png')" :alt="emp.first_name">
+                      <a class="users-list-name" href="#">{{ emp.first_name }}</a>
+                      <span class="users-list-date">{{ emp.employee_code }}</span>
                     </li>
                   </ul>
                   <!-- /.users-list -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer text-center">
-                  <a href="javascript::">View All Users</a>
+                  <nuxt-link :to="`/organizations/${organization.value}/employees`">
+                    View All Inspectors
+                  </nuxt-link>
                 </div>
                 <!-- /.card-footer -->
               </div>
@@ -571,16 +459,6 @@
 
           <br>
 
-          <!-- Main row -->
-          <div class="row">
-            <!-- Left col -->
-            <div class="col-md-8">
-              
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-
           <br><br>
 
         </div>
@@ -631,13 +509,37 @@ export default {
           lng: 11.0
         }
       }
-    ]
+    ],
+    inspectorTabs: [],
+    jobTabs: [],
+    users: []
   }),
   created() {
+    this.getData()
   },
   async mounted() {
-    let count = await this.$axios.get('/count')
-    this.count = count.data.data
+    let response = await this.$axios.get('/count')
+    this.count = response.data.data
+    this.users = response.data.users
+  },
+  methods: {
+    async getData() {
+      let count = await this.$axios.get('count')
+      count = count.data.data
+      console.log(count)
+      this.inspectorTabs = [
+        { name: 'Total No. of Inspectors', icon: 'fas fa-users', color: 'bg-info', count: count.inspectors.total },
+        { name: 'No. of Inspectors Engaged', icon: 'fas fa-users-cog', color: 'bg-danger', count: count.inspectors.engaged },
+        { name: 'No. of Inspectors on Leave', icon: 'fas fa-skiing', color: 'bg-success', count: count.inspectors.on_leave },
+        { name: 'Inspectors with no Job', icon: 'fas fa-user-lock', color: 'bg-warning', count: count.inspectors.no_job },
+      ]
+      this.jobTabs = [
+        { name: 'On Going Jobs', icon: 'fas fa-briefcase', color: 'bg-info', count: count.jobs.on_going },
+        { name: 'Completed Jobs', icon: 'fas fa-tasks', color: 'bg-danger', count: count.jobs.completed },
+        { name: 'New Jobs With No Inspector', icon: 'fas fa-network-wired', color: 'bg-success', count: count.jobs.no_inspector },
+        { name: 'No of Inspections Cancelled', icon: 'far fa-window-close', color: 'bg-warning', count: count.jobs.cancelled },
+      ]
+    }
   }
 }
 </script>
