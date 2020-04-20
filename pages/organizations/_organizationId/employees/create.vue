@@ -113,7 +113,7 @@
                               :option.sync="form.phone_code"
                             ></country-codes>
                           </div>
-                          <input type="number" class="form-control" placeholder="Enter phone" v-mask="'##########'" v-model="form.phone">
+                          <input type="number" class="form-control" placeholder="Enter phone" v-mask="'###############'" v-model="form.phone">
                         </div>
                         <span class="help-block" 
                           v-if="errors.phone"
@@ -129,7 +129,7 @@
                               :option.sync="form.phone_2_code"
                             ></country-codes>
                           </div>
-                          <input type="number" class="form-control" placeholder="Enter phone 2" v-mask="'##########'"
+                          <input type="number" class="form-control" placeholder="Enter phone 2" v-mask="'###############'"
                             v-model="form.phone_2"
                           >
                         </div>
@@ -155,17 +155,6 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="form-label">Age</label>
-                        <input type="number" class="form-control" placeholder="Enter age"
-                          v-model="form.age"
-                        >
-                        <span class="help-block" 
-                          v-if="errors.age"
-                        >{{ errors.age[0] }}</span>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
                         <label class="form-label">Date of birth</label>
                         {{ form.dob }}
                         <client-only>
@@ -178,6 +167,17 @@
                         <span class="help-block" 
                           v-if="errors.dob"
                         >{{ errors.dob[0] }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Age (In Years)</label>
+                        <input type="number" class="form-control" placeholder="Enter age"
+                          v-model="form.age"
+                        >
+                        <span class="help-block" 
+                          v-if="errors.age"
+                        >{{ errors.age[0] }}</span>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -324,6 +324,7 @@ export default {
       });
     },
     customDobFormatter(date) {
+      this.form.age = moment().diff(date, 'years',false);
       this.form.dob = moment(date).format('DD-MM-YYYY');
       return moment(date).format('DD-MM-YYYY');
     },

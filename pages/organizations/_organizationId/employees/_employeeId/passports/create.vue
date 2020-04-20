@@ -75,24 +75,40 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of issue</label>
-                    <div class="input-group">
+                    {{ form.date_of_issue }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customDoiFormatter"
+                        value="form.date_of_issue"
+                      />
+                    </client-only>
+                    <!-- <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
                       <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy" v-model="form.date_of_issue">
-                    </div>
+                    </div> -->
                     <span class="help-block" 
                       v-if="errors.date_of_issue"
                     >{{ errors.date_of_issue[0] }}</span>
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
-                    <div class="input-group">
+                    {{ form.date_of_expiry }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customDoeFormatter"
+                        value="form.date_of_expiry"
+                      />
+                    </client-only>
+                    <!-- <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                       </div>
                       <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy" v-model="form.date_of_expiry">
-                    </div>
+                    </div> -->
                     <span class="help-block" 
                       v-if="errors.date_of_expiry"
                     >{{ errors.date_of_expiry[0] }}</span>
@@ -142,6 +158,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import moment from 'moment'
 
 export default {
   name: 'CreateInspectorPassportDetails',
@@ -154,7 +171,9 @@ export default {
   data: () => ({
     form: {
       active: 1,
-      role_id: ''
+      role_id: '',
+      date_of_issue: '',
+      date_of_expiry : ''
     },
   }),
   mounted() {
@@ -193,6 +212,14 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
+    },
+    customDoiFormatter(date) {
+      this.form.date_of_issue = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
+    customDoeFormatter(date) {
+      this.form.date_of_expiry = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
   }
 }

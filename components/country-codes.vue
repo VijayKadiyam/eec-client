@@ -1,5 +1,22 @@
 <template>
-  <select v-model="op"
+  <div>
+  <input list="browsers" placeholder="Dial Code" class="form-control" v-model="op"
+    @input="$emit('update:option', op)"/>
+  <datalist id="browsers">
+    <option 
+      v-for="(option, o) in options"
+      :key="`option${o}`" 
+      :value="option.dial_code" 
+    ></option>
+  </datalist></div>
+
+  <!-- <v-select 
+    v-model="op" 
+    :reduce="option => option.dial_code" 
+    :options="options"
+  ></v-select> -->
+
+  <!-- <select v-model="op"
     @change="$emit('update:option', op)"
   >
     <option value="">Select Code</option>
@@ -10,7 +27,7 @@
     >
       {{ option.dial_code }}
     </option>
-  </select>
+  </select> -->
 </template>
 
 <script type="text/javascript">

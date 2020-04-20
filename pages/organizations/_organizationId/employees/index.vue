@@ -27,7 +27,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search by name / email / phone">
+              <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search by name / email / phone / address / accredition type">
               <a class="refresh" href="#" @click="getData">Refresh</a>
               <br>
               <div class="card">
@@ -42,7 +42,11 @@
                       <tr>
                         <th>Sr. No.</th>
                         <th>Actions</th>
-                        <th>Photo</th>
+                        <th @click="sort('emp_code')">
+                          Photo / ID
+                          <i v-if="currentSortDir == 'asc'" class="fas fa-arrow-up"></i>
+                          <i v-if="currentSortDir == 'desc'" class="fas fa-arrow-down"></i>
+                        </th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -57,7 +61,7 @@
                       > 
                         <td colspan="13">Loading...</td>
                       </tr>
-                      <tr v-for="(emp, i) in items"
+                      <tr v-for="(emp, i) in sorteditems"
                         :key="`emp${i}`"
                       >
                         <td>{{ i + 1 }}</td>
@@ -86,7 +90,7 @@
                         <td>{{ emp.email }} <br> {{ emp.email_2 }}</td>
                         <td>{{ emp.phone_code }} {{ emp.phone }} <br> {{ emp.phone_2_code }} {{ emp.phone_2 }}</td>
                         <td>{{ emp.addresses.length ? emp.addresses[0].country : '' }}</td>
-                        <td></td>
+                        <td>{{ emp.sires.length ? emp.sires[0].type : '' }}</td>
                         <td>{{ emp.remarks }}</td>
                       </tr>
                     </tbody>
@@ -112,10 +116,23 @@ export default {
   data:() =>  ({
     searchData: '',
     items: [],
-    loading: true
+    loading: true,
+    currentSort:'name',
+    currentSortDir:'asc'
   }),
   mounted() {
     this.getData()
+  },
+  computed:{
+    sorteditems:function() {
+      return this.items.sort((a,b) => {
+        let modifier = 1;
+        if(this.currentSortDir === 'desc') modifier = -1;
+        if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      });
+    }
   },
   methods: {
     async getData() {
@@ -141,7 +158,14 @@ export default {
       if(r == true)
         await this.$axios.delete(`/users/${id}`)
       this.getData()
+    },
+    sort(s) {
+      //if s == current sort, reverse
+      if(s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+      }
+      this.currentSort = s;
     }
-  }
+  },
 }
 </script>

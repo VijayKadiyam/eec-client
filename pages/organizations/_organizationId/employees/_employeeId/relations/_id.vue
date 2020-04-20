@@ -81,7 +81,7 @@
                           :option.sync="form.phone_code"
                         ></country-codes>
                       </div>
-                      <input type="number" class="form-control" placeholder="Enter phone" v-mask="'##########'" v-model="form.phone">
+                      <input type="number" class="form-control" placeholder="Enter phone" v-mask="'###############'" v-model="form.phone">
                     </div>
                     <span class="help-block" 
                       v-if="errors.phone"
@@ -97,7 +97,7 @@
                       </div>
                       <input type="number" class="form-control" placeholder="Enter alternate phone"
                         v-model="form.alt_phone" 
-                        v-mask="'##########'" 
+                        v-mask="'###############'" 
                       >
                     </div>
                   </div>
