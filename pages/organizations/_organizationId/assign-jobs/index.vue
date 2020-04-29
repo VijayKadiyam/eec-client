@@ -400,19 +400,7 @@ export default {
     },
     mainInspectorEmailContent() {
       return `
-        Dear ${this.inspector.first_name},
-        <br><br>
-        Aethon Marine Services nominates you to inspect <b>${this.job.vessel_name}</b> on behalf of <b>${this.job.oil_major}</b> at <b>${this.job.location}</b>.
-        <br><br>
-        Details are as follows:
         <table class="email-table">
-          <thead>
-            <tr>
-              <td colspan="2">
-                <b>Request for Vessel Inspection</b>
-              </td>
-            </tr>
-          </thead>
           <tbody>
             <tr>
               <td>
@@ -425,18 +413,17 @@ export default {
           </tbody>
         </table>
         <br>
+        Dear ${this.inspector.first_name} ${this.inspector.last_name},
+        <br><br>
+        Aethon Marine Services nominates you to inspect <b>${this.job.vessel_name}</b> on behalf of <b>${this.job.oil_major}</b> at <b>${this.job.location}</b>.
+        <br><br>
+        Details are as follows:
+        <br>
         <table class="email-table">
-          <thead>
-            <tr>
-              <td colspan="2">
-                <b>Recipient</b>
-              </td>
-            </tr>
-          </thead>
           <tbody>
             <tr>
               <td>
-                <b>Company</b>
+                <b>Oil Major / Submitting Member</b>
               </td>
               <td>
                 ${this.job.oil_major}
@@ -530,49 +517,18 @@ export default {
         <table class="email-table">
           <thead>
             <tr>
-              <td colspan="4">
-                <b>Owner/Operator</b>
+              <td>
+                <b>Owner/Operator Details</b>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <b>Name</b>
+                ${this.job.operator_details}
+                <br>
+                <br>
               </td>
-              <td>
-                ${this.job.operator_name}
-              </td>
-              <td>
-                <b>Contact Person</b>
-              </td>
-              <td>
-                ${this.job.operator_contact_person}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>Phone</b>
-              </td>
-              <td>
-                ${this.job.operator_phone}
-              </td>
-              <td>
-                <b>Phone 2</b>
-              </td>
-              <td>
-                ${this.job.operator_phone_2}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>Email</b>
-              </td>
-              <td>
-                ${this.job.operator_email}
-              </td>
-              <td></td>
-              <td></td>
             </tr>
           </tbody>
         </table>
@@ -580,52 +536,17 @@ export default {
         <table class="email-table">
           <thead>
             <tr>
-              <td colspan="4">
-                <b>Agent</b>
+              <td>
+                <b>Agent Details</b>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <b>Name</b>
-              </td>
-              <td>
-                ${this.job.agent_name}
-              </td>
-              <td>
-                <b>Contact Person</b>
-              </td>
-              <td>
-                ${this.job.agent_contact_person}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>Phone</b>
-              </td>
-              <td>
-                ${this.job.agent_phone}
-              </td>
-              <td>
-                <b>Phone 2</b>
-              </td>
-              <td>
-                ${this.job.agent_phone_2}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <b>Email</b>
-              </td>
-              <td>
-                ${this.job.agent_email}
-              </td>
-              <td>
-                <b>Address</b>
-              </td>
-              <td>
-                ${this.job.agent_address}
+                ${this.job.agent_details}
+                <br>
+                <br>
               </td>
             </tr>
           </tbody>

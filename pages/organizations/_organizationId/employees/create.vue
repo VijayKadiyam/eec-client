@@ -213,6 +213,13 @@
                         <input type="file" id="file" name="file" ref="file" accept="application/ms-excel" multiple>
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">CV/Resume</label>
+                        <br>
+                        <input type="file" id="file1" name="file1" ref="file1" accept="application/ms-excel" multiple>
+                      </div>
+                    </div>
                   </div>
                   <!-- End row -->
                   <div class="form-footer">
