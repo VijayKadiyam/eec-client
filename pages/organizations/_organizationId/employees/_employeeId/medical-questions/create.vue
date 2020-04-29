@@ -13,7 +13,7 @@
                   title="Hi"
                 >
                 </back-button>
-                Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) Medical Questions</h1>
+                Inspector ({{ inspector.first_name }} {{ inspector.last_name }}) Medical/Health Declaration Questions (Valid for 6 Months)</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -46,6 +46,20 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">Date of declaration</label>
+                    {{ form.date }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customDateFormatter"
+                        value="form.date"
+                      />
+                    </client-only>
+                    <span class="help-block" 
+                      v-if="errors.dob"
+                    >{{ errors.dob[0] }}</span>
+                  </div>
                   <div class="form-group">
                     <label class="form-label">Any Medicine Intake On Regular Basis (BP, Diabetis, etc).If Yes Please Provide Details</label>
                     <select class="form-control custom-select"
@@ -87,7 +101,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="form-label">Have You Consulted A Doctor During The Last 12 Months For Any Major Illness Or Accident (Yes/No).If Yes Provide Details</label>
+                    <label class="form-label">Have You Consulted A Doctor For Any Major Illness Or Accident (Yes/No).If Yes Provide Details</label>
                     <select class="form-control custom-select"
                       v-model="form.last_12_months_consulting"
                     >
@@ -147,6 +161,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import moment from 'moment'
 
 export default {
   name: 'CreateInspectorMedicalDetails',
@@ -176,7 +191,11 @@ export default {
       catch(e) {
 
       }
-    }
+    },
+    customDateFormatter(date) {
+      this.form.date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
   }
 }
 </script>

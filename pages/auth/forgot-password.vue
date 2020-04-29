@@ -7,7 +7,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
+          <p class="login-box-msg">Enter your registered Email ID</p>
 
           <span style="color: red;"
             v-if="errors.email"
@@ -22,34 +22,15 @@
               </div>
             </div>
           </div>
-
-          <span style="color: red;"
-            v-if="errors.password"
-          >{{ errors.password[0] }}</span>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password"
-              v-model="form.password"
-            >
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
           <div class="row">
             <!-- /.col -->
-            <div class="col-4">
+            <div class="col-12">
               <button type="submit" class="btn btn-primary btn-block"
-                @click="login"
-              >Sign In</button>
+                @click="sendEmail"
+              >Send Password Reset Email</button>
             </div>
             <!-- /.col -->
           </div>
-
-          <br>
-          <p class="mb-1">
-            <nuxt-link to="/auth/forgot-password">I forgot my password</nuxt-link>
-          </p>
         </div>
         <!-- /.login-card-body -->
       </div>
@@ -60,23 +41,23 @@
 
 <script type="text/javascript">
 export default {
-  name: 'Login',
+  name: 'ForgotPassword',
   middleware: 'guest',
   auth: false,
   data: () => ({
     form: {
       email: '',
-      password: ''
     }
   }),
   methods: {
-    async login() {
+    async sendEmail() {
       try {
-        await this.$axios.post('/login', this.form)
-        await this.$auth.login({ data: this.form })
-        this.$router.push('/')
+        await this.$axios.post('/forgot_password', this.form)
+        alert('Email Sent')
       }
-      catch(e) {}
+      catch(e) {
+
+      }
     }
   }
 }

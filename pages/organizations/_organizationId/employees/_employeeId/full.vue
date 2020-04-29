@@ -58,6 +58,7 @@
                         <th>DOB</th>
                         <th>Marital Status</th>
                         <th>Skype ID</th>
+                        <th>CV/Resume</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -76,12 +77,13 @@
                         <td><img style="width: 50px; height: 50px;" :src="mediaUrl + (form.attachment ? form.attachment : '/user.png')"></td>
                         <td>{{ form.first_name }} {{ form.last_name }}</td>
                         <td>{{ form.email }}</td>
-                        <td>{{ form.phone }}</td>
+                        <td>{{ form.phone_code }} {{ form.phone }}</td>
                         <td>{{ form.gender }}</td>
                         <td>{{ form.age }}</td>
                         <td>{{ form.dob }}</td>
                         <td>{{ form.marital_status }}</td>
                         <td>{{ form.skype_id }}</td>
+                        <td><a :href="mediaUrl + form.cv_path" target="_blank">{{ form.cv_path }}</a></td>
                       </tr>
                     </tbody>
                   </table>
@@ -435,7 +437,7 @@
                         <th>Branch Name</th>
                         <th>Account No</th>
                         <th>IFSC Code</th>
-                        <th>Benificary Name</th>
+                        <th>Beneficary Name</th>
                         <th>Bank Address</th>
                         <th>Remarks</th>
                       </tr>
@@ -884,7 +886,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Medical Questions</u></h3> &nbsp;
+                  <h3 class="card-title"><u>Medical/Health Declaration (Valid for next 6 Months)</u></h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->
@@ -894,9 +896,10 @@
                       <tr>
                         <th>Actions</th>
                         <th>Sr. No.</th>
+                        <th>Date</th>
                         <th>Any Medicine Intake On Regular Basis</th>
                         <th>Have You Undergone Any Surgery In The Past</th>
-                        <th>Have You Consulted A Doctor During The Last 12 Months For Any Illness Or Accident </th>
+                        <th>Have You Consulted A Doctor For Any Illness Or Accident </th>
                         <th>Have You Ever Been Tested Positive For Any Drug And Alcohol Test</th>
                       </tr>
                     </thead>
@@ -920,6 +923,7 @@
                           </nuxt-link>
                         </td>
                         <td>{{ i + 1 }}</td>
+                        <td>{{ medical.date }}</td>
                         <td>{{ medical.any_medical_intake }}</td>
                         <td>{{ medical.any_surgery_in_past }}</td>
                         <td>{{ medical.last_12_months_consulting }}</td>

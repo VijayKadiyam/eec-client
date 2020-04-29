@@ -216,7 +216,7 @@ export default {
         title: 'User',
         'items': [
           {
-            name: 'Leaves', icon: 'fas fa-mug-hot', link: `/organizations/${this.organizationId}/leaves`,
+            name: 'Leave / Unavailability', icon: 'fas fa-mug-hot', link: `/organizations/${this.organizationId}/leaves`,
           },
           // {
           //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,

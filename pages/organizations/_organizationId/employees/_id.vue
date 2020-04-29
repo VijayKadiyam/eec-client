@@ -212,7 +212,24 @@
                       <div class="form-group">
                         <label class="form-label">Photo</label>
                         <br>
+                        <a :href="mediaUrl + form.attachment" target="_blank">{{ form.attachment }}</a>
+                        <input type="text" class="form-control" placeholder="Enter attachment"
+                          v-model="form.attachment"
+                        >
+                        <br>
                         <input type="file" id="file" name="file" ref="file" accept="application/ms-excel" multiple>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">CV/Resume</label>
+                        <br>
+                        <a :href="mediaUrl + form.cv_path" target="_blank">{{ form.cv_path }}</a>
+                        <input type="text" class="form-control" placeholder="Enter cv path"
+                          v-model="form.cv_path"
+                        >
+                        <br>
+                        <input type="file" id="file1" name="file1" ref="file1" accept="application/ms-excel" multiple>
                       </div>
                     </div>
                   </div>
@@ -286,6 +303,7 @@ export default {
       try {
         await this.$axios.patch(`/users/${this.$route.params.id}`, this.form)
         await this.handleFileUpload()
+        await this.handleCVUpload()
         this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.id}/full`)
         this.loading = false
       }
@@ -310,10 +328,32 @@ export default {
         console.log('FAILURE!!');
       });
     },
+    async handleCVUpload() {
+      this.attachment = this.$refs.file1.files[0]
+      let formData = new FormData();
+      formData.append('userid', this.form.id);
+      formData.append('attachment', this.attachment);
+      await this.$axios.post('upload_user_cv', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      ).then(response => {
+      })
+      .catch(function(){
+        console.log('FAILURE!!');
+      });
+    },
     customDobFormatter(date) {
-      this.form.age = moment().diff(date, 'years',false);
-      this.form.dob = moment(date).format('DD-MM-YYYY');
-      return moment(date).format('DD-MM-YYYY');
+      let age = moment().diff(date, 'years',false);
+      if(age > 25) {
+        this.form.age = age
+        this.form.dob = moment(date).format('DD-MM-YYYY');
+        return moment(date).format('DD-MM-YYYY');
+      }
+      else
+        alert('Age can\'t be less than 25 Years')
     },
   }
 }

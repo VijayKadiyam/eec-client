@@ -41,11 +41,25 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Edit Inspector Medical Questions</h3>
+                  <h3 class="card-title">Edit Inspector Medical/Health Declaration Questions (Valid for 6 Months)</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div class="card-body">
+                  <div class="form-group">
+                    <label class="form-label">Date of declaration</label>
+                    {{ form.date }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customDateFormatter"
+                        value="form.date"
+                      />
+                    </client-only>
+                    <span class="help-block" 
+                      v-if="errors.dob"
+                    >{{ errors.dob[0] }}</span>
+                  </div>
                   <div class="form-group">
                     <label class="form-label">Any Medicine Intake On Regular Basis (BP, Diabetis, etc).If Yes Please Provide Details</label>
                     <select class="form-control custom-select"
@@ -73,7 +87,7 @@
                     >{{ errors.any_surgery_in_past[0] }}</span>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Have You Consulted A Doctor During The Last 12 Months For Any Major Illness Or Accident (Yes/No).If Yes Provide Details</label>
+                    <label class="form-label">Have You Consulted A Doctor For Any Major Illness Or Accident (Yes/No).If Yes Provide Details</label>
                     <select class="form-control custom-select"
                       v-model="form.last_12_months_consulting"
                     >
@@ -120,6 +134,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import moment from 'moment'
 
 export default {
   name: 'EditInspectorMedicalDetails',
@@ -151,7 +166,11 @@ export default {
       catch(e) {
 
       }
-    }
+    },
+    customDateFormatter(date) {
+      this.form.date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
   }
 }
 </script>

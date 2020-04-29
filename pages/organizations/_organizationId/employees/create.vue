@@ -324,9 +324,14 @@ export default {
       });
     },
     customDobFormatter(date) {
-      this.form.age = moment().diff(date, 'years',false);
-      this.form.dob = moment(date).format('DD-MM-YYYY');
-      return moment(date).format('DD-MM-YYYY');
+      let age = moment().diff(date, 'years',false);
+      if(age > 25) {
+        this.form.age = age
+        this.form.dob = moment(date).format('DD-MM-YYYY');
+        return moment(date).format('DD-MM-YYYY');
+      }
+      else
+        alert('Age can\'t be less than 25 Years')
     },
   }
 }
