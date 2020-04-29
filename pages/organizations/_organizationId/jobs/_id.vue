@@ -164,13 +164,13 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="form-label">Location</label>
-                        <input type="text" class="form-control" placeholder="Enter location"
-                          v-model="form.location"
-                        >
+                        <label class="form-label">Country</label>
+                        <countries
+                          :option.sync="form.location"
+                        ></countries>
                         <span class="help-block" 
-                          v-if="errors.location"
-                        >{{ errors.location[0] }}</span>
+                          v-if="errors.country"
+                        >{{ errors.country[0] }}</span>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -368,6 +368,7 @@
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
 import 'vue-select/dist/vue-select.css';
+import Countries from '@/components/countries.vue'
 
 export default {
   name: 'EditJob',
@@ -422,7 +423,8 @@ export default {
     ],
   }),
   components: {
-    BackButton
+    BackButton,
+    Countries
   },
   methods: {
     async store() {

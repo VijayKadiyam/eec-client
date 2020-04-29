@@ -25,6 +25,48 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
+          <!-- Filter Dates -->
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label" style="color: white;">Start Date: {{ start_date }}</label>
+                
+                <client-only>
+                  <date-picker
+                    placeholder="DD-MM-YYYY"
+                    :format="customStartDateFormatter"
+                    value="start_date"
+                  />
+                </client-only>
+                <span class="help-block" 
+                  v-if="errors.start_date"
+                >{{ errors.start_date[0] }}</span>
+              </div>
+            </div>  
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label" style="color: white;">End Date: {{ end_date }}</label>
+                
+                <client-only>
+                  <date-picker
+                    placeholder="DD-MM-YYYY"
+                    :format="customEndDateFormatter"
+                    value="end_date"
+                  />
+                </client-only>
+                <span class="help-block" 
+                  v-if="errors.end_date"
+                >{{ errors.end_date[0] }}</span>
+              </div>
+            </div> 
+            <div class="col-md-2">
+              <br>
+              <div class="form-group">
+                <button class="btn btn-danger btn-block">Filter</button>
+              </div>
+            </div>  
+          </div>
+
           <!-- Inspector boxes -->
           <div class="row">
             <div class="col-12 col-sm-6 col-md-3"
@@ -108,11 +150,10 @@
               <br>
 
               <!-- TABLE: Invoices -->
-              <div class="card">
+              <!-- <div class="card">
                 <div class="card-header border-transparent">
                   <h3 class="card-title">Invoices Raised</h3>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body p-0">
                   <div class="table-responsive">
                     <table class="table m-0">
@@ -184,15 +225,12 @@
                       </tbody>
                     </table>
                   </div>
-                  <!-- /.table-responsive -->
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer clearfix">
                   <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
                   <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
                 </div>
-                <!-- /.card-footer -->
-              </div>
+              </div> -->
               <!-- /.Invoices -->
 
               <!-- USERS LIST -->
@@ -477,10 +515,13 @@
 </template>
 
 <script>
+import moment from 'moment'
 
 export default {
   name: 'Dashboard', 
   data: () => ({
+    start_date: '',
+    end_date: '',
     count: {},
     markers1: [
       {
@@ -545,7 +586,15 @@ export default {
         { name: 'New Jobs With No Inspector', icon: 'fas fa-network-wired', color: 'bg-success', count: count.jobs.no_inspector },
         { name: 'No of Inspections Cancelled', icon: 'far fa-window-close', color: 'bg-warning', count: count.jobs.cancelled },
       ]
-    }
+    },
+    customStartDateFormatter(date) {
+      this.start_date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
+    customEndDateFormatter(date) {
+      this.end_date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
   }
 }
 </script>

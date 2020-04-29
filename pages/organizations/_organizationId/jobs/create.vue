@@ -162,7 +162,16 @@
                         >{{ errors.cargo[0] }}</span>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="form-label">Country</label>
+                      <countries
+                        :option.sync="form.location"
+                      ></countries>
+                      <span class="help-block" 
+                        v-if="errors.location"
+                      >{{ errors.location[0] }}</span>
+                    </div>
+                    <!-- <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Location</label>
                         <input type="text" class="form-control" placeholder="Enter location"
@@ -172,7 +181,7 @@
                           v-if="errors.location"
                         >{{ errors.location[0] }}</span>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Port Name</label>
@@ -368,6 +377,7 @@
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
 import 'vue-select/dist/vue-select.css';
+import Countries from '@/components/countries.vue'
 
 export default {
   name: 'CreateJob',
@@ -375,7 +385,8 @@ export default {
     form: {
       'vessel_type': '',
       'operation': '',
-      'oil_major': ''
+      'oil_major': '',
+      'location': '',
     },
     operations: [
       {'label': "Select Operation", 'code': ""},
@@ -421,7 +432,8 @@ export default {
     ],
   }),
   components: {
-    BackButton
+    BackButton,
+    Countries
   },
   methods: {
     async store() {

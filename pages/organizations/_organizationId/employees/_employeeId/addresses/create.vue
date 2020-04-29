@@ -88,9 +88,9 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" placeholder="Enter country"
-                      v-model="form.country"
-                    >
+                    <countries
+                      :option.sync="form.country"
+                    ></countries>
                     <span class="help-block" 
                       v-if="errors.country"
                     >{{ errors.country[0] }}</span>
@@ -126,6 +126,8 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import Countries from '@/components/countries.vue'
+
 
 export default {
   name: 'CreateInspectorAddress',
@@ -137,12 +139,14 @@ export default {
   },
   data: () => ({
     form: {
-      address_type: ''
+      address_type: '',
+      country: ''
     },
     loading: false
   }),
   components: {
-    BackButton
+    BackButton,
+    Countries
   },
   methods: {
     async store() {
