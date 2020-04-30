@@ -152,31 +152,39 @@
           <!-- Main row -->
           <div class="row">
             <!-- Map and Invoice Raised -->
-            <div class="col-md-8">
+            <div class="col-md-12">
               <GmapMap
-                :center="{lat:10, lng:10}"
-                :zoom="8"
+                :center="{lat:20.5937, lng:78.9629}"
+                :zoom="4"
                 map-type-id="terrain"
                 style="width: 100%; height: 500px"
               >
                 <GmapMarker
-                  v-for="(m, index) in markers1"
+                  v-for="(m, index) in jobsMarker"
                   :key="`m${index}`"
                   :position="m.position"
                   :clickable="true"
-                  :draggable="true"
+                  :draggable="false"
                   @click="center=m.position"
                   :icon="'marker1.png'"
                 />
                 <GmapMarker
-                  v-for="(m, index) in markers2"
+                  v-for="(m, index) in inspectorsMarker"
                   :key="`index${index}`"
                   :position="m.position"
                   :clickable="true"
-                  :draggable="true"
-                  @click="center=m.position"
+                  :draggable="false"
                   :icon="'marker2.png'"
+                  @click="toggleInfoWindow(m,index)"
                 />
+                <gmap-info-window
+                  :options="infoOptions"
+                  :position="infoWindowPos"
+                  :opened="infoWinOpen"
+                  @closeclick="infoWinOpen=false"
+                >
+                  <div v-html="infoContent"></div>
+                </gmap-info-window>
               </GmapMap>
 
               <br>
@@ -300,17 +308,14 @@
 
             <!-- Map Controls and Payment made to the inspectors -->
             <div class="col-md-4">
-              <!-- Info Boxes Style 2 -->
-              <div class="info-box mb-3 bg-warning">
+              <!-- <div class="info-box mb-3 bg-warning">
                 <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
                 <div class="info-box-content">
                   <span class="info-box-text">USA (Click to view)</span> 
                   <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
-                <!-- /.info-box-content -->
               </div>
-              <!-- /.info-box -->
               <div class="info-box mb-3 bg-success">
                 <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
@@ -318,9 +323,7 @@
                   <span class="info-box-text">Europe (Click to view)</span>
                   <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
-                <!-- /.info-box-content -->
               </div>
-              <!-- /.info-box -->
               <div class="info-box mb-3 bg-primary">
                 <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
@@ -328,9 +331,7 @@
                   <span class="info-box-text">UAE (Click to view)</span>
                   <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
-                <!-- /.info-box-content -->
               </div>
-              <!-- /.info-box -->
               <div class="info-box mb-3 bg-danger">
                 <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
@@ -338,9 +339,7 @@
                   <span class="info-box-text">Asia (Click to view)</span>
                   <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
-                <!-- /.info-box-content -->
               </div>
-              <!-- /.info-box -->
               <div class="info-box mb-3 bg-info">
                 <span class="info-box-icon"><i class="fa fa-map-marker"></i></span>
 
@@ -348,16 +347,13 @@
                   <span class="info-box-text">Australia (Click to view)</span>
                   <span class="info-box-number">3 Inspectors | 2 Jobs</span>
                 </div>
-                <!-- /.info-box-content -->
-              </div>
-              <!-- /.info-box -->
+              </div> -->
 
               <!-- PRODUCT LIST -->
-              <div class="card">
+              <!-- <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Payments made to inspector</h3>
                 </div>
-                <!-- /.card-header -->
                 <div class="card-body p-0">
                   <ul class="products-list product-list-in-card pl-2 pr-2">
                     <li class="item">
@@ -372,7 +368,6 @@
                         </span>
                       </div>
                     </li>
-                    <!-- /.item -->
                     <li class="item">
                       <div class="product-img">
                         <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
@@ -385,7 +380,6 @@
                         </span>
                       </div>
                     </li>
-                    <!-- /.item -->
                     <li class="item">
                       <div class="product-img">
                         <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
@@ -401,7 +395,6 @@
                         </span>
                       </div>
                     </li>
-                    <!-- /.item -->
                     <li class="item">
                       <div class="product-img">
                         <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
@@ -414,123 +407,14 @@
                         </span>
                       </div>
                     </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
-                    <li class="item">
-                      <div class="product-img">
-                        <img src="dist/img/default-150x150.png" alt="Product Image" class="img-size-50">
-                      </div>
-                      <div class="product-info">
-                        <a href="javascript:void(0)" class="product-title">PlayStation 4
-                          <span class="badge badge-success float-right">$399</span></a>
-                        <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                      </div>
-                    </li>
-                    <!-- /.item -->
 
                   </ul>
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer text-center">
                   <a href="javascript:void(0)" class="uppercase">View All Products</a>
                 </div>
-                <!-- /.card-footer -->
-              </div>
-              <!-- /.card -->
+              </div> -->
             </div>
-            <!-- /.col -->
           </div>
 
           <br>
@@ -577,6 +461,8 @@ export default {
       {label: '2021', code: '2021'},
     ],
     year: '2020',
+    inspectorsMarker: [],
+    jobsMarker: [],
     markers1: [
       {
         position: {
@@ -613,7 +499,21 @@ export default {
     ],
     inspectorTabs: [],
     jobTabs: [],
-    users: []
+    users: [],
+    infoContent: '',
+    infoWindowPos: {
+      lat: 0,
+      lng: 0
+    },
+    infoWinOpen: false,
+    currentMidx: null,
+    //optional: offset infowindow so it visually sits nicely on top of our marker
+    infoOptions: {
+      pixelOffset: {
+        width: 0,
+        height: -35
+      }
+    },
   }),
   created() {
     // Get current month
@@ -623,6 +523,7 @@ export default {
   },
   async mounted() {
     this.search()
+    this.getInspectorsLocation()
   },
   methods: {
     async getData() {
@@ -665,7 +566,146 @@ export default {
       this.count = response.data.data
       this.users = response.data.users
       this.getData()
-    }
+    },
+    async getInspectorsLocation() {
+      this.inspectorsMarker = []
+      this.jobsMarker = []
+      let inspectors = await this.$axios.get(`/users?role_id=3`)
+      inspectors = inspectors.data.data
+
+      let onGoingJobs = await this.$axios.get(`jobs?type=ongoing&start_date=${this.start_date}&end_date=${this.end_date}`) 
+      onGoingJobs = onGoingJobs.data.data
+      for(const inspector of inspectors) {
+        let inspectorAddress = ''
+        let jobAddress = ''
+        for(const address of inspector.addresses) {
+          inspectorAddress = address.address_1 + ',' + address.address_2 + ',' + address.city + ',' + address.state + ',' + address.country + ',' + address.pincode
+
+          let checkIfSame = false;
+          onGoingJobs.forEach((onGoingJob) => {
+            let jobAddress = onGoingJob.port_name + ',' + onGoingJob.location;
+
+            let user = onGoingJob.users.find(user => user.id == inspector.id)
+            if(user) {
+              if(user.pivot.status == 1) {
+                console.log(3)
+                checkIfSame = true
+                this.getLatLngFromAddress(jobAddress, 3, inspector)
+              }
+              else {
+                this.getLatLngFromAddress(jobAddress, 2, inspector)
+                console.log(2)
+              }
+              console.log(jobAddress, inspector)
+            }
+          })
+
+          if(!checkIfSame && inspectorAddress) 
+            this.getLatLngFromAddress(inspectorAddress, 1, inspector)
+          console.log(inspectorAddress)
+        }
+          
+        
+        
+
+      }
+    },
+    // type = 1 : Update Inspector Marker
+    // type = 2 : Update Job Marker
+    // type = 3 : Update Both Marker
+    getLatLngFromAddress(add, type, user) {
+      this.$gmapApiPromiseLazy().then(() => {
+        const geocoder = new google.maps.Geocoder()
+
+        const address = add
+
+        let _this = this
+
+        geocoder.geocode({ address }, function (results, status) {
+          if (status === 'OK') {
+            const latitude = results[0].geometry.location.lat()
+            const longitude = results[0].geometry.location.lng()
+            if(type == 1)
+              _this.inspectorsMarker.push({
+                position: {
+                  lat: latitude,
+                  lng: longitude
+                },
+                user: user,
+              })
+            if(type == 2)
+              _this.jobsMarker.push({
+                position: {
+                  lat: latitude,
+                  lng: longitude
+                },
+                user: user,
+              }) 
+            if(type == 3) {
+              _this.inspectorsMarker.push({
+                position: {
+                  lat: latitude,
+                  lng: longitude
+                },
+                user: user,
+              })
+
+              //Earth’s radius, sphere
+              let R = 6378137
+              let Pi = 3.14
+
+              //offsets in meters
+              let dn = 10000
+              let de = 10000
+
+              //Coordinate offsets in radians
+              let dLat = dn/R
+              let dLon = de/(R*Math.cos(Pi*latitude/180))
+
+              //OffsetPosition, decimal degrees
+              let latO = latitude + dLat * 180/Pi
+              let lonO = longitude + dLon * 180/Pi 
+
+              _this.jobsMarker.push({
+                position: {
+                  lat: latO,
+                  lng: lonO
+                },
+                user: user
+              }) 
+            }
+          }
+        })
+      })
+    },
+    toggleInfoWindow: function (marker, idx) {
+      this.infoWindowPos = marker.position;
+      this.infoContent = this.getInfoWindowContent(marker);
+      
+
+      //check if its the same marker that was selected if yes toggle
+      if (this.currentMidx == idx) {
+        this.infoWinOpen = !this.infoWinOpen;
+      }
+      //if different marker set infowindow to open and reset current marker index
+      else {
+        this.infoWinOpen = true;
+        this.currentMidx = idx;
+      }
+    },
+
+    getInfoWindowContent: function (marker) {
+      let user = marker.user
+      return (`<div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4">${user.first_name + ' ' + user.last_name}</p>
+            </div>
+          </div>
+        </div>
+      </div>`);
+    },
   }
 }
 </script>
