@@ -153,39 +153,43 @@
           <div class="row">
             <!-- Map and Invoice Raised -->
             <div class="col-md-12">
-              <GmapMap
-                :center="{lat:20.5937, lng:78.9629}"
-                :zoom="4"
-                map-type-id="terrain"
-                style="width: 100%; height: 500px"
-              >
-                <GmapMarker
-                  v-for="(m, index) in jobsMarker"
-                  :key="`m${index}`"
-                  :position="m.position"
-                  :clickable="true"
-                  :draggable="false"
-                  @click="center=m.position"
-                  :icon="'marker1.png'"
-                />
-                <GmapMarker
-                  v-for="(m, index) in inspectorsMarker"
-                  :key="`index${index}`"
-                  :position="m.position"
-                  :clickable="true"
-                  :draggable="false"
-                  :icon="'marker2.png'"
-                  @click="toggleInfoWindow(m,index)"
-                />
-                <gmap-info-window
-                  :options="infoOptions"
-                  :position="infoWindowPos"
-                  :opened="infoWinOpen"
-                  @closeclick="infoWinOpen=false"
+              <client-only>
+                <GmapMap
+                  :center="{lat:20.5937, lng:78.9629}"
+                  :zoom="4"
+                  map-type-id="terrain"
+                  style="width: 100%; height: 500px"
                 >
-                  <div v-html="infoContent"></div>
-                </gmap-info-window>
-              </GmapMap>
+                  <GmapMarker
+                    v-for="(m, index) in jobsMarker"
+                    :key="`m${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    @click="center=m.position"
+                    :icon="'marker1.png'"
+                  >
+                  </GmapMarker>
+                  <GmapMarker
+                    v-for="(m, index) in inspectorsMarker"
+                    :key="`index${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'marker2.png'"
+                    @click="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
+                  <gmapInfoWindow
+                    :options="infoOptions"
+                    :position="infoWindowPos"
+                    :opened="infoWinOpen"
+                    @closeclick="infoWinOpen=false"
+                  >
+                    <div v-html="infoContent"></div>
+                  </gmapInfoWindow>
+                </GmapMap>
+              </client-only>
 
               <br>
 
