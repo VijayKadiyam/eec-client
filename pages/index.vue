@@ -570,6 +570,7 @@ export default {
       this.count = response.data.data
       this.users = response.data.users
       this.getData()
+      this.getInspectorsLocation()
     },
     async getInspectorsLocation() {
       this.inspectorsMarker = []
