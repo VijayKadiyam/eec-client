@@ -582,7 +582,7 @@ export default {
           inspectorAddress = address.address_1 + ',' + address.address_2 + ',' + address.city + ',' + address.state + ',' + address.country + ',' + address.pincode
 
           let checkIfSame = false;
-          onGoingJobs.forEach((onGoingJob) => {
+          for(const onGoingJob of onGoingJobs) {
             let jobAddress = onGoingJob.port_name + ',' + onGoingJob.location;
 
             let user = onGoingJob.users.find(user => user.id == inspector.id)
@@ -590,38 +590,39 @@ export default {
               if(user.pivot.status == 1) {
                 console.log(3)
                 checkIfSame = true
-                this.getLatLngFromAddress(jobAddress, 3, inspector)
+                await this.getLatLngFromAddress(jobAddress, 3, inspector)
               }
               else {
-                this.getLatLngFromAddress(jobAddress, 2, inspector)
+                await this.getLatLngFromAddress(jobAddress, 2, inspector)
                 console.log(2)
               }
-              console.log(jobAddress, inspector)
-            }
-          })
+            } 
+            else {
+              await this.getLatLngFromAddress(jobAddress, 2, inspector)
+              console.log(4)
+            } 
+          }
 
+          console.log(checkIfSame)
+          console.log(inspectorAddress)
           if(!checkIfSame && inspectorAddress) 
             this.getLatLngFromAddress(inspectorAddress, 1, inspector)
-          console.log(inspectorAddress)
         }
-          
-        
-        
-
       }
+      console.log(this.inspectorsMarker)
     },
     // type = 1 : Update Inspector Marker
     // type = 2 : Update Job Marker
     // type = 3 : Update Both Marker
-    getLatLngFromAddress(add, type, user) {
-      this.$gmapApiPromiseLazy().then(() => {
+    async getLatLngFromAddress(add, type, user) {
+      await this.$gmapApiPromiseLazy().then(async () => {
         const geocoder = new google.maps.Geocoder()
 
         const address = add
 
         let _this = this
 
-        geocoder.geocode({ address }, function (results, status) {
+        await geocoder.geocode({ address }, function (results, status) {
           if (status === 'OK') {
             const latitude = results[0].geometry.location.lat()
             const longitude = results[0].geometry.location.lng()
