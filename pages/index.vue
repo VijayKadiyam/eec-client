@@ -26,10 +26,40 @@
       <section class="content">
         <div class="container-fluid">
           <!-- Filter Dates -->
-          <div class="row">
+          <div class="row" style="background-color: white; border-radius: 5px; padding: 10px;">
             <div class="col-md-2">
               <div class="form-group">
-                <label class="form-label" style="color: white;">Start Date: {{ start_date }}</label>
+                <label class="form-label">Month</label>
+
+                <v-select 
+                  v-model="month" 
+                  :reduce="month => month.code" 
+                  :options="months"
+                  @input="changeFilter"
+                ></v-select>
+                <span class="help-block" 
+                  v-if="errors.start_date"
+                >{{ errors.start_date[0] }}</span>
+              </div>
+            </div>  
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Year</label>
+                
+                <v-select 
+                  v-model="year" 
+                  :reduce="year => year.code" 
+                  :options="years"
+                  @input="changeFilter"
+                ></v-select>
+                <span class="help-block" 
+                  v-if="errors.start_date"
+                >{{ errors.start_date[0] }}</span>
+              </div>
+            </div>  
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Start Date: {{ start_date }}</label>
                 
                 <client-only>
                   <date-picker
@@ -45,7 +75,7 @@
             </div>  
             <div class="col-md-2">
               <div class="form-group">
-                <label class="form-label" style="color: white;">End Date: {{ end_date }}</label>
+                <label class="form-label">End Date: {{ end_date }}</label>
                 
                 <client-only>
                   <date-picker
@@ -62,10 +92,12 @@
             <div class="col-md-2">
               <br>
               <div class="form-group">
-                <button class="btn btn-danger btn-block">Filter</button>
+                <button class="btn btn-danger btn-block" @click="search">Filter</button>
               </div>
             </div>  
           </div>
+
+          <br>
 
           <!-- Inspector boxes -->
           <div class="row">
@@ -94,7 +126,7 @@
 
           <!-- Job boxes -->
           <div class="row">
-            <div class="col-12 col-sm-6 col-md-3"
+            <div class="col-12 col-sm-6 col-md-6"
               v-for="(jobTab, t) in jobTabs"
               :key="`jobTab${t}`"
             >
@@ -516,6 +548,7 @@
 
 <script>
 import moment from 'moment'
+import 'vue-select/dist/vue-select.css';
 
 export default {
   name: 'Dashboard', 
@@ -523,6 +556,27 @@ export default {
     start_date: '',
     end_date: '',
     count: {},
+    months: [
+      {label: 'All', code: '13'},
+      {label: 'January', code: '01'},
+      {label: 'February', code: '02'},
+      {label: 'March', code: '03'},
+      {label: 'April', code: '04'},
+      {label: 'May', code: '05'},
+      {label: 'June', code: '06'},
+      {label: 'July', code: '07'},
+      {label: 'August', code: '08'},
+      {label: 'September', code: '09'},
+      {label: 'October', code: '10'},
+      {label: 'November', code: '11'},
+      {label: 'December', code: '12'},
+    ],
+    month: '',
+    years: [
+      {label: '2020', code: '2020'},
+      {label: '2021', code: '2021'},
+    ],
+    year: '2020',
     markers1: [
       {
         position: {
@@ -562,29 +616,30 @@ export default {
     users: []
   }),
   created() {
-    this.getData()
+    // Get current month
+    this.month = moment().format('MM')
+    this.start_date = moment().startOf('month').format('DD-MM-YYYY')
+    this.end_date = moment().endOf('month').format('DD-MM-YYYY')
   },
   async mounted() {
-    let response = await this.$axios.get('/count')
-    this.count = response.data.data
-    this.users = response.data.users
+    this.search()
   },
   methods: {
     async getData() {
-      let count = await this.$axios.get('count')
-      count = count.data.data
-      console.log(count)
+      // let count = await this.$axios.get('count')
+      // count = this.count.data.data
+      // console.log(count)
       this.inspectorTabs = [
-        { name: 'Total No. of Inspectors', icon: 'fas fa-users', color: 'bg-info', count: count.inspectors.total },
-        { name: 'No. of Inspectors Engaged', icon: 'fas fa-users-cog', color: 'bg-danger', count: count.inspectors.engaged },
-        { name: 'No. of Inspectors on Leave', icon: 'fas fa-skiing', color: 'bg-success', count: count.inspectors.on_leave },
-        { name: 'Inspectors with no Job', icon: 'fas fa-user-lock', color: 'bg-warning', count: count.inspectors.no_job },
+        { name: 'Total No. of Inspectors', icon: 'fas fa-users', color: 'bg-info', count: this.count.inspectors.total },
+        { name: 'No. of Inspectors Engaged', icon: 'fas fa-users-cog', color: 'bg-danger', count: this.count.inspectors.engaged },
+        { name: 'No. of Inspectors on Leave', icon: 'fas fa-skiing', color: 'bg-success', count: this.count.inspectors.on_leave },
+        { name: 'Inspectors with no Job', icon: 'fas fa-user-lock', color: 'bg-warning', count: this.count.inspectors.no_job },
       ]
       this.jobTabs = [
-        { name: 'On Going Jobs', icon: 'fas fa-briefcase', color: 'bg-info', count: count.jobs.on_going },
-        { name: 'Completed Jobs', icon: 'fas fa-tasks', color: 'bg-danger', count: count.jobs.completed },
-        { name: 'New Jobs With No Inspector', icon: 'fas fa-network-wired', color: 'bg-success', count: count.jobs.no_inspector },
-        { name: 'No of Inspections Cancelled', icon: 'far fa-window-close', color: 'bg-warning', count: count.jobs.cancelled },
+        { name: 'On Going Jobs', icon: 'fas fa-briefcase', color: 'bg-info', count: this.count.jobs.on_going },
+        // { name: 'Completed Jobs', icon: 'fas fa-tasks', color: 'bg-danger', count: this.count.jobs.completed },
+        { name: 'New Jobs With No Inspector', icon: 'fas fa-network-wired', color: 'bg-success', count: this.count.jobs.no_inspector },
+        // { name: 'No of Inspections Cancelled', icon: 'far fa-window-close', color: 'bg-warning', count: this.count.jobs.cancelled },
       ]
     },
     customStartDateFormatter(date) {
@@ -595,6 +650,22 @@ export default {
       this.end_date = moment(date).format('DD-MM-YYYY');
       return moment(date).format('DD-MM-YYYY');
     },
+    changeFilter() {
+      if(this.month == 13) {
+        this.start_date = moment().month(0).year(this.year).startOf('month').format('DD-MM-YYYY')
+        this.end_date = moment().month(11).year(this.year).endOf('month').format('DD-MM-YYYY')
+      }
+      else {
+        this.start_date = moment().month(this.month - 1).year(this.year).startOf('month').format('DD-MM-YYYY')
+        this.end_date = moment().month(this.month - 1).year(this.year).endOf('month').format('DD-MM-YYYY')
+      }
+    },
+    async search() {
+      let response = await this.$axios.get(`/count?start_date=${this.start_date}&end_date=${this.end_date}`)
+      this.count = response.data.data
+      this.users = response.data.users
+      this.getData()
+    }
   }
 }
 </script>

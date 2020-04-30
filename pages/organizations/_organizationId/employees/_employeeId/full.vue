@@ -886,7 +886,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title"><u>Medical/Health Declaration (Valid for next 6 Months)</u></h3> &nbsp;
+                  <h3 class="card-title"><u>Bi-Annual Medical/Health Declaration</u></h3> &nbsp;
                   <nuxt-link class="btn btn-sm btn-info float-sm-right" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/create`">Add New</nuxt-link>
                 </div>
                 <!-- /.card-header -->

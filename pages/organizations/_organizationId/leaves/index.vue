@@ -38,11 +38,11 @@
                     <thead>
                       <tr>
                         <th>Sr. No.</th>
+                        <th>Actions</th>
                         <th>Inspector</th>
                         <th>From Date</th>
                         <th>To Date</th>
                         <th>Description</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>

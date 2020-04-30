@@ -97,7 +97,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                           </div>
-                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##'" placeholder="dd/mm/yyyy hh:mm"
+                          <input type="text" class="form-control" v-mask="'##-##-####   ##:##'" placeholder="dd/mm/yyyy   hh:mm"
                             v-model="form.eta"
                           >
                         </div>
@@ -113,7 +113,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                           </div>
-                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##'" placeholder="dd/mm/yyyy hh:mm"
+                          <input type="text" class="form-control" v-mask="'##-##-####   ##:##'" placeholder="dd/mm/yyyy   hh:mm"
                             v-model="form.etb"
                           >
                         </div>
@@ -129,7 +129,7 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                           </div>
-                          <input type="text" class="form-control" v-mask="'##/##/#### ##:##'" placeholder="dd/mm/yyyy hh:mm"
+                          <input type="text" class="form-control" v-mask="'##-##-####   ##:##'" placeholder="dd/mm/yyyy   hh:mm"
                             v-model="form.ets"
                           >
                         </div>

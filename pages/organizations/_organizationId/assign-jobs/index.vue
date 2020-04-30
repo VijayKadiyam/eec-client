@@ -551,6 +551,14 @@ export default {
             </tr>
           </tbody>
         </table>
+        <br>
+        <br>
+        <br>
+        Regards,
+        <br>
+        ${this.user.first_name}
+        <br>
+        <br>
       `
     }
   }

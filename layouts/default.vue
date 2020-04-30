@@ -22,11 +22,11 @@
               <h3><b>I-ADMIN</b></h3>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <nuxt-link :to="`/organizations/${organization.value}/whistle-blowers/create`">
               <button class="btn btn-danger">Send Message</button>
             </nuxt-link>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <!-- /.navbar -->
