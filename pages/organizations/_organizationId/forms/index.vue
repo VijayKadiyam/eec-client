@@ -62,10 +62,10 @@
                         <td><a :href="item.link" target="_blank">{{ item.link }}</a></td>
                         <td><a :href="mediaUrl + item.imagepath" target="_blank">{{ item.imagepath }}</a></td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/forms/${item.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/forms/${item.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="del(item.id)">
                               <i class="fa fa-trash"></i>
                             </span>

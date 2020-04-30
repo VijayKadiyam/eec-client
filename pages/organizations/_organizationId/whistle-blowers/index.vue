@@ -54,10 +54,10 @@
                         <td>{{ i + 1 }}</td>
                         <td>{{ item.description }}</td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/whistle-blowers/${item.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/whistle-blowers/${item.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="del(item.id)">
                               <i class="fa fa-trash"></i>
                             </span>

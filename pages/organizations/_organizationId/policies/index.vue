@@ -47,12 +47,12 @@
                     <div class="col-9">
                       <h3><a :href="mediaUrl + item.imagepath" target="_blank">{{ item.name }}</a></h3>
                       <p>Click here to view the policy</p>
-                      <nuxt-link :to="`/organizations/${organization.value}/policies/${item.id}`">
+                      <nuxt-link title="Edit Details" :to="`/organizations/${organization.value}/policies/${item.id}`">
                         <span>
                           <i class="fa fa-edit"></i>
                         </span>
                       </nuxt-link>
-                      <nuxt-link to="">
+                      <nuxt-link title="Delete Details" to="">
                         <span @click="del(item.id)">
                           <i class="fa fa-trash"></i>
                         </span>

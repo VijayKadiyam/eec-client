@@ -56,10 +56,10 @@
                       >
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/leaves/${item.id}?userId=${item.user_id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/leaves/${item.id}?userId=${item.user_id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="del(item.id)">
                               <i class="fa fa-trash"></i>
                             </span>

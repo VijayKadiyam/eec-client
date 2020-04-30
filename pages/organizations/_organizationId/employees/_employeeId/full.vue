@@ -69,7 +69,7 @@
                       </tr>
                       <tr>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
                         </td>
@@ -123,10 +123,10 @@
                         :key="`aq${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/academic-qualifications/${aq.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/academic-qualifications/${aq.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delAq(aq.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -177,10 +177,10 @@
                         :key="`pc${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/professional-courses/${pc.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/professional-courses/${pc.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delPc(pc.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -230,10 +230,10 @@
                         :key="`aq${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/additional-qualifications/${aq.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/additional-qualifications/${aq.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delAdq(aq.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -283,10 +283,10 @@
                         :key="`rel${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/relations/${rel.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/relations/${rel.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delRel(rel.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -392,10 +392,10 @@
                         :key="`address${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/addresses/${address.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/addresses/${address.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delAdd(address.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -452,10 +452,10 @@
                         :key="`bd${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/${bd.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/bank-details/${bd.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delBan(bd.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -512,10 +512,10 @@
                         :key="`passport${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/passports/${passport.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/passports/${passport.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delPas(passport.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -571,10 +571,10 @@
                         :key="`visa${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/visas/${visa.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/visas/${visa.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delVis(visa.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -629,10 +629,10 @@
                         :key="`seaman_book${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/${seaman_book.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/seaman-books/${seaman_book.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delSea(seaman_book.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -685,10 +685,10 @@
                         :key="`vaccination${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/${vaccination.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/vaccinations/${vaccination.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delVac(vaccination.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -741,10 +741,10 @@
                         :key="`sire${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/sires/${sire.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/sires/${sire.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delSir(sire.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -797,10 +797,10 @@
                         :key="`ocimf${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/${ocimf.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/ocimf/${ocimf.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delOci(ocimf.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -855,10 +855,10 @@
                         :key="`medical${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/${medical.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medicals/${medical.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delMed(medical.id)">
                               <i class="fa fa-trash"></i>
                             </span>
@@ -913,10 +913,10 @@
                         :key="`medical${i}`"
                       >
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/${medical.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/employees/${form.id}/medical-questions/${medical.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="delMde(medical.id)">
                               <i class="fa fa-trash"></i>
                             </span>

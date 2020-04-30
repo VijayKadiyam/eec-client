@@ -140,9 +140,16 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Landline</label>
-                        <input type="number" class="form-control" placeholder="Enter landline"
-                          v-model="form.landline"
-                        >
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <country-codes
+                              :option.sync="form.landline_code"
+                            ></country-codes>
+                          </div>
+                          <input type="number" class="form-control" placeholder="Enter landline"
+                            v-model="form.landline"
+                          >
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">

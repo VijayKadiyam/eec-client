@@ -77,7 +77,7 @@
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
                           <div class="form-check">
-                            <input type="radio" :value="job.id" class="form-check-input" v-model="job_id" @change="getJob">
+                            <input title="Select Job" type="radio" :value="job.id" class="form-check-input" v-model="job_id" @change="getJob">
                           </div>
                         </td>
                         <td>
@@ -151,59 +151,69 @@
           </div>
           <!-- /.row -->
           <br>
-          <div class="row">
-            <div class="col-12">
-              <!-- Inspector List -->
-              <div class="row">
-                <div class="col-md-4"
-                  v-for="(inspector, i) in inspectors"
-                  :key="`inspector${i}`"
-                >
-                  <div class="card" align="center">
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                      <br>
-                      <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <img style="width: 70px; height: 70px; border-raduis: 5px;" :src="mediaUrl + (inspector.attachment ? inspector.attachment : '/user.png')">
-                          </div>
-                          <div class="col-md-6">
-                            {{ inspector.emp_code }} | {{ inspector.addresses.length ? inspector.addresses[0].country : '' }}
-                            <br>
-                            <h4>{{ inspector.first_name }} {{ inspector.last_name }}</h4>
-                          </div>
+        </div>
+      </section>
+      <!-- /.content -->
+
+      <section class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div id="btnContainer">
+              <button class="btn" @click="listView()"><i class="fa fa-bars"></i> List</button> 
+              <button class="btn active" @click="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+            </div>
+            <br>
+
+            <div class="row" style="margin:10px;">
+              <div class="column"
+                v-for="(inspector, i) in inspectors"
+                :key="`inspector${i}`"
+              >
+
+                <div class="card" align="center">
+                  <!-- /.card-header -->
+                  <div class="card-body table-responsive p-0">
+                    <br>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <img style="width: 70px; height: 70px; border-raduis: 5px;" :src="mediaUrl + (inspector.attachment ? inspector.attachment : '/user.png')">
+                        </div>
+                        <div class="col-md-6">
+                          {{ inspector.emp_code }} | {{ inspector.addresses.length ? inspector.addresses[0].country : '' }}
+                          <br>
+                          <h4>{{ inspector.first_name }} {{ inspector.last_name }}</h4>
                         </div>
                       </div>
-                      <br>
-                      <div class="col-md-12">
-                        <div class="row"
-                          v-if="job.users.find(user => user.id == inspector.id)"
-                        >
-                          <div class="col-md-12">
-                            <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Main'"><b>Sent Nomination Email for Main Inspector</b><br></span>
-                            <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Back up'"><b>Sent Nomination Email for Back Up Inspector</b><br></span>
-                            <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 0"><b>[On Hold]</b><br></span>
-                            <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 1"><b>[Accepted]</b><br></span>
-                            <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
-                          </div>
-                        </div>
-                        <div class="row"
-                        >
-                          <div class="col-md-6">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
-                              Assign as Main Inspector
-                            </button>
-                          </div>
-                          <div class="col-md-6">
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#backUpInspectorModal" @click="selectInspector(inspector.id)">
-                              Assign as Back Up Inspector
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                      <br>
                     </div>
+                    <br>
+                    <div class="col-md-12">
+                      <div class="row"
+                        v-if="job.users.find(user => user.id == inspector.id)"
+                      >
+                        <div class="col-md-12">
+                          <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Main'"><b>Sent Nomination Email for Main Inspector</b><br></span>
+                          <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Back up'"><b>Sent Nomination Email for Back Up Inspector</b><br></span>
+                          <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 0"><b>[On Hold]</b><br></span>
+                          <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 1"><b>[Accepted]</b><br></span>
+                          <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
+                        </div>
+                      </div>
+                      <div class="row"
+                      >
+                        <div class="col-md-6">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
+                            Assign as Main Inspector
+                          </button>
+                        </div>
+                        <div class="col-md-6">
+                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#backUpInspectorModal" @click="selectInspector(inspector.id)">
+                            Assign as Back Up Inspector
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
                   </div>
                 </div>
 
@@ -288,14 +298,13 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
+
           </div>
-          <!-- /.row -->
         </div>
       </section>
-      <!-- /.content -->
+
     </div>
     <!-- /.content-wrapper -->
   </section>
@@ -321,10 +330,14 @@ export default {
       email: '',
       message: ''
     },
-    processingEmail: false
+    processingEmail: false,
+    col: ''
   }),
   mounted() {
     this.getData()
+
+    // Get the elements with class="column"
+    this.col = document.getElementsByClassName("column");
   },
   components: {
     editor
@@ -457,10 +470,10 @@ export default {
             </tr>
             <tr>
               <td>
-                <b>Other Details</b>
+                <b>IMO NO.</b>
               </td>
               <td>
-                ${this.job.other_detail}
+                
               </td>
               <td>
                 <b>Cargo</b>
@@ -509,6 +522,14 @@ export default {
               </td>
               <td>
                 ${this.job.port_name}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Other Details</b>
+              </td>
+              <td colspan="3">
+                ${this.job.other_detail}
               </td>
             </tr>
           </tbody>
@@ -560,6 +581,20 @@ export default {
         <br>
         <br>
       `
+    },
+
+    // List View
+    listView() {
+      for (let i = 0; i < this.col.length; i++) {
+        this.col[i].style.width = "100%";
+      }
+    },
+
+    // Grid View
+    gridView() {
+      for (let i = 0; i < this.col.length; i++) {
+        this.col[i].style.width = "25%";
+      }
     }
   }
 }
@@ -569,5 +604,9 @@ export default {
   .div-table table {
     width: 100%;
     table-layout: fixed;
+  }
+
+  .column {
+    width: 25%;
   }
 </style>

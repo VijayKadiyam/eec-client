@@ -68,10 +68,10 @@
                         <td><a :href="circular.link" target="_blank">{{ circular.link }}</a></td>
                         <td><a :href="mediaUrl + circular.imagepath" target="_blank">{{ circular.imagepath }}</a></td>
                         <td class="w-1">
-                          <nuxt-link class="icon" :to="`/organizations/${organization.value}/circulars/${circular.id}`">
+                          <nuxt-link title="Edit Details" class="icon" :to="`/organizations/${organization.value}/circulars/${circular.id}`">
                             <i class="fa fa-edit"></i>
                           </nuxt-link>
-                          <nuxt-link class="icon" to="">
+                          <nuxt-link title="Delete Details" class="icon" to="">
                             <span @click="del(circular.id)">
                               <i class="fa fa-trash"></i>
                             </span>

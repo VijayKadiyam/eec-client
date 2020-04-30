@@ -77,7 +77,7 @@
                         <td>{{ i + 1 }}</td>
                         <td class="w-1">
                           <div class="form-check">
-                            <input type="radio" :value="job.id" class="form-check-input" v-model="job_id" @change="getJob">
+                            <input title="Select Job" type="radio" :value="job.id" class="form-check-input" v-model="job_id" @change="getJob">
                           </div>
                         </td>
                         <td>
