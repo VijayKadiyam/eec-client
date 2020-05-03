@@ -256,59 +256,59 @@ export default {
           // },
         ]
       })
-      categories.push({
-        title: 'QHSSE',
-        'items': [
-          {
-            name: 'Policies', icon: 'fas fa-vote-yea', link: `/organizations/${this.organizationId}/policies`,
-          },
-          {
-            name: 'IMS Manual', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
-          },
-          {
-            name: 'Procedure Manual', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
-          },
-          {
-            name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
-          },
-          {
-            name: 'AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports', icon: 'fas fa-check-circle', link: `/organizations/${this.organizationId}/audit-reports`,
-          },
-          {
-            name: 'Circulars', icon: 'fas fa-map-signs', link: `/organizations/${this.organizationId}/circulars`,
-          },
-          {
-            name: 'Campaigns', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/campaigns`,
-          },
-          {
-            name: 'Near Miss / Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
-          },
-          {
-            name: 'Best Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
-          },
-          {
-            name: 'Risk Assessments', icon: 'fas fa-asterisk', link: `/organizations/${this.organizationId}/risk-assessments`,
-          },
-          {
-            name: 'Library', icon: 'fas fa-book-reader', link: `/organizations/${this.organizationId}/libraries`,
-          },
-          {
-            name: 'Records', icon: 'fas fa-flag', link: `/organizations/${this.organizationId}/records`,
-          },
-          {
-            name: 'Observation Sheets', icon: 'fas fa-stroopwafel', link: `/organizations/${this.organizationId}/observation-sheets`,
-          },
-          {
-            name: 'Sire Report', icon: 'fas fa-file-alt', link: `/organizations/${this.organizationId}/sire-reports`,
-          },
-          {
-            name: 'Trainings', icon: 'fas fa-dumbbell', link: `/organizations/${this.organizationId}/trainings`,
-          },
-          {
-            name: 'KPIs', icon: 'fas fa-key', link: `/organizations/${this.organizationId}/kpis`,
-          },
-        ]
-      })
+      // categories.push({
+      //   title: 'QHSSE',
+      //   'items': [
+      //     {
+      //       name: 'Policies', icon: 'fas fa-vote-yea', link: `/organizations/${this.organizationId}/policies`,
+      //     },
+      //     {
+      //       name: 'IMS Manual', icon: 'fas fa-book', link: `/organizations/${this.organizationId}/manuals`,
+      //     },
+      //     {
+      //       name: 'Procedure Manual', icon: 'fas fa-shoe-prints', link: `/organizations/${this.organizationId}/procedures`,
+      //     },
+      //     {
+      //       name: 'Forms', icon: 'fas fa-sticky-note', link: `/organizations/${this.organizationId}/forms`,
+      //     },
+      //     {
+      //       name: 'AUDITS/BUSINESS PERFORMANCE VERIFICATION Reports', icon: 'fas fa-check-circle', link: `/organizations/${this.organizationId}/audit-reports`,
+      //     },
+      //     {
+      //       name: 'Circulars', icon: 'fas fa-map-signs', link: `/organizations/${this.organizationId}/circulars`,
+      //     },
+      //     {
+      //       name: 'Campaigns', icon: 'fas fa-newspaper', link: `/organizations/${this.organizationId}/campaigns`,
+      //     },
+      //     {
+      //       name: 'Near Miss / Incident Reports', icon: 'fas fa-road', link: `/organizations/${this.organizationId}/incident-reports`,
+      //     },
+      //     {
+      //       name: 'Best Practices', icon: 'fas fa-highlighter', link: `/organizations/${this.organizationId}/good-practices`,
+      //     },
+      //     {
+      //       name: 'Risk Assessments', icon: 'fas fa-asterisk', link: `/organizations/${this.organizationId}/risk-assessments`,
+      //     },
+      //     {
+      //       name: 'Library', icon: 'fas fa-book-reader', link: `/organizations/${this.organizationId}/libraries`,
+      //     },
+      //     {
+      //       name: 'Records', icon: 'fas fa-flag', link: `/organizations/${this.organizationId}/records`,
+      //     },
+      //     {
+      //       name: 'Observation Sheets', icon: 'fas fa-stroopwafel', link: `/organizations/${this.organizationId}/observation-sheets`,
+      //     },
+      //     {
+      //       name: 'Sire Report', icon: 'fas fa-file-alt', link: `/organizations/${this.organizationId}/sire-reports`,
+      //     },
+      //     {
+      //       name: 'Trainings', icon: 'fas fa-dumbbell', link: `/organizations/${this.organizationId}/trainings`,
+      //     },
+      //     {
+      //       name: 'KPIs', icon: 'fas fa-key', link: `/organizations/${this.organizationId}/kpis`,
+      //     },
+      //   ]
+      // })
       return categories;
     }
   },
