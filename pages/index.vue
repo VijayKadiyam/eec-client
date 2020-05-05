@@ -155,8 +155,8 @@
             <div class="col-md-12">
               <client-only>
                 <GmapMap
-                  :center="{lat:20.5937, lng:78.9629}"
-                  :zoom="4"
+                  :center="{lat:25.2604008, lng:55.2995083}"
+                  :zoom="3"
                   map-type-id="terrain"
                   style="width: 100%; height: 500px"
                 >
@@ -493,7 +493,6 @@ export default {
   },
   async mounted() {
     this.search()
-    this.getInspectorsLocation()
   },
   methods: {
     async getData() {
@@ -552,28 +551,33 @@ export default {
         for(const address of inspector.addresses) {
 
           let checkIfSame = false;
-          // for(const onGoingJob of onGoingJobs) {
-          //   let jobAddress = onGoingJob.port_name + ',' + onGoingJob.location;
+          for(const onGoingJob of onGoingJobs) {
 
-          //   let user = onGoingJob.users.find(user => user.id == inspector.id)
-          //   if(user) {
-          //     if(user.pivot.status == 1) {
-          //       checkIfSame = true
-          //       await this.getLatLngFromAddress(jobAddress, 3, inspector)
-          //     }
-          //     else {
-          //       await this.getLatLngFromAddress(jobAddress, 2, inspector)
-          //     }
-          //   } 
-          //   else {
-          //     await this.getLatLngFromAddress(jobAddress, 2, inspector)
-          //   } 
-          // }
-          if(!checkIfSame && address.lat != null) 
+            let user = onGoingJob.users.find(user => user.id == inspector.id)
+            if(user) {
+              if(user.pivot.status == 1) {
+                checkIfSame = true
+                if(onGoingJob.lat != null) 
+                  await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 3, inspector)
+              }
+              else {
+                if(onGoingJob.lat != null) 
+                  await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 2, inspector)
+              }
+            } 
+            else {
+              if(onGoingJob.lat != null) 
+                await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 2, inspector)
+            } 
+          }
+          if(!checkIfSame && address.lat != null && address.lat != '') 
             this.getLatLngFromAddress(address.lat, address.lng, 1, inspector)
         }
       }
+      console.log('Ins Marker')
       console.log(this.inspectorsMarker)
+      console.log('Job Marker')
+      console.log(this.jobsMarker)
     },
     // type = 1 : Update Inspector Marker
     // type = 2 : Update Job Marker
@@ -590,16 +594,16 @@ export default {
       if(type == 2)
         this.jobsMarker.push({
           position: {
-            lat: lat,
-            lng: lng
+            lat: parseInt(lat),
+            lng: parseInt(lng)
           },
           user: user,
         }) 
       if(type == 3) {
         this.inspectorsMarker.push({
           position: {
-            lat: lat,
-            lng: lng
+            lat: parseInt(lat),
+            lng: parseInt(lng)
           },
           user: user,
         })
@@ -622,8 +626,8 @@ export default {
 
         this.jobsMarker.push({
           position: {
-            lat: latO,
-            lng: lonO
+            lat: parseInt(latO),
+            lng: parseInt(lonO)
           },
           user: user
         }) 

@@ -55,6 +55,7 @@
                         <th>Cargo</th>
                         <th>Location</th>
                         <th>Port name</th>
+                        <th>Coordinates</th>
                         <!-- <th>Agent Name</th>
                         <th>Agent Contact Details</th>
                         <th>Agent Phone</th>
@@ -123,6 +124,7 @@
                         <td>{{ job.cargo }}</td>
                         <td>{{ job.location }}</td>
                         <td>{{ job.port_name }}</td>
+                        <td>{{ job.lat + ', ' + job.lng }}</td>
                         <!-- <td>{{ job.agent_name }}</td>
                         <td>{{ job.agent_contact_person }}</td>
                         <td>{{ job.agent_phone }}, {{ job.agent_phone_2 }}</td>

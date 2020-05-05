@@ -348,7 +348,8 @@
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
-                    >Update Job</button>
+                      :disabled="loading"
+                    >{{ loading ? 'Saving...' : 'Update Job'  }}</button>
                   </div>
                 </div>
               </div>
@@ -429,12 +430,50 @@ export default {
   methods: {
     async store() {
       try {
-        let admin = await this.$axios.patch(`/jobs/${this.$route.params.id}`, this.form)
-        this.$router.push(`/organizations/${this.organization.value}/jobs`)
+        this.loading = true
+        this.getLatLngFromAddress()
       }
       catch(e) {
 
       }
+    },
+    getLatLngFromAddress() {
+      this.$gmapApiPromiseLazy().then(() => {
+        const geocoder = new google.maps.Geocoder()
+        
+        const address = this.getCompleteAddress()
+
+        let _this = this
+
+        geocoder.geocode({ address }, async function (results, status) {
+          if (status === 'OK') {
+            const latitude = results[0].geometry.location.lat()
+            const longitude = results[0].geometry.location.lng()
+            _this.form.lat = latitude
+            _this.form.lng = longitude
+
+            console.log(latitude)
+            console.log(longitude)
+          }
+          try {
+            let admin = await _this.$axios.patch(`/jobs/${_this.$route.params.id}`, _this.form)
+            _this.$router.push(`/organizations/${_this.organization.value}/jobs`)
+            _this.loading = false
+          } catch(Exception) {
+            _this.loading = false
+          }
+        })
+      })
+    },
+
+    getCompleteAddress() {
+      let address = ''
+      if(this.form.port_name)
+        address = address + ', ' + this.form.port_name
+      if(this.form.location)
+        address = address + ', ' + this.form.location
+
+      return address
     }
   }
 }

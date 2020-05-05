@@ -174,12 +174,15 @@ export default {
             _this.form.lat = latitude
             _this.form.lng = longitude
 
+            console.log(latitude)
+            console.log(longitude)
+          }
+          try {
             await _this.$axios.patch(`/users/${_this.$route.params.employeeId}/addresses/${_this.$route.params.id}`, _this.form)
             _this.$router.push(`/organizations/${_this.organization.value}/employees/${_this.$route.params.employeeId}/full`)
             _this.loading = false
-
-            console.log(latitude)
-            console.log(longitude)
+          } catch(Exception) {
+            _this.loading = false
           }
         })
       })
