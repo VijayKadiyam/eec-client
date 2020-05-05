@@ -54,9 +54,15 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Issue Date</label>
-                    <input type="text" class="form-control" placeholder="Enter issue date"
+                    {{ form.issue_date }}
+                    <date-picker
+                      placeholder="DD-MM-YYYY"
+                      :format="customDoiFormatter"
+                      value="form.issue_date"
+                    />
+                    <!-- <input type="text" class="form-control" placeholder="Enter issue date"
                       v-model="form.issue_date"
-                    >
+                    > -->
                     <span class="help-block" 
                       v-if="errors.issue_date"
                     >{{ errors.issue_date[0] }}</span>
@@ -149,7 +155,8 @@ export default {
   data: () => ({
     form: {
       'fit': '',
-      date_of_expiry: ''
+      date_of_expiry: '',
+      issue_date: '',
     },
   }),
   components: {
@@ -185,6 +192,10 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
+    },
+    customDoiFormatter(date) {
+      this.form.issue_date = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
     customDoeFormatter(date) {
       this.form.date_of_expiry = moment(date).format('DD-MM-YYYY');

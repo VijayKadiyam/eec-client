@@ -290,6 +290,7 @@ export default {
       {'label': "Select Marital Status", 'code': ""},
       {'label': "Married", 'code': "Married"},
       {'label': "UnMarried", 'code': "UnMarried"},
+      {'label': "Divorced", 'code': "Divorced"},
     ],
   }),
   mounted() {

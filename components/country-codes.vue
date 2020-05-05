@@ -1062,11 +1062,11 @@ export default {
       "dial_code": "+500",
       "code": "FK"
       },
-      {
-      "name": "Guernsey",
-      "dial_code": "+44",
-      "code": "GG"
-      },
+      // {
+      // "name": "Guernsey",
+      // "dial_code": "+44",
+      // "code": "GG"
+      // },
       {
       "name": "Holy See (Vatican City State)",
       "dial_code": "+379",
@@ -1082,16 +1082,16 @@ export default {
       "dial_code": "+98",
       "code": "IR"
       },
-      {
-      "name": "Isle of Man",
-      "dial_code": "+44",
-      "code": "IM"
-      },
-      {
-      "name": "Jersey",
-      "dial_code": "+44",
-      "code": "JE"
-      },
+      // {
+      // "name": "Isle of Man",
+      // "dial_code": "+44",
+      // "code": "IM"
+      // },
+      // {
+      // "name": "Jersey",
+      // "dial_code": "+44",
+      // "code": "JE"
+      // },
       {
       "name": "Korea, Democratic People's Republic of",
       "dial_code": "+850",
