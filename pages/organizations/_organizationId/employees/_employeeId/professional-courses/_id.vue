@@ -57,10 +57,12 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of issue</label>
-                    <input type="text" class="form-control" placeholder="dd/mm/yyyy"
-                      v-mask="'##/##/####'"
-                      v-model="form.date_of_issue"
-                    >
+                    {{ form.date_of_issue }}
+                    <date-picker
+                      placeholder="DD-MM-YYYY"
+                      :format="customDoiFormatter"
+                      value="form.date_of_issue"
+                    />
                     <span class="help-block" 
                       v-if="errors.date_of_issue"
                     >{{ errors.date_of_issue[0] }}</span>
@@ -77,7 +79,7 @@
                   </div> -->
                   <div class="form-group">
                     <label class="form-label">Place of issue</label>
-                    <input type="text" class="form-control" placeholder="Enter place of expiry"
+                    <input type="text" class="form-control" placeholder="Enter place of issue"
                       v-model="form.place_of_issue"
                     >
                     <span class="help-block" 
@@ -116,6 +118,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import moment from 'moment'
 
 export default {
   name: 'EditInspectorProfessionalCourse',
@@ -167,6 +170,10 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
+    },
+    customDoiFormatter(date) {
+      this.form.date_of_issue = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
   }
 }

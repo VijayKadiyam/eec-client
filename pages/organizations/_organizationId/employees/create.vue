@@ -57,6 +57,20 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
+                        <label class="form-label">Prefix</label>
+                        <select class="form-control" v-model="form.prefix">
+                          <option value="">Select Prefix</option>
+                          <option value="Capt">Capt</option>
+                          <option value="Mr">Mr</option>
+                          <option value="Ms">Ms</option>
+                        </select>
+                        <span class="help-block" 
+                          v-if="errors.prefix"
+                        >{{ errors.prefix[0] }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
                         <label class="form-label">First Name</label>
                         <input type="text" class="form-control" placeholder="Enter first name"
                           v-model="form.first_name"
@@ -261,6 +275,7 @@ export default {
   name: 'CreateInspector',
   data: () => ({
     form: {
+      prefix: '',
       first_name: '',
       last_name: '',
       email: '',

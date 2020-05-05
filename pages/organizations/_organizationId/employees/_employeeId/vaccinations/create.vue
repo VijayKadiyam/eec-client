@@ -71,9 +71,17 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Date of expiry</label>
-                    <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
+                    {{ form.date_of_expiry }}
+                    <client-only>
+                      <date-picker
+                        placeholder="DD-MM-YYYY"
+                        :format="customDoeFormatter"
+                        value="form.date_of_expiry"
+                      />
+                    </client-only>
+                    <!-- <input type="text" class="form-control" v-mask="'##/##/####'" placeholder="dd/mm/yyyy"
                       v-model="form.date_of_expiry"
-                    >
+                    > -->
                     <span class="help-block" 
                       v-if="errors.date_of_expiry"
                     >{{ errors.date_of_expiry[0] }}</span>
@@ -114,6 +122,7 @@
 
 <script type="text/javascript">
 import BackButton from '@/components/back-button.vue'
+import moment from 'moment'
 
 export default {
   name: 'CreateInspectorVaccinationDetails',
@@ -125,11 +134,12 @@ export default {
   },
   data: () => ({
     form: {
-      'vaccination_type': ''
+      'vaccination_type': '',
+      'date_of_expiry': '',
     },
   }),
   components: {
-    BackButton
+    BackButton,
   },
   methods: {
     async store() {
@@ -161,6 +171,10 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
+    },
+    customDoeFormatter(date) {
+      this.form.date_of_expiry = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
     },
   }
 }

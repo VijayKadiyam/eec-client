@@ -141,9 +141,12 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Country</label>
-                    <input type="text" class="form-control" placeholder="Enter country"
+                    <countries
+                      :option.sync="form.country"
+                    ></countries>
+                    <!-- <input type="text" class="form-control" placeholder="Enter country"
                       v-model="form.country"
-                    >
+                    > -->
                     <span class="help-block" 
                       v-if="errors.country"
                     >{{ errors.country[0] }}</span>
@@ -178,6 +181,7 @@
 import BackButton from '@/components/back-button.vue'
 import CountryCodes from '@/components/country-codes.vue'
 import 'vue-select/dist/vue-select.css';
+import Countries from '@/components/countries.vue'
 
 export default {
   name: 'EditInspectorRelation',
@@ -204,7 +208,8 @@ export default {
   },
   components: {
     BackButton,
-    CountryCodes
+    CountryCodes,
+    Countries
   },
   methods: {
     async store() {
