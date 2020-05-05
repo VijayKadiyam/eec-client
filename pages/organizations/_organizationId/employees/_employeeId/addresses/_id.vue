@@ -138,6 +138,9 @@ export default {
       form: address.data.data
     }
   },
+  data: () => ({
+    loading: false
+  }), 
   components: {
     BackButton,
     Countries
@@ -146,13 +149,58 @@ export default {
     async store() {
       this.loading = true
       try {
-        await this.$axios.patch(`/users/${this.$route.params.employeeId}/addresses/${this.$route.params.id}`, this.form)
-        this.$router.push(`/organizations/${this.organization.value}/employees/${this.$route.params.employeeId}/full`)
-        this.loading = false
+        this.getLatLngFromAddress()
+        // console.log(this.form)
+        // await this.$axios.patch(`/users/${this.$route.params.employeeId}/addresses/${this.$route.params.id}`, this.form)
+        
       }
       catch(e) {
         this.loading = false
       }
+    },
+    getLatLngFromAddress() {
+      this.$gmapApiPromiseLazy().then(() => {
+        const geocoder = new google.maps.Geocoder()
+        
+        const address = this.getCompleteAddress()
+        
+
+        let _this = this
+
+        geocoder.geocode({ address }, async function (results, status) {
+          if (status === 'OK') {
+            const latitude = results[0].geometry.location.lat()
+            const longitude = results[0].geometry.location.lng()
+            _this.form.lat = latitude
+            _this.form.lng = longitude
+
+            await _this.$axios.patch(`/users/${_this.$route.params.employeeId}/addresses/${_this.$route.params.id}`, _this.form)
+            _this.$router.push(`/organizations/${_this.organization.value}/employees/${_this.$route.params.employeeId}/full`)
+            _this.loading = false
+
+            console.log(latitude)
+            console.log(longitude)
+          }
+        })
+      })
+    },
+
+    getCompleteAddress() {
+      let address = ''
+      if(this.form.address_1)
+        address = address + ', ' + this.form.address_1
+      if(this.form.address_2)
+        address = address + ', ' + this.form.address_2
+      if(this.form.city)
+        address = address + ', ' + this.form.city
+      if(this.form.state)
+        address = address + ', ' + this.form.state
+      if(this.form.country)
+        address = address + ', ' + this.form.country
+      if(this.form.pincode)
+        address = address + ', ' + this.form.pincode
+
+      return address
     }
   }
 }

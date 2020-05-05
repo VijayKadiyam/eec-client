@@ -21,7 +21,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organizationId}/employees`">Inspectors</nuxt-link>
+                  <nuxt-link :to="`/organizations/${organization.value}/employees`">Inspectors</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">{{ form.first_name }} {{ form.last_name }}</li>
               </ol>
@@ -75,7 +75,7 @@
                         </td>
                         <td>{{ form.emp_code }}</td>
                         <td><img style="width: 50px; height: 50px;" :src="mediaUrl + (form.attachment ? form.attachment : '/user.png')"></td>
-                        <td>{{ form.first_name }} {{ form.last_name }}</td>
+                        <td>{{ form.prefix }} {{ form.first_name }} {{ form.last_name }}</td>
                         <td>{{ form.email }}</td>
                         <td>{{ form.phone_code }} {{ form.phone }}</td>
                         <td>{{ form.gender }}</td>
@@ -380,6 +380,7 @@
                         <th>State</th>
                         <th>Country</th>
                         <th>Pincode</th>
+                        <th>Coordinates</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -409,6 +410,7 @@
                         <td>{{ address.state }}</td>
                         <td>{{ address.country }}</td>
                         <td>{{ address.pincode }}</td>
+                        <td>{{ address.lat + ', ' + address.lng }}</td>
                       </tr>
                     </tbody>
                   </table>

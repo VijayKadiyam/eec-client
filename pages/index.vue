@@ -166,7 +166,7 @@
                     :position="m.position"
                     :clickable="true"
                     :draggable="false"
-                    @click="center=m.position"
+                    @mouseover="center=m.position"
                     :icon="'marker1.png'"
                   >
                   </GmapMarker>
@@ -177,7 +177,7 @@
                     :clickable="true"
                     :draggable="false"
                     :icon="'marker2.png'"
-                    @click="toggleInfoWindow(m,index)"
+                    @mouseover="toggleInfoWindow(m,index)"
                   >
                   </GmapMarker>
                   <gmapInfoWindow
@@ -467,40 +467,6 @@ export default {
     year: '2020',
     inspectorsMarker: [],
     jobsMarker: [],
-    markers1: [
-      {
-        position: {
-          lat: 10.0,
-          lng: 10.0
-        }
-      }, 
-      {
-        position: {
-          lat: 11.0,
-          lng: 11.0
-        }
-      },
-      {
-        position: {
-          lat: 9.0,
-          lng: 9.0
-        }
-      },
-    ],
-    markers2: [
-      {
-        position: {
-          lat: 10.0,
-          lng: 9.0
-        }
-      },
-      {
-        position: {
-          lat: 9.0,
-          lng: 11.0
-        }
-      }
-    ],
     inspectorTabs: [],
     jobTabs: [],
     users: [],
@@ -584,34 +550,27 @@ export default {
         let inspectorAddress = ''
         let jobAddress = ''
         for(const address of inspector.addresses) {
-          inspectorAddress = address.address_1 + ',' + address.address_2 + ',' + address.city + ',' + address.state + ',' + address.country + ',' + address.pincode
 
           let checkIfSame = false;
-          for(const onGoingJob of onGoingJobs) {
-            let jobAddress = onGoingJob.port_name + ',' + onGoingJob.location;
+          // for(const onGoingJob of onGoingJobs) {
+          //   let jobAddress = onGoingJob.port_name + ',' + onGoingJob.location;
 
-            let user = onGoingJob.users.find(user => user.id == inspector.id)
-            if(user) {
-              if(user.pivot.status == 1) {
-                console.log(3)
-                checkIfSame = true
-                await this.getLatLngFromAddress(jobAddress, 3, inspector)
-              }
-              else {
-                await this.getLatLngFromAddress(jobAddress, 2, inspector)
-                console.log(2)
-              }
-            } 
-            else {
-              await this.getLatLngFromAddress(jobAddress, 2, inspector)
-              console.log(4)
-            } 
-          }
-
-          console.log(checkIfSame)
-          console.log(inspectorAddress)
-          if(!checkIfSame && inspectorAddress) 
-            this.getLatLngFromAddress(inspectorAddress, 1, inspector)
+          //   let user = onGoingJob.users.find(user => user.id == inspector.id)
+          //   if(user) {
+          //     if(user.pivot.status == 1) {
+          //       checkIfSame = true
+          //       await this.getLatLngFromAddress(jobAddress, 3, inspector)
+          //     }
+          //     else {
+          //       await this.getLatLngFromAddress(jobAddress, 2, inspector)
+          //     }
+          //   } 
+          //   else {
+          //     await this.getLatLngFromAddress(jobAddress, 2, inspector)
+          //   } 
+          // }
+          if(!checkIfSame && address.lat != null) 
+            this.getLatLngFromAddress(address.lat, address.lng, 1, inspector)
         }
       }
       console.log(this.inspectorsMarker)
@@ -619,70 +578,56 @@ export default {
     // type = 1 : Update Inspector Marker
     // type = 2 : Update Job Marker
     // type = 3 : Update Both Marker
-    async getLatLngFromAddress(add, type, user) {
-      await this.$gmapApiPromiseLazy().then(async () => {
-        const geocoder = new google.maps.Geocoder()
-
-        const address = add
-
-        let _this = this
-
-        await geocoder.geocode({ address }, function (results, status) {
-          if (status === 'OK') {
-            const latitude = results[0].geometry.location.lat()
-            const longitude = results[0].geometry.location.lng()
-            if(type == 1)
-              _this.inspectorsMarker.push({
-                position: {
-                  lat: latitude,
-                  lng: longitude
-                },
-                user: user,
-              })
-            if(type == 2)
-              _this.jobsMarker.push({
-                position: {
-                  lat: latitude,
-                  lng: longitude
-                },
-                user: user,
-              }) 
-            if(type == 3) {
-              _this.inspectorsMarker.push({
-                position: {
-                  lat: latitude,
-                  lng: longitude
-                },
-                user: user,
-              })
-
-              //Earth’s radius, sphere
-              let R = 6378137
-              let Pi = 3.14
-
-              //offsets in meters
-              let dn = 10000
-              let de = 10000
-
-              //Coordinate offsets in radians
-              let dLat = dn/R
-              let dLon = de/(R*Math.cos(Pi*latitude/180))
-
-              //OffsetPosition, decimal degrees
-              let latO = latitude + dLat * 180/Pi
-              let lonO = longitude + dLon * 180/Pi 
-
-              _this.jobsMarker.push({
-                position: {
-                  lat: latO,
-                  lng: lonO
-                },
-                user: user
-              }) 
-            }
-          }
+    async getLatLngFromAddress(lat, lng, type, user) {
+      if(type == 1)
+        this.inspectorsMarker.push({
+          position: {
+            lat: parseInt(lat),
+            lng: parseInt(lng)
+          },
+          user: user,
         })
-      })
+      if(type == 2)
+        this.jobsMarker.push({
+          position: {
+            lat: lat,
+            lng: lng
+          },
+          user: user,
+        }) 
+      if(type == 3) {
+        this.inspectorsMarker.push({
+          position: {
+            lat: lat,
+            lng: lng
+          },
+          user: user,
+        })
+
+        //Earth’s radius, sphere
+        let R = 6378137
+        let Pi = 3.14
+
+        //offsets in meters
+        let dn = 10000
+        let de = 10000
+
+        //Coordinate offsets in radians
+        let dLat = dn/R
+        let dLon = de/(R*Math.cos(Pi*lat/180))
+
+        //OffsetPosition, decimal degrees
+        let latO = lat + dLat * 180/Pi
+        let lonO = lng + dLon * 180/Pi 
+
+        this.jobsMarker.push({
+          position: {
+            lat: latO,
+            lng: lonO
+          },
+          user: user
+        }) 
+      }
     },
     toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = marker.position;
