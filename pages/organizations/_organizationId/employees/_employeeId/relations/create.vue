@@ -154,7 +154,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label">Pincode</label>
-                    <input type="number" class="form-control" placeholder="Enter pincode"
+                    <input type="text" class="form-control" placeholder="Enter pincode"
                       v-model="form.pincode"
                     >
                   </div>
