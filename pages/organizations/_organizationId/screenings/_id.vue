@@ -9,11 +9,11 @@
             <div class="col-sm-6">
               <h1 class="m-0 text-dark">
                 <back-button
-                  :link="`/organizations/${organization.value}/incident-reports`"
+                  :link="`/organizations/${organization.value}/screenings`"
                   title="Hi"
                 >
                 </back-button>
-                Screning
+                Screening
               </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
@@ -41,7 +41,7 @@
               <!-- jquery validation -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add Screning</h3>
+                  <h3 class="card-title">Add Screening</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->

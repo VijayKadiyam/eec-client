@@ -92,13 +92,15 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">ETA</label>
-
+                        ({{ form.eta }})
                         <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                          </div>
-                          <input type="text" class="form-control" v-mask="'##-##-####   ##:##'" placeholder="dd/mm/yyyy   hh:mm"
-                            v-model="form.eta"
+                          <date-picker
+                            placeholder="DD-MM-YYYY"
+                            :format="customETAFormatter"
+                            value="form.eta"
+                          />
+                          <input type="text" class="form-control" v-mask="'##:##'" placeholder="hh:mm"
+                            v-model="form.eta_time"
                           >
                         </div>
                         <span class="help-block" 
@@ -109,12 +111,15 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">ETB</label>
+                        ({{ form.etb }})
                         <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                          </div>
-                          <input type="text" class="form-control" v-mask="'##-##-####   ##:##'" placeholder="dd/mm/yyyy   hh:mm"
-                            v-model="form.etb"
+                          <date-picker
+                            placeholder="DD-MM-YYYY"
+                            :format="customETBFormatter"
+                            value="form.etb"
+                          />
+                          <input type="text" class="form-control" v-mask="'##:##'" placeholder="hh:mm"
+                            v-model="form.etb_time"
                           >
                         </div>
                         <span class="help-block" 
@@ -125,12 +130,15 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">ETS</label>
+                        ({{ form.ets }})
                         <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                          </div>
-                          <input type="text" class="form-control" v-mask="'##-##-####   ##:##'" placeholder="dd/mm/yyyy   hh:mm"
-                            v-model="form.ets"
+                          <date-picker
+                            placeholder="DD-MM-YYYY"
+                            :format="customETSFormatter"
+                            value="form.ets"
+                          />
+                          <input type="text" class="form-control" v-mask="'##:##'" placeholder="hh:mm"
+                            v-model="form.ets_time"
                           >
                         </div>
                         <span class="help-block" 
@@ -378,15 +386,20 @@
 import BackButton from '@/components/back-button.vue'
 import 'vue-select/dist/vue-select.css';
 import Countries from '@/components/countries.vue'
+import moment from 'moment'
 
 export default {
   name: 'CreateJob',
   data: () => ({
+    loading: false,
     form: {
       'vessel_type': '',
       'operation': '',
       'oil_major': '',
       'location': '',
+      'eta': '',
+      'etb': '',
+      'ets': '',
     },
     operations: [
       {'label': "Select Operation", 'code': ""},
@@ -438,13 +451,69 @@ export default {
   methods: {
     async store() {
       try {
-        let admin = await this.$axios.post(`/jobs`, this.form)
-        this.$router.push(`/organizations/${this.organization.value}/jobs`)
+        // let admin = await this.$axios.post(`/jobs`, this.form)
+        // this.$router.push(`/organizations/${this.organization.value}/jobs`)
+        this.loading = true
+        this.getLatLngFromAddress()
       }
       catch(e) {
 
       }
-    }
+    },
+
+    getLatLngFromAddress() {
+      this.$gmapApiPromiseLazy().then(() => {
+        const geocoder = new google.maps.Geocoder()
+        
+        const address = this.getCompleteAddress()
+
+        let _this = this
+
+        geocoder.geocode({ address }, async function (results, status) {
+          if (status === 'OK') {
+            const latitude = results[0].geometry.location.lat()
+            const longitude = results[0].geometry.location.lng()
+            _this.form.lat = latitude
+            _this.form.lng = longitude
+
+            console.log(latitude)
+            console.log(longitude)
+          }
+          try {
+            let admin = await _this.$axios.post(`/jobs`, _this.form)
+            _this.$router.push(`/organizations/${_this.organization.value}/jobs`)
+            _this.loading = false
+          } catch(Exception) {
+            _this.loading = false
+          }
+        })
+      })
+    },
+
+    getCompleteAddress() {
+      let address = ''
+      if(this.form.port_name)
+        address = address + ', ' + this.form.port_name
+      if(this.form.location)
+        address = address + ', ' + this.form.location
+
+      return address
+    },
+
+    customETAFormatter(date) {
+      this.form.eta = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
+
+    customETBFormatter(date) {
+      this.form.etb = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
+
+    customETSFormatter(date) {
+      this.form.ets = moment(date).format('DD-MM-YYYY');
+      return moment(date).format('DD-MM-YYYY');
+    },
   }
 }
 </script>

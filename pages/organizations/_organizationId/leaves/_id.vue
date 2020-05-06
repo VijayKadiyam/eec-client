@@ -13,7 +13,7 @@
                   title="Hi"
                 >
                 </back-button>
-                Leave Details
+                Leave / Unavailability Details
               </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">

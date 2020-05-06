@@ -156,10 +156,70 @@
               <client-only>
                 <GmapMap
                   :center="{lat:25.2604008, lng:55.2995083}"
-                  :zoom="3"
+                  :zoom="4"
                   map-type-id="terrain"
                   style="width: 100%; height: 500px"
                 >
+                  <GmapMarker
+                    v-for="(m, index) in insJobMarker"
+                    :key="`insJobMarker${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'ins-job-marker.png'"
+                    @mouseover="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
+                  <GmapMarker
+                    v-for="(m, index) in insAssignedJobMarker"
+                    :key="`insAssignedJobMarker${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'ins-assigned-job.png'"
+                    @mouseover="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
+                  <GmapMarker
+                    v-for="(m, index) in insNoJobMarker"
+                    :key="`insNoJobMarker${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'ins-no-job.png'"
+                    @mouseover="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
+                  <GmapMarker
+                    v-for="(m, index) in jobAssignedMarker"
+                    :key="`jobAssignedMarker${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'job-assigned.png'"
+                    @mouseover="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
+                  <GmapMarker
+                    v-for="(m, index) in jobNotAssignedMarker"
+                    :key="`jobNotAssignedMarker${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'job-not-assigned.png'"
+                    @mouseover="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
+                  <!-- <GmapMarker
+                    v-for="(m, index) in inspectorsMarker"
+                    :key="`inspectorsMarker${index}`"
+                    :position="m.position"
+                    :clickable="true"
+                    :draggable="false"
+                    :icon="'ins-no-job.png'"
+                    @mouseover="toggleInfoWindow(m,index)"
+                  >
+                  </GmapMarker>
                   <GmapMarker
                     v-for="(m, index) in jobsMarker"
                     :key="`m${index}`"
@@ -167,19 +227,19 @@
                     :clickable="true"
                     :draggable="false"
                     @mouseover="center=m.position"
-                    :icon="'marker1.png'"
+                    :icon="'job-marker.png'"
                   >
                   </GmapMarker>
                   <GmapMarker
-                    v-for="(m, index) in inspectorsMarker"
-                    :key="`index${index}`"
+                    v-for="(m, index) in insJobMarker"
+                    :key="`m${index}`"
                     :position="m.position"
                     :clickable="true"
                     :draggable="false"
-                    :icon="'marker2.png'"
-                    @mouseover="toggleInfoWindow(m,index)"
+                    @mouseover="center=m.position"
+                    :icon="'ins-job-marker.png'"
                   >
-                  </GmapMarker>
+                  </GmapMarker> -->
                   <gmapInfoWindow
                     :options="infoOptions"
                     :position="infoWindowPos"
@@ -469,6 +529,14 @@ export default {
     jobsMarker: [],
     inspectorTabs: [],
     jobTabs: [],
+    insJobMarker: [],
+
+    insJobMarker: [],
+    insAssignedJobMarker: [],
+    insNoJobMarker: [],
+    jobAssignedMarker: [],
+    jobNotAssignedMarker: [],
+
     users: [],
     infoContent: '',
     infoWindowPos: {
@@ -550,88 +618,152 @@ export default {
         let jobAddress = ''
         for(const address of inspector.addresses) {
 
-          let checkIfSame = false;
+          let checkIfSame = false
           for(const onGoingJob of onGoingJobs) {
 
             let user = onGoingJob.users.find(user => user.id == inspector.id)
+            // console.log(onGoingJob)
+            // console.log(user)
             if(user) {
+              // Inspector Accepted the Job
               if(user.pivot.status == 1) {
                 checkIfSame = true
+                // If Coordinates are there
                 if(onGoingJob.lat != null) 
-                  await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 3, inspector)
+                {
+                  // If the job is today
+                  let today = moment().format('DD-MM-YYYY')
+
+                  let eta = onGoingJob.eta
+                  let etb = onGoingJob.eta
+                  let ets = onGoingJob.eta
+                  if(today == eta || today == etb || today == ets)
+                    this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 2, inspector, onGoingJob)
+                  else {
+                    this.getLatLngFromAddress(address.lat, address.lng, 1, inspector, onGoingJob)
+                    this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 11, inspector, onGoingJob)
+                  }
+                }
+                // If inspector accepted, then remove job from list
+                onGoingJobs = onGoingJobs.filter(job => job.id != onGoingJob.id)
               }
-              else {
-                if(onGoingJob.lat != null) 
-                  await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 2, inspector)
-              }
-            } 
-            else {
+              // // If inspector not responded to the job
+              // else {
+              //   // If Coordinates are there
+              //   if(onGoingJob.lat != null) 
+              //     await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 3, inspector)
+              // }
+            }
+            // If no inspector is assigned for the job
+            else if(onGoingJob.users.length == 0) {
               if(onGoingJob.lat != null) 
-                await this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 2, inspector)
+                this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 4, null, onGoingJob)
+              // If no inspector assigned the job, then remote job from list
+              onGoingJobs = onGoingJobs.filter(job => job.id != onGoingJob.id)
             } 
           }
+          // If inspector has no job
           if(!checkIfSame && address.lat != null && address.lat != '') 
-            this.getLatLngFromAddress(address.lat, address.lng, 1, inspector)
+            this.getLatLngFromAddress(address.lat, address.lng, 5, inspector, null)
         }
       }
-      console.log('Ins Marker')
-      console.log(this.inspectorsMarker)
-      console.log('Job Marker')
-      console.log(this.jobsMarker)
+
+      // Once Marker for Jobs which are assigned and jobs which are not assigned are plotted, we will plot for jobs which are alloted but inspector has not responded
+      for(const onGoingJob of onGoingJobs) {
+        // If Coordinates are there
+        if(onGoingJob.lat != null) 
+          this.getLatLngFromAddress(onGoingJob.lat, onGoingJob.lng, 3, null, onGoingJob)
+      }
+      // console.log('Ins Marker')
+      // console.log(this.inspectorsMarker)
+      // console.log('Job Marker')
+      // console.log(this.jobsMarker)
     },
+    // Type 1 & 11: Inspector Accepted the job but job is not today
+    // Type 2: Inspector Accepted the job and job is today
+    // Type 3: Inspector Assigned the job, but not responded to the job
+    // Type 4: No inspector is assigned the job
+    // Type 5: If inspector has no job
+
     // type = 1 : Update Inspector Marker
     // type = 2 : Update Job Marker
     // type = 3 : Update Both Marker
-    async getLatLngFromAddress(lat, lng, type, user) {
-      if(type == 1)
-        this.inspectorsMarker.push({
+    async getLatLngFromAddress(lat, lng, type, user, job) {
+      if(type == 1) {
+        this.insAssignedJobMarker.push({
           position: {
-            lat: parseInt(lat),
-            lng: parseInt(lng)
+            lat: parseFloat(lat),
+            lng: parseFloat(lng)
           },
           user: user,
+          job: job,
         })
-      if(type == 2)
-        this.jobsMarker.push({
-          position: {
-            lat: parseInt(lat),
-            lng: parseInt(lng)
-          },
-          user: user,
-        }) 
-      if(type == 3) {
-        this.inspectorsMarker.push({
-          position: {
-            lat: parseInt(lat),
-            lng: parseInt(lng)
-          },
-          user: user,
-        })
-
-        //Earth’s radius, sphere
-        let R = 6378137
-        let Pi = 3.14
-
-        //offsets in meters
-        let dn = 10000
-        let de = 10000
-
-        //Coordinate offsets in radians
-        let dLat = dn/R
-        let dLon = de/(R*Math.cos(Pi*lat/180))
-
-        //OffsetPosition, decimal degrees
-        let latO = lat + dLat * 180/Pi
-        let lonO = lng + dLon * 180/Pi 
-
-        this.jobsMarker.push({
-          position: {
-            lat: parseInt(latO),
-            lng: parseInt(lonO)
-          },
-          user: user
-        }) 
       }
+      if(type == 11) {
+        this.jobAssignedMarker.push({
+          position: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng)
+          },
+          user: user,
+          job: job,
+        })
+      }
+      if(type == 2) {
+        this.insJobMarker.push({
+          position: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng)
+          },
+          user: user,
+          job: job,
+        })
+      }
+      if(type == 3 || type == 4) {
+        this.jobNotAssignedMarker.push({
+          position: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng)
+          },
+          user: user,
+          job: job,
+        })
+      }
+      if(type == 5) {
+        this.insNoJobMarker.push({
+          position: {
+            lat: parseFloat(lat),
+            lng: parseFloat(lng)
+          },
+          user: user,
+          job: job,
+        })
+      }
+      // if(type == 1)
+      //   this.inspectorsMarker.push({
+      //     position: {
+      //       lat: parseFloat(lat),
+      //       lng: parseFloat(lng)
+      //     },
+      //     user: user,
+      //   })
+      // if(type == 2)
+      //   this.jobsMarker.push({
+      //     position: {
+      //       lat: parseFloat(lat),
+      //       lng: parseFloat(lng)
+      //     },
+      //     user: user,
+      //   }) 
+      // if(type == 3) {
+      //   this.insJobMarker.push({
+      //     position: {
+      //       lat: parseFloat(lat),
+      //       lng: parseFloat(lng)
+      //     },
+      //     user: user,
+      //   })
+      // }
     },
     toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = marker.position;
@@ -650,12 +782,18 @@ export default {
     },
 
     getInfoWindowContent: function (marker) {
-      let user = marker.user
+      let user = null
+      let job = null
+      if(marker.user) 
+        user = marker.user
+      if(marker.job) 
+        job = marker.job
       return (`<div class="card">
         <div class="card-content">
           <div class="media">
             <div class="media-content">
-              <p class="title is-4">${user.first_name + ' ' + user.last_name}</p>
+              <p class="title is-4">${user ? (user.first_name + ' ' + user.last_name) : ''}</p>
+              <p class="title is-4">${job ? (job.vessel_name + ' ETA:' + job.eta) : ''}</p>
             </div>
           </div>
         </div>

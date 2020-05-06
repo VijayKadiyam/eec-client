@@ -117,9 +117,9 @@
                         <td>{{ job.vessel_name }}</td>
                         <td>{{ job.vessel_type }}</td>
                         <td>{{ job.other_detail }}</td>
-                        <td>{{ job.eta }}</td>
-                        <td>{{ job.etb }}</td>
-                        <td>{{ job.ets }}</td>
+                        <td>{{ job.eta + '  ' + job.eta_time }}</td>
+                        <td>{{ job.etb + '  ' + job.etb_time }}</td>
+                        <td>{{ job.ets + '  ' + job.ets_time }}</td>
                         <td>{{ job.operation }}</td>
                         <td>{{ job.cargo }}</td>
                         <td>{{ job.location }}</td>

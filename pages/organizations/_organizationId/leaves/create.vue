@@ -13,7 +13,7 @@
                   title="Hi"
                 >
                 </back-button>
-                Leave Details
+                Leave / Unavailability Details
               </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
@@ -22,7 +22,7 @@
                     <nuxt-link to="/">Home</nuxt-link>
                 </li>
                 <li class="breadcrumb-item">
-                  <nuxt-link :to="`/organizations/${this.organization.value}/leaves`">Leaves</nuxt-link>
+                  <nuxt-link :to="`/organizations/${this.organization.value}/leaves`">Leave / Unavailability</nuxt-link>
                 </li>
                 <li class="breadcrumb-item active">Create</li>
               </ol>
