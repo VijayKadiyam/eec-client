@@ -184,23 +184,16 @@
                           <br>
                           <h4>{{ inspector.first_name }} {{ inspector.last_name }}</h4>
                         </div>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="col-md-12">
-                      <div class="row"
-                        v-if="job.users.find(user => user.id == inspector.id)"
-                      >
-                        <div class="col-md-12">
+                        <div class="col-md-12"
+                          v-if="job.users.find(user => user.id == inspector.id)"
+                        >
                           <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Main'"><b>Sent Nomination Email for Main Inspector</b><br></span>
                           <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Back up'"><b>Sent Nomination Email for Back Up Inspector</b><br></span>
                           <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 0"><b>[On Hold]</b><br></span>
                           <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 1"><b>[Accepted]</b><br></span>
                           <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
                         </div>
-                      </div>
-                      <div class="row"
-                      >
+
                         <div class="col-md-6">
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
                             Assign as Main Inspector

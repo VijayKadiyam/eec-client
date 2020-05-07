@@ -332,7 +332,7 @@ export default {
   }
 
   .content-wrapper, .login-page {
-    background: url('/background1.jpg') !important;
+    background: url('/background1.png') !important;
     background-repeat: no-repeat !important; 
     background-size: cover !important;
   }
