@@ -158,13 +158,68 @@
       <section class="content">
         <div class="container-fluid">
           <div class="card">
+            <br>
+            <div align="center"><h3>List of Inspectors</h3></div>
             <div id="btnContainer">
               <button class="btn" @click="listView()"><i class="fa fa-bars"></i> List</button> 
               <button class="btn active" @click="gridView()"><i class="fa fa-th-large"></i> Grid</button>
             </div>
             <br>
 
-            <div class="row" style="margin:10px;">
+            <!-- List View -->
+            <table class="table table-head-fixed table-striped"
+              v-if="view == 'list'"
+            >
+              <thead>
+                <tr>
+                  <th>Sr. No.</th>
+                  <th>Photo / ID</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(inspector, i) in inspectors"
+                  :key="`inspector${i}`"
+                >
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <img style="width: 50px; height: 50px;" :src="mediaUrl + (inspector.attachment ? inspector.attachment : '/user.png')">
+                    <br>
+                    {{ inspector.emp_code }}
+                  </td>
+                  <td>{{ inspector.first_name }} {{ inspector.last_name }}</td>
+                  <td>{{ inspector.addresses.length ? inspector.addresses[0].country : '' }}</td>
+                  <td>
+                    <div class="col-md-12"
+                      v-if="job.users.find(user => user.id == inspector.id)"
+                    >
+                      <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Main'"><b>Sent Nomination Email for Main Inspector</b><br></span>
+                      <span v-if="job.users.find(user => user.id == inspector.id).pivot.assign_type == 'Back up'"><b>Sent Nomination Email for Back Up Inspector</b><br></span>
+                      <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 0"><b>[On Hold]</b><br></span>
+                      <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 1"><b>[Accepted]</b><br></span>
+                      <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
+                      Assign as Main Inspector
+                    </button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#backUpInspectorModal" @click="selectInspector(inspector.id)">
+                      Assign as Back Up Inspector
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Grid View -->
+            <div class="row" style="margin:10px;"
+              v-if="view == 'grid'"
+            >
               <div class="column"
                 v-for="(inspector, i) in inspectors"
                 :key="`inspector${i}`"
@@ -209,86 +264,86 @@
                     <br>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <!-- Main Inspector Modal -->
-                <div class="modal fade" id="mainInspectorModal" tabindex="-1" data-backdrop="static" aria-labelledby="mainInspectorModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="mainInspectorModalLabel">Send Nomination Email (Main Inspector)</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+            <!-- Main Inspector Modal -->
+            <div class="modal fade" id="mainInspectorModal" tabindex="-1" data-backdrop="static" aria-labelledby="mainInspectorModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="mainInspectorModalLabel">Send Nomination Email (Main Inspector)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">To: </label>
+                      <div class="col-sm-10">
+                        {{ jobInspector.email }}
                       </div>
-                      <div class="modal-body">
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">To: </label>
-                          <div class="col-sm-10">
-                            {{ jobInspector.email }}
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Message: </label>
-                          <div class="col-sm-10 div-table">
-                            <no-ssr placeholder="Loading...">
-                              <editor 
-                                :data="jobInspector.message"
-                                @updateHtml="updateHtml"
-                              ></editor>
-                            </no-ssr>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="assignInspector('Main')"
-                          :disabled="processingEmail"
-                        >
-                          {{ processingEmail ? 'Sending Email...' : 'Send Email' }}
-                        </button>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Message: </label>
+                      <div class="col-sm-10 div-table">
+                        <no-ssr placeholder="Loading...">
+                          <editor 
+                            :data="jobInspector.message"
+                            @updateHtml="updateHtml"
+                          ></editor>
+                        </no-ssr>
                       </div>
                     </div>
                   </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="assignInspector('Main')"
+                      :disabled="processingEmail"
+                    >
+                      {{ processingEmail ? 'Sending Email...' : 'Send Email' }}
+                    </button>
+                  </div>
                 </div>
+              </div>
+            </div>
 
-                <!-- Backup Inspector Modal -->
-                <div class="modal fade" id="backUpInspectorModal" tabindex="-1" data-backdrop="static" aria-labelledby="backUpInspectorModalLabel" aria-hidden="true">
-                  <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="backUpInspectorModalLabel">Send Nomination Email (Back Up Inspector)</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">To: </label>
-                          <div class="col-sm-10">
-                            {{ jobInspector.email }}
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-sm-2 col-form-label">Message: </label>
-                          <div class="col-sm-10 div-table">
-                            <no-ssr placeholder="Loading...">
-                              <editor 
-                                :data="jobInspector.message"
-                                @updateHtml="updateHtml"
-                              ></editor>
-                            </no-ssr>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="assignInspector('Back up')"
-                          :disabled="processingEmail"
-                        >
-                          {{ processingEmail ? 'Sending Email...' : 'Send Email' }}
-                        </button>
+            <!-- Backup Inspector Modal -->
+            <div class="modal fade" id="backUpInspectorModal" tabindex="-1" data-backdrop="static" aria-labelledby="backUpInspectorModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="backUpInspectorModalLabel">Send Nomination Email (Back Up Inspector)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">To: </label>
+                      <div class="col-sm-10">
+                        {{ jobInspector.email }}
                       </div>
                     </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label">Message: </label>
+                      <div class="col-sm-10 div-table">
+                        <no-ssr placeholder="Loading...">
+                          <editor 
+                            :data="jobInspector.message"
+                            @updateHtml="updateHtml"
+                          ></editor>
+                        </no-ssr>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="assignInspector('Back up')"
+                      :disabled="processingEmail"
+                    >
+                      {{ processingEmail ? 'Sending Email...' : 'Send Email' }}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -324,7 +379,8 @@ export default {
       message: ''
     },
     processingEmail: false,
-    col: ''
+    col: '',
+    view: 'list',
   }),
   mounted() {
     this.getData()
@@ -578,16 +634,18 @@ export default {
 
     // List View
     listView() {
-      for (let i = 0; i < this.col.length; i++) {
-        this.col[i].style.width = "100%";
-      }
+      this.view = 'list'
+      // for (let i = 0; i < this.col.length; i++) {
+      //   this.col[i].style.width = "100%";
+      // }
     },
 
     // Grid View
     gridView() {
-      for (let i = 0; i < this.col.length; i++) {
-        this.col[i].style.width = "25%";
-      }
+      this.view = 'grid';
+      // for (let i = 0; i < this.col.length; i++) {
+      //   this.col[i].style.width = "25%";
+      // }
     }
   }
 }
@@ -601,5 +659,6 @@ export default {
 
   .column {
     width: 25%;
+    margin: 10px;
   }
 </style>
