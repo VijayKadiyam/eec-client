@@ -406,7 +406,7 @@ export default {
         { name: 'New Jobs With No Inspector', icon: 'fas fa-network-wired', color: 'bg-success', count: this.count.jobs.no_inspector },
         // { name: 'No of Inspections Cancelled', icon: 'far fa-window-close', color: 'bg-warning', count: this.count.jobs.cancelled },
       ]
-      this.inspectorChartData.push(['Total No. of Inspectors', this.count.inspectors.total,])
+      // this.inspectorChartData.push(['Total No. of Inspectors', this.count.inspectors.total,])
       this.inspectorChartData.push(['No. of Inspectors Engaged', this.count.inspectors.engaged,])
       this.inspectorChartData.push(['No. of Inspectors on Leave', this.count.inspectors.on_leave,])
       this.inspectorChartData.push(['Inspectors with no Job', this.count.inspectors.no_job,])

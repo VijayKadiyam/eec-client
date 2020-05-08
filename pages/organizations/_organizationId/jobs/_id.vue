@@ -437,6 +437,9 @@ export default {
     BackButton,
     Countries
   },
+  created() {
+    this.form.user_id = this.user.id
+  },
   methods: {
     async store() {
       try {

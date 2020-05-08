@@ -32,6 +32,11 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
+                  <div
+                    v-if="loading"
+                  >
+                    Loading...  
+                  </div>
                   <table class="table table-head-fixed table-striped">
                     <tbody>
                       <tr
@@ -65,15 +70,18 @@
 export default {
   name: 'Alerts',
   data: () => ({
-    alerts: []
+    alerts: [],
+    loading: false,
   }),
   mounted() {
     this.getInspectorAlerts()
   },
   methods: {
     async getInspectorAlerts() {
+      this.loading = true
       let alerts = await this.$axios.get('/alerts/inspectors')
       this.alerts = alerts.data.data
+      this.loading = false
     }
   }
 }

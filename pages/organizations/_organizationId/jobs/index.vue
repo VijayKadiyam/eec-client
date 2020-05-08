@@ -30,6 +30,7 @@
               <input type="text" class="form-control" v-model="searchData" @keydown.enter="search" placeholder="Search here...">
               <a class="refresh" href="#" @click="getData">Refresh</a>
               <br>
+              <job-alerts></job-alerts>
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Manage Jobs</h3> &nbsp;
@@ -153,6 +154,8 @@
 </template>
 
 <script type="text/javascript">
+import JobAlerts from '@/components/job-alerts.vue'
+
 export default {
   name: 'ManageJobs',
   data:() =>  ({
@@ -162,6 +165,9 @@ export default {
   }),
   mounted() {
     this.getData()
+  },
+  components: {
+    JobAlerts
   },
   methods: {
     async getData() {
