@@ -171,7 +171,7 @@
                             <i class="fa fa-trash"></i>
                           </button>
                         </td>
-                        <td>{{ report.user.first_name }} {{ report.user.middle_name }} {{ report.user.last_name }}</td>
+                        <td>{{ report.user ? (report.user.first_name + ' ' + report.user.middle_name + ' ' + report.user.last_name) : '' }}</td>
                         <td><a :href="mediaUrl + report.file_path" target="_blank">{{ report.file_path }}</a></td>
                         <td>{{ report.details }}</td>
                         <td v-if="report.status == 0">Uploaded</td>

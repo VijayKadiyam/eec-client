@@ -185,7 +185,7 @@
                 <tr
                   v-for="(inspector, i) in inspectors"
                   :key="`inspector${i}`"
-                  :style="inspector.isOnLeave ? 'background-color: grey;' : ''"
+                  :style="inspector.isAvailable ? '' : 'background-color: grey;'"
                 >
                   <td>{{ i + 1 }}</td>
                   <td>
@@ -206,7 +206,7 @@
                       <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
                     </div>
                   </td>
-                  <td>{{ inspector.isOnLeave ? 'ON LEAVE' : 'AVAILABLE' }}</td>
+                  <td>{{ inspector.message }}</td>
                   <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
                       Assign as Main Inspector
@@ -229,7 +229,7 @@
               >
 
                 <div class="card" align="center"
-                  :style="inspector.isOnLeave ? 'background-color: grey;' : ''"
+                  :style="inspector.isAvailable ? '' : 'background-color: grey;'"
                 >
                   <!-- /.card-header -->
                   <div class="card-body table-responsive p-0">
@@ -436,11 +436,22 @@ export default {
       insps = insps.data.data
       let today = moment().format('YYYY-MM-DD')
       insps.forEach((insp) => {
+        insp.isAvailable = true
+        insp.message = "AVAILABLE"
         insp.user_leaves.forEach(leave => {
           let fromLeave = moment(leave.from).format('YYYY-MM-DD')
           let toLeave = moment(leave.to).format('YYYY-MM-DD')
           if(fromLeave <= today && toLeave >= today) {
-            insp.isOnLeave = true
+            insp.isAvailable = false
+            insp.message = "ON LEAVE"
+          }
+        })
+        insp.jobs.forEach(job => {
+          if(job.pivot.status == 1) {
+            if(job.eta == this.job.eta) {
+              insp.isAvailable = false
+              insp.message = "OCCUPIED"
+            }
           }
         })
       })

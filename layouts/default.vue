@@ -169,6 +169,9 @@ export default {
             // ]
           },
           {
+            name: 'Alerts', icon: 'fas fa-exclamation-triangle', link: `/organizations/${this.organizationId}/alerts`, permission: true
+          },
+          {
             name: 'Users', icon: 'fas fa-user-friends', link: `/organizations/${this.organizationId}/users`, permission: this.permissions.indexOf(4) != -1 ? true : false
           },
           {
@@ -182,7 +185,7 @@ export default {
           },
           {
             name: 'Settings', icon: 'fas fa-wrench', link: '/settings', permission: this.permissions.indexOf(1) != -1 ? true : false
-          }
+          },
         ]
       })
       categories.push({
