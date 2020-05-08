@@ -177,6 +177,7 @@
                   <th>Name</th>
                   <th>Address</th>
                   <th>Status</th>
+                  <th>Is Available</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -184,6 +185,7 @@
                 <tr
                   v-for="(inspector, i) in inspectors"
                   :key="`inspector${i}`"
+                  :style="inspector.isOnLeave ? 'background-color: grey;' : ''"
                 >
                   <td>{{ i + 1 }}</td>
                   <td>
@@ -204,6 +206,7 @@
                       <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
                     </div>
                   </td>
+                  <td>{{ inspector.isOnLeave ? 'ON LEAVE' : 'AVAILABLE' }}</td>
                   <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
                       Assign as Main Inspector
@@ -225,7 +228,9 @@
                 :key="`inspector${i}`"
               >
 
-                <div class="card" align="center">
+                <div class="card" align="center"
+                  :style="inspector.isOnLeave ? 'background-color: grey;' : ''"
+                >
                   <!-- /.card-header -->
                   <div class="card-body table-responsive p-0">
                     <br>
@@ -427,8 +432,20 @@ export default {
         return
       }
       this.loadingInspectors = true
-      let inspectors = await this.$axios.get(`/users?role_id=3&job_id=${this.job_id}`)
-      this.inspectors = inspectors.data.data
+      let insps = await this.$axios.get(`/users?role_id=3&job_id=${this.job_id}`)
+      insps = insps.data.data
+      let today = moment().format('YYYY-MM-DD')
+      insps.forEach((insp) => {
+        insp.user_leaves.forEach(leave => {
+          let fromLeave = moment(leave.from).format('YYYY-MM-DD')
+          let toLeave = moment(leave.to).format('YYYY-MM-DD')
+          if(fromLeave <= today && toLeave >= today) {
+            insp.isOnLeave = true
+          }
+        })
+      })
+      let inspectors = insps
+      this.inspectors = inspectors
       this.loadingInspectors = false
     },
     async assignInspector(assignType) {
