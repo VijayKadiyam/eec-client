@@ -1,45 +1,106 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md6>
-        <v-card class="elevation-12">
-          <v-toolbar :dark="darkStatus" :height="baseHeight" :color="baseColor">
-            <v-toolbar-title>Reset Password [{{ user.roles[0].name }}]</v-toolbar-title>
-          </v-toolbar>
-          <v-card-text>
-            <v-form>
-              <v-select
-                :error-messages="errors.email"
-                prepend-icon="email" 
-                v-model="form.email"
-                :items="emails"
-                label="Select Email ID"
-              ></v-select>
-              <v-text-field 
-                :error-messages="errors.password"
-                id="password" 
-                prepend-icon="lock" 
-                name="password" 
-                label="New Password" 
-                v-model="form.password"
-                type="password"></v-text-field>
-              <v-text-field
-                id="password_confirmation" 
-                prepend-icon="lock_open" 
-                name="password_confirmation" 
-                label="Confirm New Password" 
-                v-model="form.password_confirmation"
-                type="password"></v-text-field>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn :dark="darkStatus" @click="store" :color="baseColor">Update Password</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <section>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Reset Password</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">
+                    <nuxt-link to="/">Home</nuxt-link>
+                </li>
+                <li class="breadcrumb-item active">Reset Password</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Reset Password</h3> &nbsp;
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <v-select 
+                          v-model="form.email" 
+                          :reduce="email => email.code" 
+                          :options="emails"
+                        ></v-select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                          <input type="password" class="form-control" placeholder="Password"
+                            v-model="form.password"
+                          >
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-lock"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <span style="color: red;"
+                        v-if="errors.password"
+                      >{{ errors.password[0] }}</span>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Password Confirmation</label>
+                        <div class="input-group">
+                          <input type="password" class="form-control" placeholder="Password"
+                            v-model="form.password_confirmation"
+                          >
+                          <div class="input-group-append">
+                            <div class="input-group-text">
+                              <span class="fas fa-lock"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <span style="color: red;"
+                        v-if="errors.password_confirmation"
+                      >{{ errors.password_confirmation[0] }}</span>
+                    </div>
+                    <div class="form-footer">
+                      <button class="btn btn-primary btn-block"
+                        @click="store"
+                      >
+                        Update Password
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+  </section>
 </template>
 
 <script type="text/javascript">
@@ -52,8 +113,8 @@ export default {
     let emails = []
     users = users.data.data.forEach(user => {
       emails.push({
-        text: user.email,
-        value: user.email
+        label: user.email,
+        code: user.email
       })
     })
     return {
@@ -75,8 +136,10 @@ export default {
   },
   methods: {
     async store() {
-      await this.$axios.post(`/reset_password`, this.form)
-      alert("Password Updated");
+      try {
+        await this.$axios.post(`/reset_password`, this.form)
+        alert("Password Updated");
+      } catch(e) {}
     }
   }
 }
