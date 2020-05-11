@@ -87,6 +87,10 @@
                               <i class="fa fa-trash"></i>
                             </span>
                           </nuxt-link>
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" v-model="job.is_completed" :id="`customSwitch${job.id}`" @change="changeCompleted(job)">
+                            <label class="custom-control-label" :for="`customSwitch${job.id}`"></label>
+                          </div>
                         </td>
                         <td>
                           <span
@@ -175,6 +179,9 @@ export default {
       this.loading = true
       let items = await this.$axios.get(`/jobs?page=1`)
       this.items = items.data.data
+      this.items.forEach((item) => {
+        item.is_completed = parseInt(item.is_completed)
+      })
       this.loading = false
     },
     async search() {
@@ -184,6 +191,9 @@ export default {
         let items = await this.$axios.get(`/jobs?search=${this.searchData}`);
         console.log(items)
         this.items = items.data.data
+        this.items.forEach((item) => {
+          item.is_completed = parseInt(item.is_completed)
+        })
         this.loading = false
       }
     },
@@ -192,6 +202,10 @@ export default {
       if(r == true)
         await this.$axios.delete(`/jobs/${id}`)
       this.getData()
+    },
+
+    async changeCompleted(job) {
+      await this.$axios.patch(`/jobs/${job.id}`, job)
     }
   }
 }

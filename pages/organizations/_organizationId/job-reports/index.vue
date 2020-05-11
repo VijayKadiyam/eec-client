@@ -41,8 +41,6 @@
                       <tr>
                         <th>Sr. No.</th>
                         <th>Select</th>
-                        <th>Main Inspector Details</th>
-                        <th>Backup Inspector Details</th>
                         <th>Oil Major</th>
                         <th>Vessel Name</th>
                         <th>Vessel Type</th>
@@ -54,15 +52,6 @@
                         <th>Cargo</th>
                         <th>Location</th>
                         <th>Port name</th>
-                        <!-- <th>Agent Name</th>
-                        <th>Agent Contact Details</th>
-                        <th>Agent Phone</th>
-                        <th>Agent Email</th>
-                        <th>Agent Address</th>
-                        <th>Operator Name</th>
-                        <th>Operator Contact Details</th>
-                        <th>Operator Phone</th>
-                        <th>Operator Email</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -80,32 +69,6 @@
                             <input title="Select Job" type="radio" :value="job.id" class="form-check-input" v-model="job_id" @change="getJob">
                           </div>
                         </td>
-                        <td>
-                          <span
-                            v-for="(main, u) in job.users"
-                            :key="`main${u}`"
-                            v-if="main.pivot.assign_type == 'Main'"
-                          >
-                            {{ u + 1 }}. {{ main.first_name }} {{ main.middle_name }} {{ main.last_name }}
-                            <span v-if="main.pivot.status == 0"><b>(On Hold)</b></span>
-                            <span v-if="main.pivot.status == 1"><b>(Accepted)</b></span>
-                            <span v-if="main.pivot.status == 2"><b>(Not Accepted)</b></span>
-                            <br>
-                          </span>
-                        </td>
-                        <td>
-                          <span
-                            v-for="(back, u) in job.users"
-                            :key="`back${u}`"
-                            v-if="back.pivot.assign_type == 'Back up'"
-                          >
-                            {{ u + 1 }}. {{ back.first_name }} {{ back.middle_name }} {{ back.last_name }}
-                            <span v-if="back.pivot.status == 0"><b>(On Hold)</b></span>
-                            <span v-if="back.pivot.status == 1"><b>(Accepted)</b></span>
-                            <span v-if="back.pivot.status == 2"><b>(Not Accepted)</b></span>
-                            <br>
-                          </span>
-                        </td>
                         <td>{{ job.oil_major }}</td>
                         <td>{{ job.vessel_name }}</td>
                         <td>{{ job.vessel_type }}</td>
@@ -117,15 +80,6 @@
                         <td>{{ job.cargo }}</td>
                         <td>{{ job.location }}</td>
                         <td>{{ job.port_name }}</td>
-                        <!-- <td>{{ job.agent_name }}</td>
-                        <td>{{ job.agent_contact_person }}</td>
-                        <td>{{ job.agent_phone }}, {{ job.agent_phone_2 }}</td>
-                        <td>{{ job.agent_email }}</td>
-                        <td>{{ job.agent_address }}</td>
-                        <td>{{ job.operator_name }}</td>
-                        <td>{{ job.operator_contact_person }}</td>
-                        <td>{{ job.operator_phone }}, {{ job.operator_phone_2 }}</td>
-                        <td>{{ job.operator_email }}</td> -->
                       </tr>
                     </tbody>
                   </table>
@@ -256,7 +210,7 @@ export default {
     async getData() {
       this.items = []
       this.loading = true
-      let items = await this.$axios.get(`/jobs?page=1`)
+      let items = await this.$axios.get(`/jobs?page=1&isCompleted=1`)
       this.items = items.data.data
       this.loading = false
     },
@@ -264,7 +218,7 @@ export default {
       if(this.searchData != "")
       {
         this.loading = true
-        let items = await this.$axios.get(`/jobs?search=${this.searchData}`);
+        let items = await this.$axios.get(`/jobs?search=${this.searchData}&isCompleted=1`);
         console.log(items)
         this.items = items.data.data
         this.loading = false
@@ -277,6 +231,7 @@ export default {
       let job = await this.$axios.get(`/jobs/${this.job.id}`)
       job = job.data.data
       this.job = job
+      this.getData()
     },
     getReportModal(report = {}) {
       this.report = report
