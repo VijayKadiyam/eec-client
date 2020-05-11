@@ -506,13 +506,26 @@ export default {
     },
 
     customETBFormatter(date) {
-      this.form.etb = moment(date).format('DD-MM-YYYY');
-      return moment(date).format('DD-MM-YYYY');
+      date = moment(date).format('DD-MM-YYYY')
+      if(date < this.form.eta)
+      {
+        alert("ETB can't be less than ETA")
+        this.form.etb = ''
+        return
+      }
+      this.form.etb = date;
+      return date;
     },
 
     customETSFormatter(date) {
-      this.form.ets = moment(date).format('DD-MM-YYYY');
-      return moment(date).format('DD-MM-YYYY');
+      date = moment(date).format('DD-MM-YYYY')
+      if(date < this.form.etb || date < this.form.eta) {
+        alert('ETS can\'t be less than ETA or ETB')
+        this.form.ets = ''
+        return
+      }
+      this.form.ets = date;
+      return date;
     },
   }
 }

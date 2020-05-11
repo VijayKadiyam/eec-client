@@ -212,6 +212,7 @@ export default {
   }),
   mounted() {
     this.form.role_id = 7
+    this.form.dob = moment().format('DD-MM-YYYY')
   },
   components: {
     BackButton,

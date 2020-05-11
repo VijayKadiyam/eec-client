@@ -230,7 +230,7 @@ export default {
         title: 'Features',
         'items': [
           {
-            name: 'Whistle Blowers', icon: 'fas fa-headset', link: `/organizations/${this.organizationId}/whistle-blowers`, permission: this.permissions.indexOf(28) != -1 ? true : false
+            name: 'Blow Whistle', icon: 'fas fa-headset', link: `/organizations/${this.organizationId}/whistle-blowers`, permission: this.permissions.indexOf(28) != -1 ? true : false
           },
           // {
           //   name: 'Feedbacks', icon: 'fas fa-comments', link: `/organizations/${this.organizationId}/feedbacks`,

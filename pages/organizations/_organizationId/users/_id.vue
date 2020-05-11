@@ -114,18 +114,15 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="form-label">Date of birth</label>
-                        {{ form.dob }}
-                        <client-only>
-                          <date-picker
-                            placeholder="DD-MM-YYYY"
-                            :format="customDobFormatter"
-                            value="form.dob"
-                          />
-                        </client-only>
-                        <span class="help-block" 
-                          v-if="errors.dob"
-                        >{{ errors.dob[0] }}</span>
+                        <label class="form-label">Phone 2</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <country-codes
+                              :option.sync="form.phone_2_code"
+                            ></country-codes>
+                          </div>
+                          <input type="number" class="form-control" placeholder="Enter phone 2" v-mask="'###############'" v-model="form.phone_2">
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -217,8 +214,9 @@ export default {
     userid: '',
     loading: false
   }),
-  mounted() {
-    this.form.role_id = this.form.roles[0].id
+  created() {
+    this.form.role_id = parseInt(this.form.roles[0].id)
+    this.form.dob = moment().format('DD-MM-YYYY')
   },
   components: {
     BackButton,

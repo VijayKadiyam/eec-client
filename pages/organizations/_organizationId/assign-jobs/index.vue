@@ -177,7 +177,7 @@
                   <th>Name</th>
                   <th>Address</th>
                   <th>Status</th>
-                  <th>Is Available</th>
+                  <th>Availability</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -206,7 +206,7 @@
                       <span v-if="job.users.find(user => user.id == inspector.id).pivot.status == 2"><b>[Not Accepted]</b><br></span>
                     </div>
                   </td>
-                  <td>{{ inspector.message }}</td>
+                  <td>{{ inspector.availability }}</td>
                   <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mainInspectorModal" @click="selectInspector(inspector.id)">
                       Assign as Main Inspector
@@ -399,6 +399,7 @@ export default {
   methods: {
     updateHtml(html) {
       this.inspector.message = html
+      this.jobInspector.message = html
     },
     async getData() {
       this.items = []
@@ -437,20 +438,20 @@ export default {
       let today = moment().format('YYYY-MM-DD')
       insps.forEach((insp) => {
         insp.isAvailable = true
-        insp.message = "AVAILABLE"
+        insp.availability = "AVAILABLE"
         insp.user_leaves.forEach(leave => {
           let fromLeave = moment(leave.from).format('YYYY-MM-DD')
           let toLeave = moment(leave.to).format('YYYY-MM-DD')
           if(fromLeave <= today && toLeave >= today) {
             insp.isAvailable = false
-            insp.message = "ON LEAVE"
+            insp.availability = "ON LEAVE"
           }
         })
         insp.jobs.forEach(job => {
           if(job.pivot.status == 1) {
             if(job.eta == this.job.eta) {
               insp.isAvailable = false
-              insp.message = "OCCUPIED"
+              insp.availability = "OCCUPIED"
             }
           }
         })
@@ -564,13 +565,13 @@ export default {
                 <b>ETA</b>
               </td>
               <td>
-                ${this.job.eta}
+                ${this.job.eta} ${this.job.eta_time}
               </td>
               <td>
                 <b>ETB</b>
               </td>
               <td>
-                ${this.job.etb}
+                ${this.job.etb} ${this.job.etb_time}
               </td>
             </tr>
             <tr>
@@ -578,7 +579,7 @@ export default {
                 <b>ETS</b>
               </td>
               <td>
-                ${this.job.ets}
+                ${this.job.ets} ${this.job.ets_time}
               </td>
               <td>
                 <b>Operation</b>
@@ -650,11 +651,37 @@ export default {
           </tbody>
         </table>
         <br>
+        <table class="email-table">
+          <thead>
+            <tr>
+              <td>
+                <b>Additional Details</b>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                &nbsp;
+                <br>
+                <br>
+                <br>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <br>
         <br>
-        Regards,
         <br>
-        ${this.user.first_name}
+        Thanks & Regards,
+        <br>
+        ${this.user.first_name} ${this.user.middle_name} ${this.user.last_name}
+        <br>
+        ${this.user.roles[0].name}, ${this.user.phone_code} ${this.user.phone}
+        <br>
+        ${this.user.email}
+        <br>
+        AETHON MARINE SERVICES
         <br>
         <br>
       `
