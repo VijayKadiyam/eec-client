@@ -78,7 +78,7 @@
                           <br>
                           {{ emp.emp_code }}
                         </td>
-                        <td>{{ emp.first_name }} {{ emp.middle_name }} {{ emp.last_name }}</td>
+                        <td>{{ emp.name }}</td>
                         <td>{{ emp.email }}</td>
                         <td>{{ emp.phone_code }} {{ emp.phone }}</td>
                         <td>{{ emp.roles[0].name }}</td>
@@ -129,7 +129,7 @@ export default {
       this.items = []
       this.loading = true
       // let items = await this.$axios.get(`/users?role_id=3&page=1`)
-      let items = await this.$axios.get(`/users`)
+      let items = await this.$axios.get(`/users?search=all`)
       this.items = items.data.data
       this.loading = false
     },

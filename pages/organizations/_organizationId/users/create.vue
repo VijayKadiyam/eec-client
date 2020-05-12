@@ -46,43 +46,13 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="form-label">Emp Code</label>
-                        <input type="text" class="form-control" placeholder="Enter emp code"
-                          v-model="form.emp_code"
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" placeholder="Enter name"
+                          v-model="form.name"
                         >
                         <span class="help-block" 
-                          v-if="errors.emp_code"
-                        >{{ errors.emp_code[0] }}</span>
-                      </div>      
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" placeholder="Enter first name"
-                          v-model="form.first_name"
-                        >
-                        <span class="help-block" 
-                          v-if="errors.first_name"
-                        >{{ errors.first_name[0] }}</span>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label class="form-label">Middle Name</label>
-                        <input type="text" class="form-control" placeholder="Enter middle name"
-                          v-model="form.middle_name"
-                        >
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Enter last name"
-                          v-model="form.last_name"
-                        >
-                        <span class="help-block" 
-                          v-if="errors.last_name"
-                        >{{ errors.last_name[0] }}</span>
+                          v-if="errors.name"
+                        >{{ errors.name[0] }}</span>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -100,32 +70,11 @@
                       <div class="form-group">
                         <label class="form-label">Phone</label>
                         <div class="input-group">
-                          <div class="input-group-prepend">
-                            <country-codes
-                              :option.sync="form.phone_code"
-                            ></country-codes>
-                          </div>
                           <input type="number" class="form-control" placeholder="Enter phone" v-mask="'###############'" v-model="form.phone">
                         </div>
                         <span class="help-block" 
                           v-if="errors.phone"
                         >{{ errors.phone[0] }}</span>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label class="form-label">Date of birth</label>
-                        {{ form.dob }}
-                        <client-only>
-                          <date-picker
-                            placeholder="DD-MM-YYYY"
-                            :format="customDobFormatter"
-                            value="form.dob"
-                          />
-                        </client-only>
-                        <span class="help-block" 
-                          v-if="errors.dob"
-                        >{{ errors.dob[0] }}</span>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -197,21 +146,17 @@ export default {
   },
   data: () => ({
     form: {
-      first_name: '',
-      last_name: '',
+      name: '',
       email: '',
-      phone_code: '+91',
       phone: '',
-      gender: '',
       active: 1,
       role_id: '',
-      dob: ''
     },
     userid: '',
     loading: false
   }),
   mounted() {
-    this.form.role_id = 7
+    this.form.role_id = 3
     this.form.dob = moment().format('DD-MM-YYYY')
   },
   components: {
@@ -260,12 +205,6 @@ export default {
       .catch(function(){
         console.log('FAILURE!!');
       });
-    },
-    customDobFormatter(date) {
-      let age = moment().diff(date, 'years',false);
-      this.form.age = age
-      this.form.dob = moment(date).format('DD-MM-YYYY');
-      return moment(date).format('DD-MM-YYYY');
     },
   }
 }
