@@ -152,13 +152,13 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Pump Status</th>
-                        <th>Solar Voltage</th>
-                        <th>Solar Current</th>
-                        <th>Frequency</th>
-                        <th>Temperature</th>
-                        <th>Phase Current R</th>
-                        <th>Phase Current Y</th>
-                        <th>Phase Current B</th>
+                        <th>PV Input</th>
+                        <th>Power (W)</th>
+                        <th>Frequency (Hz)</th>
+                        <th>Sys Temp (°C)</th>
+                        <th>Motor Current (R-Y-B)</th>
+                        <th>Flow Rate (LPM)</th>
+                        <th> Output (LPD)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -169,14 +169,33 @@
                       >
                         <td><b>{{ d + 1 }}</b></td>
                         <td>{{ data.date }}</td>
-                        <td>{{ data.pump_status }}</td>
-                        <td>{{ data.voltage }}</td>
-                        <td>{{ data.current }}</td>
+                        <td>{{ data.time }}</td>
+                        <td>
+                          <div v-if="data.pump_status == '00'">SYSTEM OFF</div>
+                          <div v-if="data.pump_status == '01'">SYSTEM ON</div>
+                          <div v-if="data.pump_status == '02'">INPUT LOW</div>
+                          <div v-if="data.pump_status == '03'">INPUT HIGH</div>
+                          <div v-if="data.pump_status == '04'">OUTPUT LOW</div>
+                          <div v-if="data.pump_status == '05'">OUTPUT HIGH</div>
+                          <div v-if="data.pump_status == '06'">BATTERY LOW</div>
+                          <div v-if="data.pump_status == '07'">BATTERY HIGH</div>
+                          <div v-if="data.pump_status == '08'">OVERLOAD</div>
+                          <div v-if="data.pump_status == '09'">SHORT</div>
+                          <div v-if="data.pump_status == '10'">DSAT</div>
+                          <div v-if="data.pump_status == '11'">OVER TEMPERATURE</div>
+                          <div v-if="data.pump_status == '12'">PHASE OPEN</div>
+                          <div v-if="data.pump_status == '13'">PHASE UNBALANCE</div>
+                          <div v-if="data.pump_status == '14'">GROUND FAULT</div>
+                          <div v-if="data.pump_status == '15'">DRY RUN</div>
+                          <div v-if="data.pump_status == '16'">WATER TANK FULL</div>
+                        </td>
+                        <td>{{ data.voltage + 'V, ' + data.current + 'A' }}</td>
+                        <td></td>
                         <td>{{ data.frequency }}</td>
                         <td>{{ data.temperature }}</td>
-                        <td>{{ data.phase_current_r }}</td>
-                        <td>{{ data.phase_current_y }}</td>
-                        <td>{{ data.phase_current_b }}</td>
+                        <td>{{ data.phase_current_r + '-' + data.phase_current_y + '-' + data.phase_current_b }}</td>
+                        <td></td>
+                        <td></td>
                       </tr>
                     </tbody>
                   </table>
@@ -192,6 +211,8 @@
 </template>
 
 <script type="text/javascript">
+import moment from 'moment'
+
 export default {
   name: 'ManageUnitDatas',
   data:() =>  ({
@@ -255,7 +276,11 @@ export default {
     async getLiveData() {
       this.loading = true
       let datas = await this.$axios.get(`units/${this.unit.id}/datas`)
-      this.live_datas = datas.data.data
+      datas = datas.data.data
+      datas.forEach((data) => {
+        data.created_at = moment(data.created_at).format('hh:mm:ss')
+      })
+      this.live_datas = datas
       this.loading = false
     },
   }

@@ -190,6 +190,9 @@ export default {
         'items': [
           {
             name: 'Units', icon: 'fas fa-flag', link: `/organizations/${this.organizationId}/units`, permission: this.permissions.indexOf(3) != -1 ? true : false
+          },
+          {
+            name: 'Cumulative Data', icon: 'fas fa-list', link: `/organizations/${this.organizationId}/cumulative-data`, permission: this.permissions.indexOf(3) != -1 ? true : false
           }
         ]
       })

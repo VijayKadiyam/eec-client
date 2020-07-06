@@ -42,6 +42,8 @@
                       <tr>
                         <th>Sr. No.</th>
                         <th>Actions</th>
+                        <th>Send Monthly Email</th>
+                        <th>Customer/Farmer Details</th>
                         <th>IMEI No</th>
                       </tr>
                     </thead>
@@ -65,6 +67,16 @@
                             </span>
                           </nuxt-link>&nbsp;&nbsp;
                           <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/units/${unit.id}/data`">View Data</nuxt-link>
+                        </td>
+                        <td></td>
+                        <td>
+                          <b>Name: </b>{{ unit.first_name + ' ' + (unit.middle_name ? unit.middle_name : '') + ' ' + (unit.last_name ? unit.last_name : '') }}
+                          <br>
+                          <b>Address: </b>{{ unit.residence_address }}
+                          <br>
+                          <b>Adhaar No: </b>{{ unit.adhaar_no }}
+                          <br>
+                          {{ unit.phone_no }}  {{ unit.email }}
                         </td>
                         <td>{{ unit.imei_number }}</td>
                       </tr>
