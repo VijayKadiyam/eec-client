@@ -4,5 +4,6 @@ cd /var/www/vhosts/vishwjeet/vishwjeet-client
 
 npm run build
 
+
 pm2 delete vishwjeet 
 pm2 start npm --name vishwjeet -- start
