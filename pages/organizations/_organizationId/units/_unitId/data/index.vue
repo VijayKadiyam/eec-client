@@ -158,7 +158,8 @@
                         <th>Sys Temp (°C)</th>
                         <th>Motor Current (R-Y-B)</th>
                         <th>Flow Rate (LPM)</th>
-                        <th> Output (LPD)</th>
+                        <th>Output (LPD)</th>
+                        <th>Location Coordinates</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -196,6 +197,7 @@
                         <td>{{ data.phase_current_r + '-' + data.phase_current_y + '-' + data.phase_current_b }}</td>
                         <td></td>
                         <td></td>
+                        <td>{{ data.dummy }}-{{ data.reserved }}</td>
                       </tr>
                     </tbody>
                   </table>
