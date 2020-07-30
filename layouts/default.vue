@@ -236,9 +236,5 @@ export default {
     font-size: 0.9rem;
   }
 
-  table {
-    overflow: scroll;
-    white-space: nowrap;
-  }
 </style>
 </style>

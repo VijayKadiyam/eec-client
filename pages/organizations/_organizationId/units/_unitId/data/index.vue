@@ -147,19 +147,34 @@
                 <div class="card-body table-responsive p-0">
                   <table class="table table-head-fixed table-striped">
                     <thead>
-                      <tr>
+                      <tr align="center">
                         <th></th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Pump Status</th>
                         <th>PV Input</th>
-                        <th>Power (W)</th>
-                        <th>Frequency (Hz)</th>
-                        <th>Sys Temp (°C)</th>
-                        <th>Motor Current (R-Y-B)</th>
-                        <th>Flow Rate (LPM)</th>
-                        <th>Output (LPD)</th>
-                        <th>Location Coordinates</th>
+                        <th>Power</th>
+                        <th>Frequency</th>
+                        <th>Sys Temp</th>
+                        <th>Motor Current</th>
+                        <th>Flow Rate</th>
+                        <th>Output</th>
+                        <th colspan="2">Location Coordinates</th>
+                      </tr>
+                      <tr align="center">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>(W)</th>
+                        <th>(Hz)</th>
+                        <th>(°C)</th>
+                        <th>(R-Y-B) in A</th>
+                        <th>(LPM)</th>
+                        <th>(LPD)</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -167,6 +182,7 @@
                         v-for="(data, d) in live_datas"
                         :key="`live${d}`"
                         style="padding: 20px;"
+                        align="center"
                       >
                         <td><b>{{ d + 1 }}</b></td>
                         <td>{{ data.date }}</td>
@@ -191,13 +207,14 @@
                           <div v-if="data.pump_status == '16'">WATER TANK FULL</div>
                         </td>
                         <td>{{ data.voltage + 'V, ' + data.current + 'A' }}</td>
-                        <td></td>
+                        <td>{{ data.power }}</td>
                         <td>{{ data.frequency }}</td>
                         <td>{{ data.temperature }}</td>
                         <td>{{ data.phase_current_r + '-' + data.phase_current_y + '-' + data.phase_current_b }}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ data.dummy }}-{{ data.reserved }}</td>
+                        <td>{{ data.flow_rate }}</td>
+                        <td>{{ data.output }}</td>
+                        <td>{{ data.reserved }}</td>
+                        <td>{{ data.dummy }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -214,6 +231,7 @@
 
 <script type="text/javascript">
 import moment from 'moment'
+import {pump_categories, getFlowRate} from '@/scripts/utilities.js'
 
 export default {
   name: 'ManageUnitDatas',
@@ -225,10 +243,14 @@ export default {
     controller_datas: [],
     pump_datas: [],
     rms_datas: [],
-    live_datas: []
+    live_datas: [],
+    pump_categories: [],
+    hps: [],
+    sizes: [],
   }),
   created() {
     this.getData()
+    this.pump_categories = pump_categories()
   },
   methods: {
     async getData() {
@@ -258,33 +280,55 @@ export default {
       this.controller_datas = []
       this.controller_datas.push({name: 'Controller Serial No', value: this.unit.serial_no_controller})
       this.controller_datas.push({name: 'Controller Location', value: this.unit.location_controller})
-      this.controller_datas.push({name: 'VFD Manufacturer', value: this.unit.manufacturer_vfd})
-      this.controller_datas.push({name: 'VFD Serial No', value: this.unit.serial_no_vfd})
+      this.controller_datas.push({name: 'Controller Manufacturer', value: this.unit.manufacturer_vfd})
+      // this.controller_datas.push({name: 'VFD Serial No', value: this.unit.serial_no_vfd})
     },
     getPumpData() {
       this.pump_datas = []
       this.pump_datas.push({name: 'Motor Type', value: this.unit.motor_type})
-      this.pump_datas.push({name: 'Motor Category', value: this.unit.motor_category})
-      this.pump_datas.push({name: 'Motor Serial No', value: this.unit.motor_serial_no})
-      this.pump_datas.push({name: 'Pump Serial No', value: this.unit.pump_serial_no})
+      this.pump_datas.push({name: 'Pump Category', value: this.unit.motor_category})
+      // this.pump_datas.push({name: 'Motor Serial No', value: this.unit.motor_serial_no})
+      this.pump_datas.push({name: 'Pump Serial Set No', value: this.unit.pump_serial_no})
       this.pump_datas.push({name: 'Motor HP', value: this.unit.motor_hp})
       this.pump_datas.push({name: 'Motor Head Size', value: this.unit.motor_head_size})
     },
     getRmsData() {
       this.rms_datas = []
       this.rms_datas.push({name: 'IMEI Number', value: this.unit.imei_number })
-      this.rms_datas.push({name: 'Device ID', value: this.unit.device_id })
+      // this.rms_datas.push({name: 'Device ID', value: this.unit.device_id })
     },
     async getLiveData() {
       this.loading = true
       let datas = await this.$axios.get(`units/${this.unit.id}/datas`)
       datas = datas.data.data
-      datas.forEach((data) => {
+      let startTime = 0
+      let date = ''
+      let flowRate = 0
+      datas.forEach((data, i) => {
         data.created_at = moment(data.created_at).format('hh:mm:ss')
+        data.power = data.voltage * data.current
+        data.flow_rate = getFlowRate(data.power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
+        data.output = 0
+
+        if(i == 0) {
+          startTime = moment(data.created_at, "HH:mm:ss")
+          date = data.date
+        }
+        let currentTime = moment(data.created_at, "HH:mm:ss")
+        let differenceInTime = startTime.diff(currentTime, 'minutes');
+        if(differenceInTime < 60 && date == data.date) {
+          flowRate += parseFloat(data.flow_rate)
+        } else {
+          data.output = (flowRate * 60 / 4).toFixed(2)
+          startTime = moment(data.created_at, "HH:mm:ss")
+          date = data.date
+          flowRate = 0
+        }
       })
       this.live_datas = datas
       this.loading = false
     },
+
   }
 }
 </script>

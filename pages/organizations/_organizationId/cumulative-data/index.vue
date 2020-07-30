@@ -44,7 +44,8 @@
                 <div class="card-body table-responsive p-0">
                   <table class="table table-head-fixed table-striped">
                     <thead>
-                      <tr>
+                      <tr align="center">
+                        <th>Add To Email List</th>
                         <th>Sr. No.</th>
                         <th>Implementing Agency</th>
                         <th>Farmer's / Village Name</th>
@@ -52,7 +53,7 @@
                         <th>Pump Head (M) </th>
                         <th>Controller Sr. No</th>
                         <th>Location</th>
-                        <th>Geo-Coordinates</th>
+                        <th colspan="2">Geo-Coordinates</th>
                         <th>Date & Time </th>
                         <th>Pump Status</th>
                         <th>PV Input</th>
@@ -62,7 +63,6 @@
                         <th>Motor Current (R-Y-B)</th>
                         <th>Flow Rate (LPM)</th>
                         <th>Output (LPD)</th>
-                        <th>Auto Generate Data</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -75,7 +75,11 @@
                         v-for="(unit, u) in units"
                         :key="`unit${u}`"
                         v-else
+                        align="center"
                       >
+                        <td>
+                          <input type="checkbox" value="1" v-model="unit.send_email" @change="updateEmailList(unit.id)">
+                        </td>
                         <td>{{ u + 1 }}</td>
                         <td>{{ unit.implementing_agency }}</td>
                         <td>{{ unit.customer_name }}</td>
@@ -83,33 +87,17 @@
                         <td>{{ unit.pump_head }}</td>
                         <td>{{ unit.controller_sr_no }}</td>
                         <td>{{ unit.location }}</td>
+                        <td>{{ unit.reserved }}</td>
+                        <td>{{ unit.dummy }}</td>
+                        <td>{{ unit.date_time }}</td>
+                        <td>{{ unit.pump_status }}</td>
+                        <td>{{ unit.vi }}</td>
                         <td></td>
-                        <td>{{ unit.data.date + ', ' + unit.data.time }}</td>
-                        <td>
-                          <div v-if="unit.data.pump_status == '00'">SYSTEM OFF</div>
-                          <div v-if="unit.data.pump_status == '01'">SYSTEM ON</div>
-                          <div v-if="unit.data.pump_status == '02'">INPUT LOW</div>
-                          <div v-if="unit.data.pump_status == '03'">INPUT HIGH</div>
-                          <div v-if="unit.data.pump_status == '04'">OUTPUT LOW</div>
-                          <div v-if="unit.data.pump_status == '05'">OUTPUT HIGH</div>
-                          <div v-if="unit.data.pump_status == '06'">BATTERY LOW</div>
-                          <div v-if="unit.data.pump_status == '07'">BATTERY HIGH</div>
-                          <div v-if="unit.data.pump_status == '08'">OVERLOAD</div>
-                          <div v-if="unit.data.pump_status == '09'">SHORT</div>
-                          <div v-if="unit.data.pump_status == '10'">DSAT</div>
-                          <div v-if="unit.data.pump_status == '11'">OVER TEMPERATURE</div>
-                          <div v-if="unit.data.pump_status == '12'">PHASE OPEN</div>
-                          <div v-if="unit.data.pump_status == '13'">PHASE UNBALANCE</div>
-                          <div v-if="unit.data.pump_status == '14'">GROUND FAULT</div>
-                          <div v-if="unit.data.pump_status == '15'">DRY RUN</div>
-                          <div v-if="unit.data.pump_status == '16'">WATER TANK FULL</div>
-                        </td>
-                        <td>{{ unit.data.voltage + 'V, ' + unit.data.current + 'A' }}</td>
-                        <td></td>
-                        <td>{{ unit.data.frequency }}</td>
-                        <td>{{ unit.data.temperature }}</td>
-                        <td>{{ unit.data.phase_current_r + '-' + unit.data.phase_current_y + '-' + unit.data.phase_current_b }}</td>
-                        <td></td>
+                        <td>{{ unit.frequency }}</td>
+                        <td>{{ unit.temperature }}</td>
+                        <td>{{ unit.r_y_b }}</td>
+                        <td>{{ unit.flow_rate }}</td>
+                        <td>{{ unit.output }}</td>
                         <td></td>
                       </tr>
                     </tbody>
@@ -130,6 +118,8 @@
 </template>
 
 <script type="text/javascript">
+import {pump_categories, getFlowRate} from '@/scripts/utilities.js'
+
 export default {
   name: 'ManageUnits',
   data:() =>  ({
@@ -148,6 +138,17 @@ export default {
       'Pump Head (M)': 'pump_head',
       'Controller Sr. No': 'controller_sr_no',
       'Location': 'location',
+      'Latitude': 'reserved',
+      'Longitude': 'dummy',
+      'Date & Time': 'date_time',
+      'Pump Status': 'pump_status',
+      'PV Input': 'vi',
+      'Power (W)': 'power',
+      'Frequency (Hz)': 'frequency',
+      'Sys Temp (°C)': 'temperature',
+      'Motor Current (R-Y-B)': 'r_y_b',
+      'Flow Rate (LPM)': 'flow_rate',
+      'Output (LPD)': 'output',
     },
     title: 'RMS Primary Log',
   }),
@@ -164,8 +165,11 @@ export default {
       items = items.data.data
       this.items = items
       items.forEach((item, i) => {
+        item.data = item.data || {}
         units.push({
           'sr_no': i + 1,
+          'id': item.id,
+          'send_email': item.send_email,
           'implementing_agency': this.organization.text,
           'customer_name': (item.first_name ? item.first_name : '') + ' ' + (item.middle_name ? item.middle_name : '') + ' ' + (item.last_name ? item.last_name : ''),
           'customer_details': `
@@ -179,14 +183,62 @@ export default {
           'pump_head': item.motor_head_size,
           'controller_sr_no': item.serial_no_controller,
           'location': item.location_controller,
-          'geo_location': '',
-          'data': item.data == null ? {} : item.data 
+          // 'data': item.data == null ? {} : item.data,
+          'reserved': item.data.reserved,
+          'dummy': item.data.dummy,
+          'date_time': ((item.data.date || '') + ' ' + (item.data.time || '')),
+          'pump_status': item.data == null ? '' : 
+                          (item.data.pump_status == '00' ? 'SYSTEM OFF' :
+                            (item.data.pump_status == '01' ? 'SYSTEM ON' :
+                              (item.data.pump_status == '02' ? 'INPUT LOW' :
+                                (item.data.pump_status == '03' ? 'INPUT HIGH' :
+                                  (item.data.pump_status == '04' ? 'OUTPUT LOW' :
+                                    (item.data.pump_status == '05' ? 'OUTPUT HIGH' :
+                                      (item.data.pump_status == '06' ? 'BATTERY LOW' :
+                                        (item.data.pump_status == '07' ? 'BATTERY HIGH' :
+                                          (item.data.pump_status == '08' ? 'OVERLOAD' :
+                                            (item.data.pump_status == '09' ? 'SHORT' :
+                                              (item.data.pump_status == '10' ? 'DSAT' :
+                                                (item.data.pump_status == '11' ? 'OVER TEMPERATURE' :
+                                                  (item.data.pump_status == '12' ? 'PHASE OPEN' :
+                                                    (item.data.pump_status == '13' ? 'PHASE UNBALANCE' :
+                                                      (item.data.pump_status == '14' ? 'GROUND FAULT' :
+                                                        (item.data.pump_status == '15' ? 'DRY RUN' :
+                                                          (item.data.pump_status == '16' ? 'WATER TANK FULL' : '')
+                                                        )
+                                                      )
+                                                    )
+                                                  )
+                                                )
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          ),
+        'vi': (item.data.voltage || '') + 'V, ' + (item.data.current || '') + 'A',
+        'power': item.data.voltage * item.data.current,
+        'frequency': item.data.frequency,
+        'temperature': item.data.temperature,
+        'r_y_b': (item.data.phase_current_r || '') + '-' + (item.data.phase_current_y || '') + '-' + (item.data.phase_current_b || ''),
+        'flow_rate': getFlowRate((item.data.voltage * item.data.current), item.motor_category, item.motor_hp, item.motor_head_size).toFixed(2),
+        'output': '',
         })
       })
       this.units = units
       this.loading = false
     },
-    
+    async updateEmailList(id) {
+      let item = this.items.find(item => item.id == id)
+      item.send_email = !item.send_email
+      await this.$axios.patch(`units/${id}`, item)
+      alert('Updated')
+    }
   },
 }
 </script>
