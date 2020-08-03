@@ -304,11 +304,12 @@ export default {
       let startTime = 0
       let date = ''
       let flowRate = 0
+      let op = 0;
       datas.forEach((data, i) => {
         data.created_at = moment(data.created_at).format('hh:mm:ss')
         data.power = data.voltage * data.current
         data.flow_rate = getFlowRate(data.power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
-        data.output = 0
+        data.output = op
 
         if(i == 0) {
           startTime = moment(data.created_at, "HH:mm:ss")
@@ -319,10 +320,11 @@ export default {
         if(differenceInTime < 60 && date == data.date) {
           flowRate += parseFloat(data.flow_rate)
         } else {
-          data.output = (flowRate * 60 / 4).toFixed(2)
+          op = (flowRate * 60 / 4).toFixed(2)
+          data.output = op
           startTime = moment(data.created_at, "HH:mm:ss")
           date = data.date
-          flowRate = 0
+          // flowRate = 0
         }
       })
       this.live_datas = datas
