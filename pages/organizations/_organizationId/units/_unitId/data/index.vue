@@ -305,27 +305,35 @@ export default {
       let date = ''
       let flowRate = 0
       let op = 0;
+
+      let index = datas.length - 1
       datas.forEach((data, i) => {
-        data.created_at = moment(data.created_at).format('hh:mm:ss')
-        data.power = data.voltage * data.current
-        data.flow_rate = getFlowRate(data.power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
-        data.output = op
+        datas[index].created_at = moment(datas[index].created_at).format('hh:mm:ss')
+        datas[index].power = datas[index].voltage * datas[index].current
+        datas[index].flow_rate = getFlowRate(datas[index].power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
+        datas[index].output = op
 
         if(i == 0) {
-          startTime = moment(data.created_at, "HH:mm:ss")
-          date = data.date
+          startTime = moment(datas[index].created_at, "HH:mm:ss")
+          date = datas[index].date
         }
-        let currentTime = moment(data.created_at, "HH:mm:ss")
-        let differenceInTime = startTime.diff(currentTime, 'minutes');
-        if(differenceInTime < 60 && date == data.date) {
-          flowRate += parseFloat(data.flow_rate)
+        let currentTime = moment(datas[index].created_at, "HH:mm:ss")
+        let differenceInTime = currentTime.diff(startTime, 'minutes');
+        console.log(currentTime + '-' + startTime + '=' + differenceInTime)
+        if(differenceInTime < 60 && date == datas[index].date) {
+          flowRate += parseFloat(datas[index].flow_rate)
+          date = datas[index].date
         } else {
           op = (flowRate * 60 / 4).toFixed(2)
-          data.output = op
-          startTime = moment(data.created_at, "HH:mm:ss")
-          date = data.date
+          console.log(index)
+          console.log(op)
+          datas[index].output = op
+          startTime = moment(datas[index].created_at, "HH:mm:ss")
+          date = datas[index].date
           // flowRate = 0
         }
+        index--;
+        console.log(index)
       })
       this.live_datas = datas
       this.loading = false
