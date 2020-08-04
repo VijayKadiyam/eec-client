@@ -302,6 +302,7 @@ export default {
       let datas = await this.$axios.get(`units/${this.unit.id}/datas`)
       datas = datas.data.data
       let startTime = 0
+      let start = 0 // Just for console op
       let date = ''
       let flowRate = 0
       let op = 0;
@@ -309,30 +310,44 @@ export default {
       let index = datas.length - 1
       let count = 0;
       datas.forEach((data, i) => {
-        datas[index].created_at = moment(datas[index].created_at).format('hh:mm:ss')
+        let time = moment(datas[index].time, 'hh:mm:ss')
         datas[index].power = datas[index].voltage * datas[index].current
         datas[index].flow_rate = getFlowRate(datas[index].power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
         datas[index].output = op
 
         if(i == 0) {
-          startTime = moment(datas[index].created_at, "HH:mm:ss")
+          startTime = moment(time, "hh:mm:ss")
+          start = moment(time).format('hh:mm:ss')
           date = datas[index].date
         }
-        let currentTime = moment(datas[index].created_at, "HH:mm:ss")
+        let currentTime = moment(time, "hh:mm:ss")
         let differenceInTime = currentTime.diff(startTime, 'minutes');
+        console.log(moment(time).format('hh:mm:ss') + '-' + start + '=' + differenceInTime)
         if(differenceInTime < 60 && date == datas[index].date) {
           flowRate += parseFloat(datas[index].flow_rate)
           date = datas[index].date
           count++;
+          console.log('count' + count)
         } else {
-          op = (flowRate * 60 / count).toFixed(2)
+          console.log('op' + op)
+          let currentOp = count != 0 ? parseFloat(flowRate * 60 / count) : parseFloat(flowRate * 60 / 1)
+          op = parseFloat(parseFloat(op) + currentOp).toFixed(2)
+          console.log(index)
+          console.log('op ' + op)
+          console.log('current ' + currentOp)
           datas[index].output = op
-          startTime = moment(datas[index].created_at, "HH:mm:ss")
+          if(date != datas[index].date) {
+            startTime = moment('00:00:00', "hh:mm:ss")
+            op = 0
+          }
+          else
+            startTime = moment(time, "hh:mm:ss")
           date = datas[index].date
           count = 0
-          // flowRate = 0
+          flowRate = 0
         }
         index--;
+        console.log(index)
       })
       this.live_datas = datas
       this.loading = false
