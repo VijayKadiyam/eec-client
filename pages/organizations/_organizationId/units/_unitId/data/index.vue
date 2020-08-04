@@ -307,6 +307,7 @@ export default {
       let op = 0;
 
       let index = datas.length - 1
+      let count = 0;
       datas.forEach((data, i) => {
         datas[index].created_at = moment(datas[index].created_at).format('hh:mm:ss')
         datas[index].power = datas[index].voltage * datas[index].current
@@ -319,21 +320,19 @@ export default {
         }
         let currentTime = moment(datas[index].created_at, "HH:mm:ss")
         let differenceInTime = currentTime.diff(startTime, 'minutes');
-        console.log(currentTime + '-' + startTime + '=' + differenceInTime)
         if(differenceInTime < 60 && date == datas[index].date) {
           flowRate += parseFloat(datas[index].flow_rate)
           date = datas[index].date
+          count++;
         } else {
-          op = (flowRate * 60 / 4).toFixed(2)
-          console.log(index)
-          console.log(op)
+          op = (flowRate * 60 / count).toFixed(2)
           datas[index].output = op
           startTime = moment(datas[index].created_at, "HH:mm:ss")
           date = datas[index].date
+          count = 0
           // flowRate = 0
         }
         index--;
-        console.log(index)
       })
       this.live_datas = datas
       this.loading = false
