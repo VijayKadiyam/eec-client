@@ -154,7 +154,7 @@
                         <th>Pump Status</th>
                         <th>PV Input</th>
                         <th>Power</th>
-                        <th>Frequency</th>
+                        <th>Freq.</th>
                         <th>Sys Temp</th>
                         <th>Motor Current</th>
                         <th>Flow Rate</th>
@@ -173,8 +173,8 @@
                         <th>(R-Y-B) in A</th>
                         <th>(LPM)</th>
                         <th>(LPD)</th>
-                        <th>Latitude</th>
                         <th>Longitude</th>
+                        <th>Latitude</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -213,8 +213,8 @@
                         <td>{{ data.phase_current_r + '-' + data.phase_current_y + '-' + data.phase_current_b }}</td>
                         <td>{{ data.flow_rate }}</td>
                         <td>{{ data.output }}</td>
-                        <td>{{ data.reserved }}</td>
                         <td>{{ data.dummy }}</td>
+                        <td>{{ data.reserved }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -273,7 +273,7 @@ export default {
       this.customer_datas.push({name: 'Last Name', value: this.unit.last_name})
       this.customer_datas.push({name: 'Residence Address', value: this.unit.residence_address})
       this.customer_datas.push({name: 'Phone No', value: this.unit.phone_no})
-      this.customer_datas.push({name: 'Adhaar No', value: this.unit.adhaar_no})
+      // this.customer_datas.push({name: 'Adhaar No', value: this.unit.adhaar_no})
       this.customer_datas.push({name: 'Email', value: this.unit.email})
     },
     getControllerData() {

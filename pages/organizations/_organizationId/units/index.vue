@@ -53,7 +53,7 @@
                       > 
                         <td colspan="13">Loading...</td>
                       </tr>
-                      <tr v-for="(unit, i) in sorteditems"
+                      <tr v-for="(unit, i) in items"
                         :key="`unit${i}`"
                       >
                         <td>{{ i + 1 }}</td>
@@ -68,7 +68,9 @@
                           </nuxt-link>&nbsp;&nbsp;
                           <nuxt-link class="btn btn-sm btn-info" :to="`/organizations/${organization.value}/units/${unit.id}/data`">View Data</nuxt-link>
                         </td>
-                        <td></td>
+                        <td>
+                          <input type="checkbox" value="1" v-model="unit.send_email" @change="updateEmailList(unit.id)">
+                        </td>
                         <td>
                           <b>Name: </b>{{ unit.first_name + ' ' + (unit.middle_name ? unit.middle_name : '') + ' ' + (unit.last_name ? unit.last_name : '') }}
                           <br>
@@ -150,6 +152,12 @@ export default {
         this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
       }
       this.currentSort = s;
+    },
+    async updateEmailList(id) {
+      let item = this.items.find(item => item.id == id)
+      // item.send_email = !item.send_email
+      await this.$axios.patch(`units/${id}`, item)
+      alert('Updated')
     }
   },
 }

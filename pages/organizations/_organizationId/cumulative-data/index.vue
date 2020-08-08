@@ -58,7 +58,7 @@
                         <th>Pump Status</th>
                         <th>PV Input</th>
                         <th>Power (W)</th>
-                        <th>Frequency (Hz)</th>
+                        <th>Freq. (Hz)</th>
                         <th>Sys Temp (°C)</th>
                         <th>Motor Current (R-Y-B)</th>
                         <th>Flow Rate (LPM)</th>
@@ -87,8 +87,8 @@
                         <td>{{ unit.pump_head }}</td>
                         <td>{{ unit.controller_sr_no }}</td>
                         <td>{{ unit.location }}</td>
-                        <td>{{ unit.reserved }}</td>
                         <td>{{ unit.dummy }}</td>
+                        <td>{{ unit.reserved }}</td>
                         <td>{{ unit.date_time }}</td>
                         <td>{{ unit.pump_status }}</td>
                         <td>{{ unit.vi }}</td>
@@ -138,13 +138,13 @@ export default {
       'Pump Head (M)': 'pump_head',
       'Controller Sr. No': 'controller_sr_no',
       'Location': 'location',
-      'Latitude': 'reserved',
       'Longitude': 'dummy',
+      'Latitude': 'reserved',
       'Date & Time': 'date_time',
       'Pump Status': 'pump_status',
       'PV Input': 'vi',
       'Power (W)': 'power',
-      'Frequency (Hz)': 'frequency',
+      'Freq. (Hz)': 'frequency',
       'Sys Temp (°C)': 'temperature',
       'Motor Current (R-Y-B)': 'r_y_b',
       'Flow Rate (LPM)': 'flow_rate',
@@ -184,8 +184,8 @@ export default {
           'controller_sr_no': item.serial_no_controller,
           'location': item.location_controller,
           // 'data': item.data == null ? {} : item.data,
-          'reserved': item.data.reserved,
           'dummy': item.data.dummy,
+          'reserved': item.data.reserved,
           'date_time': ((item.data.date || '') + ' ' + (item.data.time || '')),
           'pump_status': item.data == null ? '' : 
                           (item.data.pump_status == '00' ? 'SYSTEM OFF' :

@@ -100,7 +100,7 @@
                         >{{ errors.phone_no[0] }}</span>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Adhaar no</label>
                         <input type="text" class="form-control" placeholder="Enter adhaar no"
@@ -110,7 +110,7 @@
                           v-if="errors.adhaar_no"
                         >{{ errors.adhaar_no[0] }}</span>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Email ID</label>
