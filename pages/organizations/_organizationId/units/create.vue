@@ -59,7 +59,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Middle Name</label>
-                        <input type="text" class="form-control" placeholder="Enter middle name"
+                        <input type="text" class="form-control" placeholder="Enter middle name" maxlength="11"
                           v-model="form.middle_name"
                         >
                         <span class="help-block" 
@@ -70,7 +70,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" placeholder="Enter last name"
+                        <input type="text" class="form-control" placeholder="Enter last name" maxlength="11"
                           v-model="form.last_name"
                         >
                         <span class="help-block" 

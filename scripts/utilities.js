@@ -13,7 +13,11 @@ export function getFlowRate(power, category, hp, headsize) {
     }
   }
   let idealFlowRate = lpd / (6 * 60);
+  console.log('fr:' + hp)
+
   // 1hp = 750 W
+  if(hp == '1D' || hp == '1A')
+    hp = 1
   let idealPower = hp * 750;
   return (power * idealFlowRate) / idealPower;
 }
