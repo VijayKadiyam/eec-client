@@ -11,7 +11,7 @@
           <li class="nav-item d-none d-sm-inline-block">
             <button class="btn btn-link nav-link"
               @click="logout"
-            >Logout</button>
+            ><b>Logout</b></button>
           </li>
         </ul>
 
@@ -193,7 +193,7 @@ export default {
           },
           {
             name: 'Cumulative Data', icon: 'fas fa-list', link: `/organizations/${this.organizationId}/cumulative-data`, permission: this.permissions.indexOf(3) != -1 ? true : false
-          }
+          },
         ]
       })
       return categories;

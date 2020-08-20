@@ -129,7 +129,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Controller Serial No.</label>
-                        <input type="text" class="form-control" placeholder="Enter controller serial no"
+                        <input type="text" class="form-control" placeholder="Enter controller serial no" maxlength="10"
                           v-model="form.serial_no_controller"
                         >
                         <span class="help-block" 

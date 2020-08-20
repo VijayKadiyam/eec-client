@@ -50,6 +50,7 @@
                         <th>Logo</th>
                         <th>Organization</th>
                         <th>Admin Details</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -76,6 +77,9 @@
                           Name: {{ org.users[0].name }} <br>
                           Email: {{ org.users[0].email }} <br>
                           Phone: {{ org.users[0].phone }} <br>
+                        </td>
+                        <td>
+                          {{ org.is_active == 1 ? 'Active' : 'In Active' }}
                         </td>
                         <td class="w-1">
                           <nuxt-link class="icon" :to="`/organizations/${org.organizationId}`">
@@ -133,7 +137,8 @@ export default {
         name: org.name,
         users: org.users,
         address: org.address,
-        logo_path: org.logo_path
+        logo_path: org.logo_path,
+        is_active: org.is_active
       })
     })
     this.loading = false

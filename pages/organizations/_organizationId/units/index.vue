@@ -76,8 +76,8 @@
                           <br>
                           <b>Address: </b>{{ unit.residence_address }}
                           <br>
-                          <b>Adhaar No: </b>{{ unit.adhaar_no }}
-                          <br>
+                          <!-- <b>Adhaar No: </b>{{ unit.adhaar_no }}
+                          <br> -->
                           {{ unit.phone_no }}  {{ unit.email }}
                         </td>
                         <td>{{ unit.imei_number }}</td>

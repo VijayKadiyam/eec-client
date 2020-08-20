@@ -45,7 +45,7 @@
                   <table class="table table-head-fixed table-striped">
                     <thead>
                       <tr align="center">
-                        <th>Add To Email List</th>
+                        <!-- <th>Add To Email List</th> -->
                         <th>Sr. No.</th>
                         <th>Implementing Agency</th>
                         <th>Farmer's / Village Name</th>
@@ -53,14 +53,14 @@
                         <th>Pump Head (M) </th>
                         <th>Controller Sr. No</th>
                         <th>Location</th>
-                        <th colspan="2">Geo-Coordinates</th>
+                        <th>Geo-Coordinates</th>
                         <th>Date & Time </th>
                         <th>Pump Status</th>
                         <th>PV Input</th>
                         <th>Power (W)</th>
                         <th>Freq. (Hz)</th>
                         <th>Sys Temp (°C)</th>
-                        <th>Motor Current (R-Y-B)</th>
+                        <th colspan="2">Motor Current (R-Y-B)</th>
                         <th>Flow Rate (LPM)</th>
                         <th>Output (LPD)</th>
                       </tr>
@@ -77,9 +77,9 @@
                         v-else
                         align="center"
                       >
-                        <td>
+                        <!-- <td>
                           <input type="checkbox" value="1" v-model="unit.send_email" @change="updateEmailList(unit.id)">
-                        </td>
+                        </td> -->
                         <td>{{ u + 1 }}</td>
                         <td>{{ unit.implementing_agency }}</td>
                         <td>{{ unit.customer_name }}</td>
@@ -87,15 +87,14 @@
                         <td>{{ unit.pump_head }}</td>
                         <td>{{ unit.controller_sr_no }}</td>
                         <td>{{ unit.location }}</td>
-                        <td>{{ unit.dummy }}</td>
-                        <td>{{ unit.reserved }}</td>
+                        <td align="left">Long: {{ unit.dummy }}<br>Lat: {{ unit.reserved }}</td>
                         <td>{{ unit.date_time }}</td>
                         <td>{{ unit.pump_status }}</td>
                         <td>{{ unit.vi }}</td>
                         <td></td>
                         <td>{{ unit.frequency }}</td>
                         <td>{{ unit.temperature }}</td>
-                        <td>{{ unit.r_y_b }}</td>
+                        <td colspan="2">{{ unit.r_y_b }}</td>
                         <td>{{ unit.flow_rate }}</td>
                         <td>{{ unit.output }}</td>
                         <td></td>
@@ -138,8 +137,7 @@ export default {
       'Pump Head (M)': 'pump_head',
       'Controller Sr. No': 'controller_sr_no',
       'Location': 'location',
-      'Longitude': 'dummy',
-      'Latitude': 'reserved',
+      'Geo-Coordinates': 'geo_coordinates',
       'Date & Time': 'date_time',
       'Pump Status': 'pump_status',
       'PV Input': 'vi',
@@ -184,6 +182,7 @@ export default {
           'controller_sr_no': item.serial_no_controller,
           'location': item.location_controller,
           // 'data': item.data == null ? {} : item.data,
+          'geo_coordinates': item.data.dummy + '<br>' + item.data.reserved,
           'dummy': item.data.dummy,
           'reserved': item.data.reserved,
           'date_time': ((item.data.date || '') + ' ' + (item.data.time || '')),

@@ -129,7 +129,7 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Controller Serial No.</label>
-                        <input type="text" class="form-control" placeholder="Enter controller serial no"
+                        <input type="text" class="form-control" placeholder="Enter controller serial no" maxlength="10"
                           v-model="form.serial_no_controller"
                         >
                         <span class="help-block" 
@@ -277,7 +277,7 @@
                         >{{ errors.rms_phone_no[0] }}</span>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">Device ID</label>
                         <input type="text" class="form-control" placeholder="Enter Device ID"
@@ -287,7 +287,7 @@
                           v-if="errors.device_id"
                         >{{ errors.device_id[0] }}</span>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <!-- End row -->
                   <div class="form-footer">

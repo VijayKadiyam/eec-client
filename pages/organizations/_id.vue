@@ -39,7 +39,7 @@
                   <div class="form-group">
                     <label class="form-label">Organization name</label>
                     <input type="text" class="form-control" placeholder="Enter name"
-                      v-model="form.name"
+                      v-model="form.name" maxlength="12" 
                     >
                     <span class="help-block" 
                       v-if="errors.name"
@@ -78,6 +78,9 @@
                     <input type="file" id="file" name="file" ref="file" accept="application/ms-excel" multiple>
                     <img style="width: 100px; height: 100px;" :src="`${mediaUrl}${form.logo_path}`">
                   </div>
+                  <div class="form-group">
+                    <input type="checkbox" v-model="form.is_active">&nbsp;&nbsp;Is Active
+                  </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"
                       @click="store"
@@ -103,8 +106,10 @@ export default {
   name: 'UpdateOrganization',
   async asyncData({$axios, params}) {
     let organization = await $axios.get(`/companies/${params.id}`)
+    organization = organization.data.data
+    organization.is_active = parseInt(organization.is_active)
     return {
-      form: organization.data.data
+      form: organization
     }
   },
   data: () => ({

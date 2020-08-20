@@ -39,7 +39,7 @@
                   <div class="form-group">
                     <label class="form-label">Organization name</label>
                     <input type="text" class="form-control" placeholder="Enter name"
-                      v-model="form.name"
+                      v-model="form.name" maxlength="12" 
                     >
                     <span class="help-block" 
                       v-if="errors.name"
@@ -80,6 +80,9 @@
                       <option value="">Select Time Zone</option>
                       <option v-for="time_zone in time_zones" :key="`'time_zone'${time_zone.value}`" :value="time_zone.value">{{ time_zone.text }}</option>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <input type="checkbox" v-model="form.is_active">&nbsp;&nbsp;Is Active
                   </div>
                   <div class="form-footer">
                     <button class="btn btn-primary btn-block"

@@ -77,6 +77,9 @@
                         <td><b>{{ data.name }}</b></td>
                         <td>{{ data.value }}</td>
                       </tr>
+                      <tr><td>-</td><td></td></tr>
+                      <tr><td>-</td><td></td></tr>
+                      <tr><td>-</td><td></td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -105,6 +108,10 @@
                         <td><b>{{ data.name }}</b></td>
                         <td>{{ data.value }}</td>
                       </tr>
+                      <tr><td>-</td><td></td></tr>
+                      <tr><td>-</td><td></td></tr>
+                      <tr><td>-</td><td></td></tr>
+                      <tr><td>-</td><td></td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -141,12 +148,20 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">LIVE DATA</h3>
+                  <h3 class="card-title">LIVE DATA</h3>&nbsp;&nbsp;
+                  <button class="btn btn-small btn-primary" 
+                    @click="printDiv('printData')"
+                  >Print</button>
                 </div>
                 <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
+                <div id="printData" class="card-body table-responsive p-0">
                   <table class="table table-head-fixed table-striped">
                     <thead>
+                      <tr>
+                        <th colspan="13">
+                          LIVE Data of {{ unit.imei_number }}
+                        </th>
+                      </tr>
                       <tr align="center">
                         <th></th>
                         <th>Date</th>
@@ -289,7 +304,7 @@ export default {
       // this.pump_datas.push({name: 'Motor Serial No', value: this.unit.motor_serial_no})
       this.pump_datas.push({name: 'Pump Serial Set No', value: this.unit.pump_serial_no})
       this.pump_datas.push({name: 'Motor HP', value: this.unit.motor_hp})
-      this.pump_datas.push({name: 'Motor Head Size', value: this.unit.motor_head_size})
+      this.pump_datas.push({name: 'Motor Head Size', value: this.unit.motor_head_size + ' m'})
     },
     getRmsData() {
       this.rms_datas = []
@@ -351,7 +366,16 @@ export default {
       this.live_datas = datas
       this.loading = false
     },
+    printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
 
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+    }
   }
 }
 </script>
