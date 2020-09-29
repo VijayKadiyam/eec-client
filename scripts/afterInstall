@@ -4,6 +4,5 @@ cd /var/www/vhosts/rms2/rms2-client
 
 npm run build
 
-
 pm2 delete rms2 
 pm2 start npm --name rms2 -- start
