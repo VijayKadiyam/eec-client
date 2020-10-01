@@ -103,7 +103,7 @@
         <div class="float-right d-none d-sm-block">
           <img :src="organization.logo_path ? (mediaUrl + organization.logo_path) : '/dist/img/AdminLTELogo.png'" alt="Logo" style="width: 50px; height: 50px;">
         </div>
-        <strong>Copyright &copy; <a href="https://www.aaibuzz.com">VISHWJEET</a></strong>
+        <strong>Copyright &copy; <a href="https://www.aaibuzz.com">RMS</a></strong>
         |
         <strong>Developed By <a href="https://www.aaibuzz.com">AaiBuzz</a>.</strong> <b>Version</b> 1.0.0
       </footer>
