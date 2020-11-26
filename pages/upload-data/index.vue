@@ -67,7 +67,7 @@
                   <div class="form-footer"
                     v-else
                   >
-                    <button class="btn btn-green btn-block"
+                    <button class="btn btn-danger btn-block"
                       @click="processFile"
                     >Process file</button>
                   </div>
@@ -85,6 +85,8 @@
                           <th>Voltage</th>
                           <th>Current</th>
                           <th>Frequency</th>
+                          <th>Water Supply (in HRS)</th>
+                          <th>Water Supply QTY (in KL)</th>
                           <th>Temperature</th>
                           <th>Phase Current R</th>
                           <th>Phase Current Y</th>
@@ -106,6 +108,8 @@
                           <td>{{ data.voltage }}</td>
                           <td>{{ data.current }}</td>
                           <td>{{ data.frequency }}</td>
+                          <td>{{ data.water_supply_hrs }}</td>
+                          <td>{{ data.water_supply_qty }}</td>
                           <td>{{ data.temperature }}</td>
                           <td>{{ data.phase_current_r }}</td>
                           <td>{{ data.phase_current_y }}</td>
