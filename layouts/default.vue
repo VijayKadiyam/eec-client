@@ -183,6 +183,9 @@ export default {
           {
             name: 'Settings', icon: 'fas fa-wrench', link: '/settings', permission: this.permissions.indexOf(1) != -1 ? true : false
           },
+          {
+            name: 'Upload Data', icon: 'fas fa-wrench', link: '/upload-data', permission: this.permissions.indexOf(4) != -1 ? true : false
+          },
         ]
       })
       categories.push({
