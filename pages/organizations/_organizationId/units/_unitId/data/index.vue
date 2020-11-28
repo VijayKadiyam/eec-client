@@ -233,7 +233,8 @@
                         <td>{{ data.flow_rate }}</td>
                         <td>{{ data.output }}</td>
                         <td>{{ data.water_supply_hrs }}</td>
-                        <td>{{ data.water_supply_qty }}</td>
+                        <td>{{ data.output }}</td>
+                        <!-- <td>{{ data.water_supply_qty }}</td> -->
                         <!-- <td>{{ data.dummy }}</td>
                         <td>{{ data.reserved }}</td> -->
                       </tr>
