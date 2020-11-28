@@ -172,10 +172,10 @@
                         <th>Freq.</th>
                         <th>Sys Temp</th>
                         <th>Motor Current</th>
+                        <th>Flow Rate</th>
+                        <th>Output</th>
                         <th>Water Supply</th>
                         <th>Water Supply QTY</th>
-                        <!-- <th>Flow Rate</th>
-                        <th>Output</th> -->
                         <!-- <th colspan="2">Location Coordinates</th> -->
                       </tr>
                       <tr align="center">
@@ -188,10 +188,10 @@
                         <th>(Hz)</th>
                         <th>(°C)</th>
                         <th>(R-Y-B) in A</th>
-                        <th>(IN HRS)</th>
-                        <th>(IN KL)</th>
                         <th>(LPM)</th>
                         <th>(LPD)</th>
+                        <th>(IN HRS)</th>
+                        <th>(IN KL)</th>
                         <!-- <th>Longitude</th>
                         <th>Latitude</th> -->
                       </tr>
@@ -230,10 +230,10 @@
                         <td>{{ data.frequency }}</td>
                         <td>{{ data.temperature }}</td>
                         <td>{{ data.phase_current_r + '-' + data.phase_current_y + '-' + data.phase_current_b }}</td>
-                        <td>{{ data.water_supply_hrs }}</td>
-                        <td>{{ data.water_supply_qty }}</td>
                         <td>{{ data.flow_rate }}</td>
                         <td>{{ data.output }}</td>
+                        <td>{{ data.water_supply_hrs }}</td>
+                        <td>{{ data.water_supply_qty }}</td>
                         <!-- <td>{{ data.dummy }}</td>
                         <td>{{ data.reserved }}</td> -->
                       </tr>
