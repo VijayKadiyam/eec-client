@@ -190,8 +190,8 @@
                         <th>(R-Y-B) in A</th>
                         <th>(IN HRS)</th>
                         <th>(IN KL)</th>
-                        <!-- <th>(LPM)</th>
-                        <th>(LPD)</th> -->
+                        <th>(LPM)</th>
+                        <th>(LPD)</th>
                         <!-- <th>Longitude</th>
                         <th>Latitude</th> -->
                       </tr>
@@ -232,8 +232,8 @@
                         <td>{{ data.phase_current_r + '-' + data.phase_current_y + '-' + data.phase_current_b }}</td>
                         <td>{{ data.water_supply_hrs }}</td>
                         <td>{{ data.water_supply_qty }}</td>
-                        <!-- <td>{{ data.flow_rate }}</td>
-                        <td>{{ data.output }}</td> -->
+                        <td>{{ data.flow_rate }}</td>
+                        <td>{{ data.output }}</td>
                         <!-- <td>{{ data.dummy }}</td>
                         <td>{{ data.reserved }}</td> -->
                       </tr>
