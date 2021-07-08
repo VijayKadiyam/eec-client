@@ -227,6 +227,11 @@ export default {
     background-size: cover !important;
   }
 
+  .login-page, .register-page {
+    display: inherit !important;
+    padding: 20px !important;
+}
+
   .text-dark, .breadcrumb-item, .breadcrumb-item a, .login-logo a, .refresh {
     color: white !important;
   }
