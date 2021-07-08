@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/vhosts/rms2/rms2-client
+    destination: /var/www/vhosts/solartive/solartive-client
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
