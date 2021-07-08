@@ -42,7 +42,7 @@
               <button type="submit" class="btn btn-primary btn-block"
                 @click="login"
               >Sign In</button>
-            </div>
+            </div> 
             <!-- /.col -->
           </div>
 

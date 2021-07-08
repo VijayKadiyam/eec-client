@@ -6,7 +6,7 @@
           <div class="col col-login mx-auto">
             <div class="text-center mb-6">
               <img src="/brand/logo.png" class="h-6" alt="">
-            </div>
+            </div> 
             <form class="card" action="" method="post">
               <div class="card-body p-6">
                 <div class="card-title">Create new account</div>
