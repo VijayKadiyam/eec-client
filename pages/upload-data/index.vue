@@ -78,7 +78,7 @@
                       <thead>
                         <tr align="center">
                           <th>Sr. No.</th>
-                          <th>IMEI Number</th>
+                          <th>Unique Number</th>
                           <th>Date</th>
                           <th>Time</th>
                           <th>Pump Status</th>

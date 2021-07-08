@@ -44,7 +44,7 @@
                         <th>Actions</th>
                         <th>Send Monthly Email</th>
                         <th>Customer/Farmer Details</th>
-                        <th>IMEI No</th>
+                        <th>Unique No</th>
                       </tr>
                     </thead>
                     <tbody>

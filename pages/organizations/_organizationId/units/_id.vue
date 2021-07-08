@@ -257,8 +257,8 @@
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label class="form-label">IMEI No</label>
-                        <input type="text" class="form-control" placeholder="Enter IMEI No"
+                        <label class="form-label">Unit No</label>
+                        <input type="text" class="form-control" placeholder="Enter Unit No"
                           v-model="form.imei_number"
                         >
                         <span class="help-block" 
