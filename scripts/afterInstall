@@ -4,5 +4,6 @@ cd /var/www/vhosts/solartive/solartive-client
 
 npm run build
 
+
 pm2 delete solartive 
 pm2 start npm --name solartive -- start
