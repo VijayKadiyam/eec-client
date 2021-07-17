@@ -206,6 +206,7 @@ export default {
   //   this.logout()
   // },
   methods: {
+    
     logout() {
       this.$auth.logout()
     }
