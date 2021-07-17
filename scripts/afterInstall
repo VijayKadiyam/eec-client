@@ -1,9 +1,9 @@
 #!/bin/bash
 export PATH="$PATH:"/usr/local/bin/
-cd /var/www/vhosts/solartive/solartive-client
+cd /var/www/vhosts/premelec/premelec-client
 
 npm run build
 
 
-pm2 delete solartive 
-pm2 start npm --name solartive -- start
+pm2 delete premelec 
+pm2 start npm --name premelec -- start
