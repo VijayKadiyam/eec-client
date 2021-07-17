@@ -102,7 +102,7 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: 'http://api.solartive.aaibuzz.com/api'
+    baseURL: 'http://api.premelec.aaibuzz.com/api'
     // baseURL: 'http://localhost:8080/api'
     // baseURL: 'http://192.168.29.9:8080/api'
   },
