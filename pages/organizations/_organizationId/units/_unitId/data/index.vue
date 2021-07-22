@@ -204,8 +204,8 @@
                         align="center"
                       >
                         <td><b>{{ d + 1 }}</b></td>
-                        <td>{{ data.date }}</td>
-                        <td>{{ data.time }}</td>
+                        <td>{{ data.db_date }}</td>
+                        <td>{{ data.db_time }}</td>
                         <td>
                           <div v-if="data.pump_status == '00'">SYSTEM OFF</div>
                           <div v-if="data.pump_status == '01'">SYSTEM ON</div>
@@ -331,7 +331,11 @@ export default {
       let index = datas.length - 1
       let count = 0;
       datas.forEach((data, i) => {
-        let time = moment(datas[index].time, 'hh:mm:ss')
+        // let time = moment(datas[index].time, 'hh:mm:ss')
+        let date = moment(datas[index].created_at).format('DD-MM-YYYY')
+        let time = moment(datas[index].created_at).format('hh:mm:ss')
+        datas[index].db_date = date
+        datas[index].db_time = time
         datas[index].power = datas[index].voltage * datas[index].current
         datas[index].flow_rate = getFlowRate(datas[index].power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
         datas[index].output = op

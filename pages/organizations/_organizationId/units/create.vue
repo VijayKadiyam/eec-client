@@ -159,6 +159,28 @@
                         >{{ errors.manufacturer_vfd[0] }}</span>
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Controller Latitude</label>
+                        <input type="text" class="form-control" placeholder="Enter controller location"
+                          v-model="form.latitude"
+                        >
+                        <span class="help-block" 
+                          v-if="errors.latitude"
+                        >{{ errors.latitude[0] }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Controller Longitude</label>
+                        <input type="text" class="form-control" placeholder="Enter controller location"
+                          v-model="form.longitude"
+                        >
+                        <span class="help-block" 
+                          v-if="errors.longitude"
+                        >{{ errors.longitude[0] }}</span>
+                      </div>
+                    </div>
                     <!-- <div class="col-md-4">
                       <div class="form-group">
                         <label class="form-label">VFD Serial No</label>
