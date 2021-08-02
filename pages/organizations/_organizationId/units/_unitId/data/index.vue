@@ -190,7 +190,7 @@
                         <th>(R-Y-B) in A</th>
                         <th>(LPM)</th>
                         <th>(LPD)</th>
-                        <th>(IN MINUTES)</th>
+                        <th>(IN HRS)</th>
                         <!-- <th>(IN KL)</th> -->
                         <!-- <th>Longitude</th>
                         <th>Latitude</th> -->
