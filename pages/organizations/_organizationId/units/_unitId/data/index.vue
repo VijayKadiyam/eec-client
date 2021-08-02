@@ -175,7 +175,7 @@
                         <th>Flow Rate</th>
                         <th>Output</th>
                         <th>Water Supply</th>
-                        <th>Water Supply QTY</th>
+                        <!-- <th>Water Supply QTY</th> -->
                         <!-- <th colspan="2">Location Coordinates</th> -->
                       </tr>
                       <tr align="center">
@@ -190,8 +190,8 @@
                         <th>(R-Y-B) in A</th>
                         <th>(LPM)</th>
                         <th>(LPD)</th>
-                        <th>(IN HRS)</th>
-                        <th>(IN KL)</th>
+                        <th>(IN MINUTES)</th>
+                        <!-- <th>(IN KL)</th> -->
                         <!-- <th>Longitude</th>
                         <th>Latitude</th> -->
                       </tr>
@@ -233,7 +233,7 @@
                         <td>{{ data.flow_rate }}</td>
                         <td>{{ data.output }}</td>
                         <td>{{ data.water_supply_hrs }}</td>
-                        <td>{{ data.output }}</td>
+                        <!-- <td>{{ data.output }}</td> -->
                         <!-- <td>{{ data.water_supply_qty }}</td> -->
                         <!-- <td>{{ data.dummy }}</td>
                         <td>{{ data.reserved }}</td> -->
@@ -272,6 +272,10 @@ export default {
   created() {
     this.getData()
     this.pump_categories = pump_categories()
+
+    setInterval(function() { 
+      getLiveData()
+    }, 10000);
   },
   methods: {
     async getData() {
@@ -327,27 +331,35 @@ export default {
       let date = ''
       let flowRate = 0
       let op = 0;
+      let totalDifferenceInTime = 0
 
       let index = datas.length - 1
       let count = 0;
       datas.forEach((data, i) => {
-        // let time = moment(datas[index].time, 'hh:mm:ss')
+        // let time = moment(datas[index].time, 'HH:mm:ss')
         let date = moment(datas[index].created_at).format('DD-MM-YYYY')
-        let time = moment(datas[index].created_at).format('hh:mm:ss')
+        let time = moment(datas[index].created_at).format('HH:mm:ss')
+        // time = moment(time, 'HH:mm:ss')
+        datas[index].date = date
         datas[index].db_date = date
         datas[index].db_time = time
-        datas[index].power = datas[index].voltage * datas[index].current
+        datas[index].power = (datas[index].voltage * datas[index].current).toFixed(2)
         datas[index].flow_rate = getFlowRate(datas[index].power, this.unit.motor_category, this.unit.motor_hp, this.unit.motor_head_size).toFixed(2)
         datas[index].output = op
 
         if(i == 0) {
-          startTime = moment(time, "hh:mm:ss")
-          start = moment(time).format('hh:mm:ss')
+          startTime = moment(time, "HH:mm:ss")
+          console.log('Start Time', startTime)
+          start = startTime
+          // start = moment(time).format('HH:mm:ss')
           date = datas[index].date
         }
-        let currentTime = moment(time, "hh:mm:ss")
-        let differenceInTime = currentTime.diff(startTime, 'minutes');
-        console.log(moment(time).format('hh:mm:ss') + '-' + start + '=' + differenceInTime)
+        console.log("Time" , time)
+        let currentTime = moment(time, "HH:mm:ss")
+        let differenceInTime = currentTime.diff(startTime, 'minutes')
+        totalDifferenceInTime += currentTime.diff(startTime, 'hours')
+        datas[index].water_supply_hrs = totalDifferenceInTime
+        console.log(currentTime + '-' + start + '=' + differenceInTime)
         if(differenceInTime < 60 && date == datas[index].date) {
           flowRate += parseFloat(datas[index].flow_rate)
           date = datas[index].date
@@ -362,11 +374,12 @@ export default {
           console.log('current ' + currentOp)
           datas[index].output = op
           if(date != datas[index].date) {
-            startTime = moment('00:00:00', "hh:mm:ss")
+            startTime = moment('00:00:00', "HH:mm:ss")
             op = 0
           }
-          else
-            startTime = moment(time, "hh:mm:ss")
+          else {
+            startTime = moment(time, "HH:mm:ss")
+          }
           date = datas[index].date
           count = 0
           flowRate = 0
