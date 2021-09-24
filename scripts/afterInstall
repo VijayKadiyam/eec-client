@@ -4,6 +4,5 @@ cd /var/www/vhosts/eec/eec-client
 
 npm run build
 
-
 pm2 delete eec 
 pm2 start npm --name eec -- start
