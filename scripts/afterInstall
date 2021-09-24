@@ -1,9 +1,9 @@
 #!/bin/bash
 export PATH="$PATH:"/usr/local/bin/
-cd /var/www/vhosts/premelec/premelec-client
+cd /var/www/vhosts/eec/eec-client
 
 npm run build
 
 
-pm2 delete premelec 
-pm2 start npm --name premelec -- start
+pm2 delete eec 
+pm2 start npm --name eec -- start
