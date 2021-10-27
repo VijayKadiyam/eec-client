@@ -150,6 +150,35 @@
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <select class="form-control" v-model="form.location">
+                          <option value="">Select Location</option>
+                          <option value="Jharkhand">Jharkhand</option>
+                          <option value="Others">Others</option>
+                        </select>
+                        <span class="help-block" 
+                          v-if="errors.location"
+                        >{{ errors.location[0] }}</span>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Latitude</label>
+                        <input type="text" class="form-control" placeholder="Enter Latitude"
+                          v-model="form.latitude"
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="form-label">Longitude</label>
+                        <input type="text" class="form-control" placeholder="Enter Longitude"
+                          v-model="form.longitude"
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
                         <label class="form-label">Controller Manufacturer</label>
                         <input type="text" class="form-control" placeholder="Enter Controller Manufacturer"
                           v-model="form.manufacturer_vfd"
